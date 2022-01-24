@@ -1,0 +1,173 @@
+.Default-Box-Set{
+    font-size: 200%;
+    padding: 5%;
+}
+
+.SubBG {
+    background-color:#212F3D;
+    color: white;
+    text-align: center;    
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 0%;
+}
+.SubBG-TextSet {
+    background-color:transparent;
+    color: #273746;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    text-align: left;
+    font-size: 50%;
+    
+}
+.Search-Set-button {
+    padding-left: 6%;
+    padding-right: 8.3%;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    background-color:#D6EAF8;
+}
+.icon-set-container {
+    padding-right: 1%;
+    padding-bottom: 1%;
+}
+
+.buttonW {
+    width: "100px"
+    
+  }
+
+
+
+/* .page-set {
+    text-align: center;
+    font-size: 150%;
+    background-image: url('http://upic.me/i/2i/1375722ymy0vhteie.gif');
+    background-repeat: repeat;
+    
+} */
+/*------------------- Login-Set -------------------*/
+
+.Login-Set{
+    text-align: center;
+    padding-left: 22%;
+    padding-right: 22%;
+    font-size: 250%;
+    background-color: #fcfafa;
+}
+
+.Login-Box-set{
+max-width: 900px;
+
+}
+
+.Login-label {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 50%;
+}
+
+.LoginText {
+    color: red;
+    font-size: 0.5cm;
+    margin-top: 0;
+}
+
+/*------------------- HomePage-Set -------------------*/
+
+.Card-Set{
+padding-left: 5%;
+padding-right: 5%;
+padding-bottom: 5%;
+}
+
+.Card-Set-Col{
+margin-bottom: 5%;
+}
+/* .Home-Set-Title{
+padding-top: 5%;
+padding-bottom: 5%;
+
+}
+.Home-Set-Title-2{
+padding-top: 5%;
+padding-bottom: 5%;
+margin-left: 5%;
+margin-right: 5%;
+
+} */
+.Home-Set{
+    padding-top: 5%;
+}
+
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;    
+    padding: 1.25rem;
+    background-color:aliceblue;
+    color:#212F3D;
+    text-align: center;
+    
+}
+
+/*------------------- InsertEM -------------------*/
+
+.InsertLabel-Set{
+    text-align: left;
+    margin-top: 5%;
+    margin-bottom: 0%;
+    margin-right: 0%;
+    font-size: 100%;
+}
+
+.InsertBox-Set{
+    text-align: left;
+    margin-top: 7%;
+}
+
+.Form-Set-Insert{
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-bottom: 5%;
+}
+
+.Img-Set{
+    padding-left: 50%;
+    padding-right: 50%;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+    
+}
+
+.radio-set{
+    padding-left: 15px;
+    padding-top: 6.3%;
+    text-align: left;
+}
+
+/*  */
+.CardTest{
+    padding: 3%;
+    margin: 0%;
+    }
+
+/* Edit */
+
+.ImgText{
+    font-size: 20px;
+    font-size: 20px;
+}
+.ImgEdit{
+    border: 3px solid #555;
+}
+
+/* Report */
+
+.ReportSetBoder{
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+
+
+}

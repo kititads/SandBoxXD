@@ -1,0 +1,62 @@
+.BGDetail{
+    
+    min-width: 320px;
+
+    padding-left: 30px;
+    padding-bottom: 30px;
+    background-color: transparent;
+    border: 1px solid #273746;
+    margin: 0%;
+
+}
+.BGDetail-V2{
+    min-width: 320px;
+
+    margin-top: 5%;
+    padding-top: 15%;
+    padding-bottom: 30px;
+    background-color: transparent;
+    border: 1px solid #273746;
+    text-align: center;
+    margin: 0%;
+
+}
+.Detail {
+    text-align: left;
+    font-size: 18px;
+  }
+.img-set {
+    border: 3px solid #273746;
+    width: 300px;
+    height: 250px;
+  }
+
+
+
+@media (max-width: 1200px){
+    .img-set {
+        border: 3px solid #273746;
+        width: 200px;
+        height: 200px;
+      }
+    .textarea-set{
+        margin-left: 1%;
+        width: 200px;
+    }
+}
+
+.button-set{
+    margin: 5px;
+    width: 190px;
+    height: 35px;
+}
+.div-button{
+    margin: 5px;  
+}
+
+.rightBox-set{
+    border: 1px solid #555;
+    background-color: white;  
+    padding: 5%;
+}
+

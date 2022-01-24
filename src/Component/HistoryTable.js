@@ -1,0 +1,337 @@
+import faker from 'faker';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';  
+import DeleteIcon from '@mui/icons-material/Delete';
+import './Table.css';
+import { BsTable } from "react-icons/bs";
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl'
+import { getFirestore,collection, query, where, getDocs,doc,deleteDoc,updateDoc,orderBy  } from '@firebase/firestore';
+import FirebaseApp from '../firebase';
+import moment from 'moment';
+import PendingToBorrow from './PendingToBorrow';
+import { useEffect,useState } from 'react';
+import Cookies from 'universal-cookie';
+import DoneIcon from '@mui/icons-material/Done';
+import { 
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Avatar,
+    Grid,
+    Typography,
+    TablePagination
+ } from '@material-ui/core';
+
+
+
+const useStyles = makeStyles((theme) => ({
+    table: {
+      minWidth: 650,      
+    },
+    tableContainer: {
+        borderRadius: 15,
+        margin: '10px 10px',
+        maxWidth: 950,
+        
+    },
+    tableHeaderCell: {
+        fontWeight: 'bold',
+        backgroundColor: '#212F3D',
+        color: theme.palette.getContrastText(theme.palette.primary.dark),
+        textAlign: 'center',
+        fontSize: '1rem',
+
+    },
+    
+    name: {
+        fontWeight: 'bold',
+        color: theme.palette.secondary.dark,
+        textAlign: 'center',
+
+    },
+    status: {
+        fontWeight: 'bold',
+        fontSize: '0.75rem',
+        color: 'white',
+        backgroundColor: 'grey',
+        borderRadius: 8,
+        padding: '3px 10px',
+        display: 'inline-block',
+        textAlign: 'center',
+
+    }
+
+    ,
+    tableHeaderCellCanHide: {
+        fontWeight: 'bold',
+        backgroundColor: '#212F3D',
+        color: theme.palette.getContrastText(theme.palette.primary.dark),
+        textAlign: 'center',
+        fontSize: '1rem',
+        [theme.breakpoints.down('md')]: {
+        display: 'none' ,
+        }
+        }
+    ,CheckHide: {
+      [theme.breakpoints.down('md')]: {
+        display: 'none' ,
+        }
+        }
+
+  }));
+
+        
+
+function HistoryTable() {
+    const [DataList,setDataList] = useState([]);   
+    const db = getFirestore();
+    const [UserState,setUserState] = useState("");
+    const [AdminState,setAdminState] = useState("");
+
+
+
+
+    //ทำงานตอนเริ่ม
+    useEffect(()=> {
+    const cookies = new Cookies();
+    if(cookies.get('Status_User') === "User")
+    {
+    getData();
+    setUserState("");
+    setAdminState("true");
+    }
+  
+    else if(cookies.get('Status_User') === "Admin")
+    {
+    getData();
+    setUserState("true");
+    setAdminState("");
+
+    }
+    else
+    {
+    window.location.href = "/NotFound"
+
+    }
+
+
+
+    },[]);
+
+    const getData = async() => { 
+    const cookies = new Cookies();
+    const q = query(collection(db, "History"),orderBy("History_ID", "asc"));
+    const querySnapshot = await getDocs(q);
+    const items = [];
+    querySnapshot.forEach((doc) => { 
+      if(cookies.get('Status_User') === "User")
+      {
+        if(doc.data().Student_ID === cookies.get('Student_ID'))
+        {
+        items.push(doc.data());     
+        }
+
+      }
+      else
+      {
+        items.push(doc.data());     
+      }
+      
+    });
+       setDataList(items);  
+    };
+
+
+
+
+
+    //ตาราง
+  const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const [Search,setSearch] = useState("");
+
+   const ConvertTime = (Value) => {
+   const TimeAfter = new Date(Value.seconds * 1000 + Value.nanoseconds/1000000)
+   const TimeAfterFormat = moment(TimeAfter).format('DD/MM/YYYY');
+   return TimeAfterFormat;
+  };
+
+
+  //ลบคำขอ
+  const DelPending = async(PendingID) => {
+  await deleteDoc(doc(db, "Pending", PendingID.toString()));
+  getData();
+  };
+
+    
+
+  
+   //-----------------------------------------
+    const PTB = async(PendingID,DataList,NextID)  => { 
+    PendingToBorrow(PendingID,DataList,NextID);
+  };
+
+
+  //รันเลขยืม
+    const getIndex = async(PendingID) => { 
+    const querySnapshot = await getDocs(collection(db, "Count"));
+    querySnapshot.forEach((doc) => {
+    const Borrow_ID =  doc.data().Count_Borrow_ID;
+    const NextID =  (Borrow_ID+1);
+    UpdateNewID(NextID);
+    console.log("Table NextID"+NextID);
+    PTB(PendingID,DataList,NextID);
+    DelPending(PendingID);
+    }
+    )
+
+    };
+    
+    //อัพเดตเลขยืม
+    const UpdateNewID = async(NextID) => {    
+    const docRef = doc(db,"Count","1");
+    const payload = {
+        Count_Borrow_ID: NextID,
+    };
+    await updateDoc(docRef,payload);
+    };
+
+
+  return (
+    <><div>        
+    <div className="SubBG-TextSet border border-black">
+    <Form className="d-flex Search-Set-button">
+    <FormControl
+    type="search"
+    placeholder="Search"
+    className="mr-2"
+    aria-label="Search"
+    onChange={(e) => setSearch(e.target.value)}
+    onKeyPress={e => {
+      if (e.key === 'Enter') e.preventDefault();
+    }} 
+    />
+    </Form>
+    
+    <div>
+    </div>
+    </div>
+    </div>
+
+    <TableContainer component={Paper} >
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell className={classes.tableHeaderCellCanHide}>History ID</TableCell>
+            <TableCell className={classes.tableHeaderCell}>Image	</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>Name</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>Loan Date</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>Due Date</TableCell>        
+            <TableCell className={classes.tableHeaderCell} >User</TableCell>
+            <TableCell className={classes.tableHeaderCell} >Return</TableCell>
+
+            </TableRow>
+            </TableHead>
+            <TableBody>
+            {DataList
+              .filter((DL) =>{
+              
+              if(Search === "")
+              {
+                  return DL;     
+              }
+              else if(DL.History_ID.toString().toLowerCase().includes(Search.toLowerCase()))
+              {
+                  return DL;
+              }
+              else if(DL.EM_Name.toLowerCase().includes(Search.toLowerCase()))
+              {
+                  return DL;
+              }
+              else if(DL.User_Name.toLowerCase().includes(Search.toLowerCase()))
+              {
+                  return DL;
+              }
+              else if(ConvertTime(DL.Loan_Date).toString().toLowerCase().includes(Search.toLowerCase()))
+              {
+                  return DL;
+              }     
+              else if(ConvertTime(DL.Due_Date).toString().toLowerCase().includes(Search.toLowerCase()))
+              {
+                  return DL;
+              }  
+              else if(ConvertTime(DL.Returned_Date).toString().toLowerCase().includes(Search.toLowerCase()))
+              {
+                  return DL;
+              }  
+              
+
+              })
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((DL) => (
+            <TableRow key={DL.Pending_ID}>
+            <TableCell className={classes.CheckHide}>
+            <Grid>
+            <Typography className={classes.name}>{DL.History_ID}</Typography>
+            </Grid>
+            </TableCell>
+            <TableCell>
+            <img src={DL.EM_Image}  className="img-set-Test"></img>
+            </TableCell>
+            <TableCell className={classes.CheckHide}>
+            <Typography className={classes.name}>{DL.EM_Name}</Typography>
+            </TableCell>
+            <TableCell className={classes.CheckHide}> 
+            <Typography className={classes.name}>{ConvertTime(DL.Loan_Date)}</Typography>
+            </TableCell>
+            <TableCell className={classes.CheckHide}>
+            <Typography className={classes.name}>{ConvertTime(DL.Due_Date)}</Typography>
+            </TableCell>
+            <TableCell>
+            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            </TableCell>
+            <TableCell>
+            <Typography className={classes.name}>{ConvertTime(DL.Returned_Date)}</Typography>
+
+
+            </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        
+      </Table>
+      
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 15]}
+        component="div"
+        count={DataList.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+        
+       </TableContainer>
+
+      </>
+  );
+}
+
+export default HistoryTable;

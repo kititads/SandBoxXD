@@ -1,0 +1,19 @@
+.main-footer {
+    color: white;
+    background-color:#212F3D;
+    padding-top: 1em;
+    position: relative;
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+    }
+
+  @media (max-width: 765px){
+    .HideTest{
+      display: none;
+      }
+  }
+  
+  .TestA{
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+  }
