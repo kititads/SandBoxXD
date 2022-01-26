@@ -4,6 +4,7 @@ import './Pages.css';
 import { AiOutlineSearch } from "react-icons/ai";
 import SearchTable from '../Component/SearchTable';
 
+
 function Search() 
 {
   return (
