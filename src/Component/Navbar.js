@@ -78,10 +78,10 @@ import Cookies from 'universal-cookie';
         <NavbarToggle aria-controls="responsive-navbar-nav" ></NavbarToggle>
         <NavbarCollapse className="setCenter"> 
         <Nav>
-        <Nav.Link href="/home"><AiFillHome size={21}/>{' '}Home</Nav.Link>
+        <Nav.Link href="/"><AiFillHome size={21}/>{' '}Home</Nav.Link>
         <Nav.Link href="/search"><AiOutlineSearch size={21}/>{' '}Search</Nav.Link>
-        <Nav.Link  href="/about"><AiOutlineTeam size={21}/>{' '}About Us</Nav.Link>
-        <Nav.Link  href="/contact"><AiOutlineComment size={21}/>{' '}Contact Us</Nav.Link>
+        {/* <Nav.Link  href="/about"><AiOutlineTeam size={21}/>{' '}About Us</Nav.Link>
+        <Nav.Link  href="/contact"><AiOutlineComment size={21}/>{' '}Contact Us</Nav.Link> */}
         <Nav.Link  href="/rules"><AiOutlineRead size={21}/>{' '}Rules</Nav.Link>
 
         
@@ -102,7 +102,7 @@ import Cookies from 'universal-cookie';
         <NavDropdown.Item href="/pending">อุปกรณ์รออนุมัติ</NavDropdown.Item>
         <NavDropdown.Item href="/history">ประวัติการยืม</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item href="/login" onClick={Logout}>Logout</NavDropdown.Item>
+        <NavDropdown.Item href="/login" onClick={Logout}>ออกจากระบบ</NavDropdown.Item>
         </NavDropdown>
         </Nav>
         {/* Admin */}
@@ -111,7 +111,7 @@ import Cookies from 'universal-cookie';
         <NavDropdown title={"ADMIN : "+User_Name} id="navbarScrollingDropdown">
         <NavDropdown.Item href="/admintools">เครื่องมือผู้ดูแลระบบ</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item href="/login" onClick={Logout}>Logout</NavDropdown.Item>
+        <NavDropdown.Item href="/login" onClick={Logout}>ออกจากระบบ</NavDropdown.Item>
         </NavDropdown>
         </Nav>
        
