@@ -6,12 +6,20 @@ import { useEffect,useState } from 'react';
 import { BsTable } from "react-icons/bs";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
-import { getFirestore,collection, query, where, getDocs,orderBy } from '@firebase/firestore';
+import { getFirestore,collection, query, where, getDocs,doc,deleteDoc,updateDoc,orderBy  } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
 import Cookies from 'universal-cookie';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import DeleteIcon from '@mui/icons-material/Delete';
+//-------------------------------------------//
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import { 
     Table,
     TableBody,
@@ -105,12 +113,27 @@ function SearchTable() {
       else if(doc.data().EM_Status ==="Available" )
       {
         items.push(doc.data());    
+        
       }
       
       
     });
       setDataList(items);
     };
+
+  const [open1, setOpen1] = React.useState(false);
+  const [RealID,setRealID] = useState(0);
+
+  const handleClickOpen1 = (PID) => {
+    setRealID(PID);
+    setOpen1(true);
+     };
+
+     const handleClose1 = () => {
+      setOpen1(false);
+    };
+
+  
 
     //ตาราง
   const classes = useStyles();
@@ -127,6 +150,17 @@ function SearchTable() {
   };
 
   const [Search,setSearch] = useState("");
+
+    //ลบคำขอ
+    const DelPending = async(EquipmentID) => {
+      handleClose1();
+     
+    await deleteDoc(doc(db, "Equipment", EquipmentID.toString()));
+
+
+    getData();
+    };
+
 
   return (
     <><div>        
@@ -145,6 +179,30 @@ function SearchTable() {
     />
     </Form>
     
+        {/* Admin 1 */}
+        <Dialog
+        open={open1}
+        onClose={handleClose1}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+        {"ข้อความยืนยัน"}
+        </DialogTitle>
+        <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+        {"คุณต้องการจะลบข้อมูลอุปกรณ์ใช่หรือไม่"} 
+        </DialogContentText>
+        
+        </DialogContent>
+        <DialogActions>
+        <Button onClick={() => DelPending(RealID)}>ใช่</Button>
+        <Button onClick={handleClose1} autoFocus style={{color: "red"}}>
+         ไม่ใช่
+        </Button>
+        </DialogActions>
+        </Dialog>
+
     <div className="page-set Home-Set-Title-2">
     </div>
     </div>
@@ -211,16 +269,24 @@ function SearchTable() {
             </TableCell>
             <TableCell>
             <div className="SerachTable_button">
-            <a href={"/detail/"+DL.EM_ID}><Button variant="contained" startIcon={<ArticleOutlinedIcon />} color="info" style={{minWidth: '110px'}} size="small" value={DL.EM_ID} >Detail</Button></a>
+            <a href={"/detail/"+DL.EM_ID}><Button variant="contained" startIcon={<ArticleOutlinedIcon />} color="info" style={{minWidth: '120px'}} size="small" value={DL.EM_ID} >รายละเอียด</Button></a>
             </div>
             <div className="SerachTable_button">
             {(cookies.get('Status_User') === "Admin" && 
-            <a href={"/historyEM/"+DL.EM_ID}><Button variant="contained" startIcon={<HistoryEduIcon />} color="success" style={{minWidth: '110px'}}  size="small" value={DL.EM_ID} >History</Button></a>           
+            <a href={"/historyEM/"+DL.EM_ID}><Button variant="contained" startIcon={<HistoryEduIcon />} color="success" style={{minWidth: '120px'}}  size="small" value={DL.EM_ID} >ประวัติการยืม</Button></a>           
             )} 
             </div>
+            
+            <div className="SerachTable_button">
             {(cookies.get('Status_User') === "Admin" && 
-            <a href={"/edit/"+DL.EM_ID}><Button variant="contained" startIcon={<EditOutlinedIcon />} color="warning" style={{minWidth: '110px'}}  size="small" value={DL.EM_ID} >Edit</Button></a>           
+            <a href={"/edit/"+DL.EM_ID}><Button variant="contained" startIcon={<EditOutlinedIcon />} color="warning" style={{minWidth: '120px'}}  size="small" value={DL.EM_ID} >แก้ไขอุปกรณ์</Button></a>                  
             )} 
+            </div>
+            <div className="SerachTable_button">
+            {(cookies.get('Status_User') === "Admin" && 
+            <Button variant="contained" startIcon={<DeleteIcon />} color="error" style={{minWidth: '120px'}} onClick={()=>handleClickOpen1(DL.EM_ID)} size="small" value={DL.EM_ID} >ลบอุปกรณ์</Button>                  
+            )} 
+            </div>
             
             
 
