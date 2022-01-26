@@ -160,6 +160,7 @@ function BorrowTable() {
     });
     
     setDataList(items);
+    console.log(items);
     };
 
 
