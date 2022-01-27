@@ -6,7 +6,7 @@ import FirebaseApp from '../firebase';
 
 
 
-    async function DetailToPending (PropID,PropName,PropImage,PropStudentID,PropUser,PropDate,PropPendingID,PropCollegeYears) {
+    async function DetailToPending (PropID,PropName,PropImage,PropStudentID,PropUser,PropPeadingNumber,PropDate,PropPendingID,PropCollegeYears) {
 
     
 
@@ -20,6 +20,7 @@ import FirebaseApp from '../firebase';
     const Pending_ID = PropPendingID;
     const TodayDate = new Date();
     const P_College_Years = PropCollegeYears;
+    const P_Number = PropPeadingNumber;
     //เชื่อม Database
     const db = getFirestore();    
 
@@ -37,7 +38,8 @@ import FirebaseApp from '../firebase';
     Due_Date: P_Date,
     Student_ID: P_StudentID,
     User_Name: P_User,
-    College_Years: P_College_Years
+    College_Years: P_College_Years,
+    Borrow_Quantity:P_Number
     };
     await setDoc(docRef,payload); 
     
