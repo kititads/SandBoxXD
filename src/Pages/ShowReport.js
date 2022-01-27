@@ -65,7 +65,7 @@ function Report()
         querySnapshot2.forEach((doc) => {
             CountALL.push(doc.data());
 
-            if(doc.data().EM_Status === "Unavailable")
+            if(doc.data().EM_Status === "ไม่พร้อมใช้งาน")
             {
                 CountCant.push(doc.data());
             }
@@ -130,7 +130,7 @@ function Report()
   return (
         <div className="container">
         <div className="text-center" style={{paddingTop : "10%" ,paddingBottom: "10%",textAlign : 'center'}}>
-        <div className="SubBG" style={{paddingTop : "1%" ,paddingBottom: "1%",fontSize : 35,textAlign : 'center'}}><HiOutlineDocumentReport size={60} className="icon-set-container"/>Report</div>
+        <div className="SubBG" style={{paddingTop : "1%" ,paddingBottom: "1%",fontSize : 35,textAlign : 'center'}}><HiOutlineDocumentReport size={60} className="icon-set-container"/>รายงานสรุป</div>
         <div className="border border-black" style={{padding : "5%"}}>
         <div style={{textAlign: "right"}}>
             {/* ล้มเหลว ยังไม่เข้าใจ */}
