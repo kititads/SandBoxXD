@@ -107,12 +107,12 @@ function InsertUser()
           //UI
           <div className="container">
           <div className="text-center" style={{paddingTop : "10%" ,paddingBottom: "15%",paddingLeft: "15%",paddingRight: "15%",textAlign : 'center'}}>
-          <h1 className="SubBG Login-Box-Set " ><AiOutlineUserAdd size={50} className="icon-set-container"/>Insert User</h1>
+          <h1 className="SubBG Login-Box-Set " ><AiOutlineUserAdd size={50} className="icon-set-container"/>เพิ่มผู้ใช้</h1>
           <div className="border border-black" >
           
           <form className="Form-Set-Insert" id="InsertForm">
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ID</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
           <div class="col-sm-10">
           <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="ID" disabled="true"
           value={ID} 
@@ -121,7 +121,7 @@ function InsertUser()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Name</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ</label>
           <div class="col-sm-10">
           <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="Name"
           value={Name}
@@ -130,7 +130,7 @@ function InsertUser()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Student ID</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัสนักศึกษา</label>
           <div class="col-sm-10">
           <input type="text" id="textStudentID" class="form-control form-control-sm InsertBox-Set"  placeholder="Student ID"
           value={StudentID}
@@ -139,7 +139,7 @@ function InsertUser()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Card ID</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัสบัตรประชาชน</label>
           <div class="col-sm-10">
           <input type="text" id="textsetCardID" class="form-control form-control-sm InsertBox-Set"  placeholder="Card ID"
           value={CardID}
@@ -148,7 +148,7 @@ function InsertUser()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Status</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">สถานะ</label>
         
          
           
@@ -163,7 +163,7 @@ function InsertUser()
           </div>
           
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">College Years</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชั้นปี</label>
           <div class="col-sm-10">
           <input type="text" id="textCollegeYears" class="form-control form-control-sm InsertBox-Set"  placeholder="College Years"
           value={CollegeYears}
@@ -175,7 +175,7 @@ function InsertUser()
 
           <hr/>
           
-          <Button id="ButtonConfirm" variant="primary" onClick={CheckButton} style={{backgroundColor:'#212F3D',color:'white'}} >Confirm</Button>{' '}
+          <Button id="ButtonConfirm" variant="primary" onClick={CheckButton} style={{backgroundColor:'#212F3D',color:'white'}} >ยืนัยน</Button>{' '}
           </form>      
             
           </div>
