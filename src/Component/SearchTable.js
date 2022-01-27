@@ -110,7 +110,7 @@ function SearchTable() {
       {
         items.push(doc.data());    
       }
-      else if(doc.data().EM_Status ==="พร้อมใช้งาน" || doc.data().EM_Status ==="หมด")
+      else if(doc.data().EM_Status ==="พร้อมใช้งาน" || doc.data().EM_Status ==="สินค้าหมด")
       {
         items.push(doc.data());    
         
@@ -263,7 +263,7 @@ function SearchTable() {
             backgroundColor: 
             ((DL.EM_Status === 'พร้อมใช้งาน' && 'green') ||
             (DL.EM_Status === 'ไม่พร้อมใช้งาน' && 'red') ||
-            (DL.EM_Status === 'หมด' && 'blue'))
+            (DL.EM_Status === 'สินค้าหมด' && 'blue'))
             }}
             >{DL.EM_Status}</Typography>
             </TableCell>
