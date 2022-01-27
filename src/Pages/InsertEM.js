@@ -138,7 +138,7 @@ function InsertEM()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
           <div class="col-sm-10">
-          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="ID" disabled="true"
+          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
           value={ID} 
           onChange={e => { setID(e.target.value); }}
           />
@@ -147,7 +147,7 @@ function InsertEM()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ</label>
           <div class="col-sm-10">
-          <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="Name"
+          <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="ชื่อ"
           value={Name}
           onChange={e => { setName(e.target.value);  }}
           />
@@ -156,7 +156,7 @@ function InsertEM()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">จำนวน</label>
           <div class="col-sm-10">
-          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="Quantity"
+          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="จำนวน"
           value={Quantity}
           onChange={e => { setQuantity(e.target.value); }}
           />
@@ -203,9 +203,12 @@ function InsertEM()
           </div>
           <br/>
           <div className="ImgText">     
-                   ตัวอย่างรูปภาพ
-                   (กรุณารอภาพโหลดก่อนกดยืนยัน)           
-          </div>
+           ตัวอย่างรูปภาพ
+           </div>
+            <div className="ImgText">     
+            (กรุณารอภาพโหลดก่อนกดยืนยัน)           
+            </div>
+
           <div >
 
           <br/>
