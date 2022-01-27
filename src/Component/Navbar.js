@@ -98,7 +98,7 @@ import Cookies from 'universal-cookie';
 
         <Nav hidden={UserState}>
         <NavDropdown title={"USER : "+User_Name} id="navbarScrollingDropdown">
-        <NavDropdown.Item href="#action3">ข้อมูลส่วนตัว</NavDropdown.Item>
+        {/* <NavDropdown.Item href="#action3">ข้อมูลส่วนตัว</NavDropdown.Item> */}
         <NavDropdown.Item href="/pending">อุปกรณ์รออนุมัติ</NavDropdown.Item>
         <NavDropdown.Item href="/history">ประวัติการยืม</NavDropdown.Item>
         <NavDropdown.Divider />
