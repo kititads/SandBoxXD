@@ -11,7 +11,7 @@ function ShowDetail()
         
         <div className="container Default-Box-Set">
         <div className="text-center" style={{ paddingTop: "5%", paddingBottom: "15%", textAlign: 'center' }}>
-        <div className="SubBG"><AiFillSnippets size={50} className="icon-set-container" />Equipment_Detail</div>
+        <div className="SubBG"><AiFillSnippets size={50} className="icon-set-container" />รายละเอียดอุปกรณ์</div>
         <div className="SubBG-TextSet Card-Set border border-black">
         <div className="Home-Set">
         <div>
