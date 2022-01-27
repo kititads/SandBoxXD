@@ -67,11 +67,11 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
   return (
     <div className="container Login-Box-set">
         <div className="text-center" style={{margin : "17%" ,textAlign : 'center'}}>
-        <h1 className="SubBG Login-Box-Set " ><RiLoginBoxLine size={40} className="icon-set-container"/>Login</h1>
+        <h1 className="SubBG Login-Box-Set " ><RiLoginBoxLine size={40} className="icon-set-container"/>ล็อกอิน</h1>
         <div className="Login-Set border border-black" >
         <Form>
         <Form.Group className="mb-3" controlId="formBasicStudent ID">
-        <Form.Label className="Login-label">Student ID</Form.Label>
+        <Form.Label className="Login-label">รหัสนักศึกษา</Form.Label>
         <Form.Control type="text" placeholder="Enter Student ID" 
          value={StudentID}
          onChange={e => { setStudent_ID(e.target.value); }}
@@ -81,7 +81,7 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
         </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label className="Login-label">Password</Form.Label>
+        <Form.Label className="Login-label">รหัสบัตรประชาชน</Form.Label>
 
         
         <Form.Control type="password" placeholder="Password"
@@ -97,7 +97,7 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
         
 
 
-        <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}} onClick={CheckLogin}>Log In</Button>{' '}
+        <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}} onClick={CheckLogin}>เข้าสู่ระบบ</Button>{' '}
         </Form>
         <br/>
         </div>
