@@ -10,7 +10,7 @@ function Welcome()
         <div className="container">
         <div className="text-center" style={{paddingTop : "30%" ,paddingBottom: "30%",textAlign : 'center'}}>
         <h1>
-        Welcome 
+        ยินดีต้อนรับ 
         </h1>
         </div>
         </div>
