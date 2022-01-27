@@ -110,7 +110,7 @@ function SearchTable() {
       {
         items.push(doc.data());    
       }
-      else if(doc.data().EM_Status ==="Available" || doc.data().EM_Status ==="Out Of Stock")
+      else if(doc.data().EM_Status ==="พร้อมใช้งาน" || doc.data().EM_Status ==="หมด")
       {
         items.push(doc.data());    
         
@@ -212,12 +212,12 @@ function SearchTable() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide} >Equipment ID</TableCell>
-            <TableCell className={classes.tableHeaderCell} >Image</TableCell>
-            <TableCell className={classes.tableHeaderCell} >Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >Quantity</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >Status</TableCell>
-            <TableCell className={classes.tableHeaderCell} >More</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide} >รหัสอุปกรณ์</TableCell>
+            <TableCell className={classes.tableHeaderCell} >รูปภาพ</TableCell>
+            <TableCell className={classes.tableHeaderCell} >ชื่อ</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide} >จำนวน</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide} >สถานะ</TableCell>
+            <TableCell className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
             </TableRow>
             </TableHead>
             <TableBody>
@@ -261,9 +261,9 @@ function SearchTable() {
             className={classes.status}
             style={{
             backgroundColor: 
-            ((DL.EM_Status === 'Available' && 'green') ||
-            (DL.EM_Status === 'Unavailable' && 'red') ||
-            (DL.EM_Status === 'Out Of Stock' && 'blue'))
+            ((DL.EM_Status === 'พร้อมใช้งาน' && 'green') ||
+            (DL.EM_Status === 'ไม่พร้อมใช้งาน' && 'red') ||
+            (DL.EM_Status === 'หมด' && 'blue'))
             }}
             >{DL.EM_Status}</Typography>
             </TableCell>
