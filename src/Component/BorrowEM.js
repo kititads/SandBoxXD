@@ -98,21 +98,7 @@ const db = getFirestore();
 function BorrowEM() {
 
 
-    //Dialog
-    const [open, setOpen] = React.useState(false);
-    const [RealPendingID,setRealPendingID] = useState(0);
-
     
-
-    const handleClickOpen = (PID) => {
-      setRealPendingID(PID);
-
-      setOpen(true);
-    };
-
-    const handleClose = () => {
-      setOpen(false);
-    };
 
   
     const [DataList,setDataList] = useState([]);   
@@ -131,35 +117,40 @@ function BorrowEM() {
         window.location.href = "/NotFound";      
       }
     },[]);
-
+    const cookies = new Cookies();
+    const StuedID = cookies.get('Student_ID')
     const getData = async() => { 
     const q = query(collection(db, "Borrow"),orderBy("Borrow_ID", "asc"));
     const querySnapshot = await getDocs(q);
     const items = [];
-    const TodeyDate = new Date();
+    const TodayDate = new Date();
     querySnapshot.forEach((doc) => {
       const ArrayData = doc.data();
       const TimeTest = new Date(ArrayData.Due_Date.seconds * 1000 + ArrayData.Due_Date.nanoseconds/1000000)
-      
-      if(TodeyDate < TimeTest)
-      {
-        items.push(ArrayData)   
+      const TodayDateAfterFormat = moment(TodayDate).format('DD/MM/YYYY');
+      const TimeTestAfterFormat = moment(TimeTest).format('DD/MM/YYYY');
 
-      }
-      else
+      if(ArrayData.Student_ID === StuedID)
       {
+          
+      if(TodayDateAfterFormat > TimeTestAfterFormat)
+      {
+        
         if(ArrayData.Borrow_Status != "ยืมเกินกำหนด")
         {
           UpdateNewStatus(ArrayData.Borrow_ID);
         }
         ArrayData.Borrow_Status = "ยืมเกินกำหนด";
+        items.push(ArrayData)  
+      }
+      else
+      {
         items.push(ArrayData)   
        
 
       }
-
-      
-
+    }
+    
     });
     
     setDataList(items);
@@ -207,35 +198,6 @@ function BorrowEM() {
   };
 
 
-    //ลบคำขอ
-    const DelPending = async(BorrowID) => {
-    await deleteDoc(doc(db, "Borrow", BorrowID.toString()));
-    getData();
-    };
-
-  
-    //-----------------------------------------
-    const BTH = async(BorrowID,DataList,DataList0,NextID)  => { 
-      BorrowToHistory(BorrowID,DataList,DataList0,NextID);
-    };
-  
-  
-    //รันเลขยืม
-      const getIndex = async(BorrowID) => { 
-      const querySnapshot = await getDocs(collection(db, "Count"));
-      querySnapshot.forEach((doc) => {
-      const History_ID =  doc.data().Count_History_ID;
-      const NextID =  (History_ID+1);
-      UpdateNewID(NextID);
-      console.log("Table NextID"+NextID);
-      BTH(BorrowID,DataList,DataList0,NextID);
-      DelPending(BorrowID);
-      handleClose();
-
-      }
-      )
-  
-      };
       
       //อัพเดตสถานะยืม
       const UpdateNewStatus = async(B_ID) => {    
@@ -246,14 +208,7 @@ function BorrowEM() {
         await updateDoc(docRef,payload);
         };
 
-      //อัพเดตเลขยืม
-      const UpdateNewID = async(NextID) => {    
-      const docRef = doc(db,"Count","1");
-      const payload = {
-        Count_History_ID: NextID,
-      };
-      await updateDoc(docRef,payload);
-      };
+ 
 
 
   return (
@@ -288,7 +243,6 @@ function BorrowEM() {
             <TableCell className={classes.tableHeaderCellCanHide}>Date</TableCell>
             <TableCell className={classes.tableHeaderCell}>User</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>Borrow Status</TableCell>
-            <TableCell className={classes.tableHeaderCell}>More</TableCell>
         
             </TableRow>
             </TableHead>
