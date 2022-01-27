@@ -198,7 +198,7 @@ function ReportTable() {
 
           </Col>
           <Col sm={3}>
-            <Button2 className="button-set" variant="contained" color="error" onClick={()=>ResetDate()}>รีเซ็ต</Button2>
+            <Button2  className="button-set" variant="contained" color="error" onClick={()=>ResetDate()}>รีเซ็ต</Button2>
 
 
           </Col>
