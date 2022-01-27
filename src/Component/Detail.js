@@ -49,6 +49,7 @@ function Detail(PropID)
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
 
   const [buttondisabled, setbutton] = React.useState("");
 
@@ -76,6 +77,15 @@ function Detail(PropID)
 
   const handleClose3 = () => {
     setOpen3(false);
+
+  };
+
+  const handleClickOpen4 = () => {
+    setOpen4(true);
+  };
+
+  const handleClose4 = () => {
+    setOpen4(false);
 
   };
 
@@ -132,12 +142,18 @@ function Detail(PropID)
       // if(cookies.get('Status_User') == "Admin" || "User")
       if(cookies.get('Status_User') != null)
       {
-        console.log(cookies.get('Status_User'));
+        if(PeadingNumber != 0)
+        {
         handleClickOpen();
+        }
+        else
+        {
+        handleClickOpen4();
+        }
+        
       }
       else
       {
-        console.log(cookies.get('Status_User'));
         window.location.href = "/login";      
 
       }
@@ -341,6 +357,28 @@ function Detail(PropID)
  
         </DialogActions>
         </Dialog>   
+
+        {/* Dialog 4 */}
+        <Dialog
+        open={open4}
+        onClose={handleClose4}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+        {"ข้อความแจ้งเตือน"}
+        </DialogTitle>
+        <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+        {"คุณยืมอุปกรณ์ 0 ชิ้นไม่ได้หรอกนะ"}        
+        </DialogContentText>
+         
+        </DialogContent>
+        <DialogActions>
+        <Button onClick={handleClose4}>รับทราบ</Button>
+ 
+        </DialogActions>
+        </Dialog>  
 
         <div className="div-button" ><Button  disabled={buttondisabled} className="button-set"  variant="contained" color="success" onClick={CheckUser}>ยื่นเรื่องขอยืม</Button></div>
         <div className="div-button"><a href="javascript:history.back()"><Button  className="button-set" variant="contained" color="error">กลับ</Button></a></div>
