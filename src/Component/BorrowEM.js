@@ -236,13 +236,13 @@ function BorrowEM() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide}>Borrow ID</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Image	</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Quantity</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Date</TableCell>
-            <TableCell className={classes.tableHeaderCell}>User</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Borrow Status</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
+            <TableCell className={classes.tableHeaderCell}>รูปภาพ	</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
+            <TableCell className={classes.tableHeaderCell}>ชื่อผู้ใช้</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>สถานะการยืม</TableCell>
         
             </TableRow>
             </TableHead>
