@@ -43,7 +43,7 @@ import { date } from 'faker';
     const UpdatedocRef = doc(db,"Equipment",DL.EM_ID.toString());
     const Updatepayload = {
     EM_UseQuantity: NewQuantity,
-    EM_Status: "Available",
+    EM_Status: "พร้อมใช้งาน",
     };
     updateDoc(UpdatedocRef,Updatepayload);
         
