@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { getFirestore,collection, query, where, getDocs,orderBy,setDoc,doc,updateDoc } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
-    function PendingToBorrow(PropPendingID,DataList,NextID) {
+    function PendingToBorrow(PropPendingID,DataList,DataList0,NextID) {
     const db = getFirestore();
 
     
@@ -27,18 +27,35 @@ import FirebaseApp from '../firebase';
      Due_Date: DL.Due_Date,
      Student_ID: DL.Student_ID,
      User_Name: DL.User_Name,
-     College_Years: DL.College_Years
-
+     College_Years: DL.College_Years,
+     Borrow_Quantity: DL.Borrow_Quantity
     };
     setDoc(docRef,payload);
 
-    const UpdatedocRef = doc(db,"Equipment",DL.EM_ID.toString());
-    const Updatepayload = {
-    EM_Status: "Pending",
-    };
-    updateDoc(UpdatedocRef,Updatepayload);
+    const BorrowNum = parseInt(DL.Borrow_Quantity)
+    const NewQuantity = (DataList0[DL.EM_ID].EM_UseQuantity + BorrowNum)
+    const CheckQuantity = DataList0[DL.EM_ID].EM_UseQuantity - NewQuantity
+    
+    if(CheckQuantity === 0)
+    {
+        const UpdatedocRef = doc(db,"Equipment",DL.EM_ID.toString());
+        const Updatepayload = {
+        EM_UseQuantity: NewQuantity,
+        EM_Status: "Out Of Stock"
+
+        };
+        updateDoc(UpdatedocRef,Updatepayload);}
+    else
+    {
+        const UpdatedocRef = doc(db,"Equipment",DL.EM_ID.toString());
+        const Updatepayload = {
+        EM_UseQuantity: NewQuantity
+        };
+        updateDoc(UpdatedocRef,Updatepayload);} 
+    }
         
-    });
+    );
+    
 
     
         
