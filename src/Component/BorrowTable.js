@@ -116,12 +116,15 @@ function BorrowTable() {
 
   
     const [DataList,setDataList] = useState([]);   
+    const [DataList0,setDataList0] = useState([]);   
+
     //ทำงานตอนเริ่ม
     useEffect(()=> {
       const cookies = new Cookies();
       if(cookies.get('Status_User') === "Admin")
       {
-        getData();
+        getData0();
+
       }
       else
       {
@@ -155,7 +158,7 @@ function BorrowTable() {
 
       }
 
-
+      
 
     });
     
@@ -164,7 +167,22 @@ function BorrowTable() {
     };
 
 
+    const getData0 = async() => { 
+      //อุปกรณ์
+      const q = query(collection(db, "Equipment"),orderBy("EM_ID", "asc"));
+      const querySnapshot = await getDocs(q);
+      const items = [];
+      querySnapshot.forEach((doc) => { 
+        var NoData = doc.data().EM_ID;
+        
+       
+          items[NoData] = doc.data();  
+    
 
+      });
+         setDataList0(items); 
+         getData();
+      };
 
 
     //ตาราง
@@ -197,8 +215,8 @@ function BorrowTable() {
 
   
     //-----------------------------------------
-    const BTH = async(BorrowID,DataList,NextID)  => { 
-      BorrowToHistory(BorrowID,DataList,NextID);
+    const BTH = async(BorrowID,DataList,DataList0,NextID)  => { 
+      BorrowToHistory(BorrowID,DataList,DataList0,NextID);
     };
   
   
@@ -210,7 +228,7 @@ function BorrowTable() {
       const NextID =  (History_ID+1);
       UpdateNewID(NextID);
       console.log("Table NextID"+NextID);
-      BTH(BorrowID,DataList,NextID);
+      BTH(BorrowID,DataList,DataList0,NextID);
       DelPending(BorrowID);
       handleClose();
 
@@ -266,8 +284,8 @@ function BorrowTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>Borrow ID</TableCell>
             <TableCell className={classes.tableHeaderCell}>Image	</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Start</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>End</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>Quantity</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>Date</TableCell>
             <TableCell className={classes.tableHeaderCell}>User</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>Borrow Status</TableCell>
             <TableCell className={classes.tableHeaderCell}>More</TableCell>
@@ -312,10 +330,14 @@ function BorrowTable() {
             </TableCell>
             <TableCell className={classes.CheckHide}>
             
-            <Typography className={classes.name}>{ConvertTime(DL.Loan_Date)}</Typography>
+            <Typography className={classes.name}>{DL.Borrow_Quantity}</Typography>
             </TableCell>
             <TableCell className={classes.CheckHide}>
-            <Typography className={classes.name}>{ConvertTime(DL.Due_Date)}</Typography>
+            <Typography className={classes.name}>
+             <div>  {ConvertTime(DL.Loan_Date)}</div>
+             <div> - </div>
+
+             <div>  {ConvertTime(DL.Due_Date)}</div></Typography>
             </TableCell>
             <TableCell >
             <Typography className={classes.name}>{DL.User_Name}</Typography>
