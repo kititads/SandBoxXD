@@ -341,13 +341,13 @@ function PendingTable() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide}>Pending ID</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Image	</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Quantity</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Date</TableCell>
-            <TableCell className={classes.tableHeaderCell} >User</TableCell>
-            <TableCell className={classes.tableHeaderCell} >More</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
+            <TableCell className={classes.tableHeaderCell}>รูปภาพ	</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
+            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ใช้</TableCell>
+            <TableCell className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
 
             </TableRow>
             </TableHead>
