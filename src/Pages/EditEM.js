@@ -143,39 +143,39 @@ function EditEM()
           //UI
           <div className="container">
           <div className="text-center" style={{paddingTop : "10%" ,paddingBottom: "15%",paddingLeft: "15%",paddingRight: "15%",textAlign : 'center'}}>
-          <h1 className="SubBG Login-Box-Set " ><AiFillEdit size={40} className="icon-set-container"/>Edit Equipment</h1>
+          <h1 className="SubBG Login-Box-Set " ><AiFillEdit size={40} className="icon-set-container"/>แก้ไขข้อมูลอุปกรณ์</h1>
           <div className="border border-black" >
           
           <form className="Form-Set-Insert" id="InsertForm">
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ID</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
           <div class="col-sm-10">
-          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="ID" disabled="true"
+          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
           value={ID} 
           onChange={e => { setID(e.target.value); }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Name</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ</label>
           <div class="col-sm-10">
-          <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="Name"
+          <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="ชื่อ"
           value={Name}
           onChange={e => { setName(e.target.value);  }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Quantity</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">จำนวน</label>
           <div class="col-sm-10">
-          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="Quantity"
+          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="จำนวน"
           value={Quantity}
           onChange={e => { setQuantity(e.target.value); }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Detail</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รายละเอียด</label>
           <div class="col-sm-10">
           <textarea rows="6" type="text" id="textDetail" class="form-control form-control-sm InsertBox-Set"  placeholder="Detail"
           value={Detail}
@@ -184,7 +184,7 @@ function EditEM()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Status</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">สถานะ</label>
           <div className="radio-set">
         
           <input id="status_radio_Available"  type="radio" name="status" value="พร้อมใช้งาน" onClick={()=> setStatus("พร้อมใช้งาน")}/>
@@ -199,7 +199,7 @@ function EditEM()
 
           <div class="form-group row">
          
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Image</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รูปภาพ</label>
           
           <div class="col-sm-3">
           <br/>
@@ -214,8 +214,11 @@ function EditEM()
           </div>
           <br/>
           <div className="ImgText">     
-          Image Preview              
+          ตัวอย่างรูปภาพ
           </div>
+          <div className="ImgText">     
+            (กรุณารอภาพโหลดก่อนกดยืนยัน)           
+            </div>
           <div >
           <br/>
           <img className="ImgEdit" src={fileUrl}  style={{width:"250px",height:"200px"}}></img>
