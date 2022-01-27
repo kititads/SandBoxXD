@@ -67,7 +67,7 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
   return (
     <div className="container Login-Box-set">
         <div className="text-center" style={{margin : "17%" ,textAlign : 'center'}}>
-        <h1 className="SubBG Login-Box-Set " ><RiLoginBoxLine size={40} className="icon-set-container"/>ล็อกอิน</h1>
+        <h1 className="SubBG Login-Box-Set " ><RiLoginBoxLine size={40} className="icon-set-container"/>เข้าสู่ระบบ</h1>
         <div className="Login-Set border border-black" >
         <Form>
         <Form.Group className="mb-3" controlId="formBasicStudent ID">
