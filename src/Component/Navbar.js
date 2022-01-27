@@ -78,10 +78,10 @@ import Cookies from 'universal-cookie';
         <NavbarToggle aria-controls="responsive-navbar-nav" ></NavbarToggle>
         <NavbarCollapse className="setCenter"> 
         <Nav>
-        <Nav.Link href="/"><AiFillHome size={21}/>{' '}หน้าหลัก</Nav.Link>
+        <Nav.Link href="/home"><AiFillHome size={21}/>{' '}หน้าหลัก</Nav.Link>
         <Nav.Link href="/search"><AiOutlineSearch size={21}/>{' '}ค้นหา</Nav.Link>
-        {/* <Nav.Link  href="/about"><AiOutlineTeam size={21}/>{' '}About Us</Nav.Link>
-        <Nav.Link  href="/contact"><AiOutlineComment size={21}/>{' '}Contact Us</Nav.Link> */}
+        <Nav.Link  href="/about"><AiOutlineTeam size={21}/>{' '}About Us</Nav.Link>
+        <Nav.Link  href="/contact"><AiOutlineComment size={21}/>{' '}Contact Us</Nav.Link>
         <Nav.Link  href="/rules"><AiOutlineRead size={21}/>{' '}กฎระเบียบ</Nav.Link>
 
         
