@@ -133,7 +133,7 @@ function BorrowEM() {
       if(ArrayData.Student_ID === StuedID)
       {
           
-      if(TodayDateAfterFormat > TimeTestAfterFormat)
+      if(TodayDateAfterFormat < TimeTestAfterFormat)
       {
         
         if(ArrayData.Borrow_Status != "ยืมเกินกำหนด")
