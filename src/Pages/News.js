@@ -13,7 +13,7 @@ function News()
         <div className="SubBG"><GiNewShoot size={50} className="icon-set-container"/>ข่าวสาร</div>
         <div className="SubBG-TextSet Card-Set border border-black">
         <div className="Home-Set">
-          
+       
         </div>
         <Row xs={1} md={3} className="g-4">
         {Array.from({ length: 6 }).map((_, idx) => (

@@ -93,7 +93,7 @@ import Cookies from 'universal-cookie';
         {/* ล็อกอิน */}
         <Nav>
         <Nav.Link href="/login" hidden={LoginState}>   
-        <RiLoginBoxLine size={21}/>{' '}ล็อกอิน</Nav.Link>
+        <RiLoginBoxLine size={21}/>{' '}เข้าสู่ระบบ</Nav.Link>
         </Nav>
         {/* User */}
 
