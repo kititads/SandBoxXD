@@ -215,7 +215,7 @@ function SearchTable() {
             <TableCell className={classes.tableHeaderCellCanHide} >Equipment ID</TableCell>
             <TableCell className={classes.tableHeaderCell} >Image</TableCell>
             <TableCell className={classes.tableHeaderCell} >Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >Available</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide} >Quantity</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide} >Status</TableCell>
             <TableCell className={classes.tableHeaderCell} >More</TableCell>
             </TableRow>
