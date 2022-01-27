@@ -11,7 +11,7 @@ function Home()
   return (
     <div className="container Default-Box-Set">
         <div className="text-center" style={{paddingTop : "5%" ,paddingBottom: "15%",textAlign : 'center'}}>
-        <div className="SubBG"><GiNewShoot size={50} className="icon-set-container"/>News</div>
+        <div className="SubBG"><GiNewShoot size={50} className="icon-set-container"/>ข่าวสาร</div>
         <div className="SubBG-TextSet Card-Set border border-black">
         <div className="Home-Set">
           
@@ -22,14 +22,14 @@ function Home()
         <Card>
         <Card.Img variant="top" src="/img/404.gif"/>
         <Card.Body>
-        <Card.Title>Card title</Card.Title>
+        <Card.Title>หัวข้อ</Card.Title>
         <Card.Text>
         ........................................................
         ........................................................
         ........................................................
         ........................................................
         </Card.Text>
-        <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}} onClick=""> More</Button>{' '}
+        <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}} onClick=""> เพิ่มเติม</Button>{' '}
 
         </Card.Body>
         </Card>
