@@ -114,7 +114,7 @@ function InsertUser()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
           <div class="col-sm-10">
-          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="ID" disabled="true"
+          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
           value={ID} 
           onChange={e => { setID(e.target.value); }}
           />
@@ -123,7 +123,7 @@ function InsertUser()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ</label>
           <div class="col-sm-10">
-          <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="Name"
+          <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="ชื่อ"
           value={Name}
           onChange={e => { setName(e.target.value);  }}
           />
@@ -132,7 +132,7 @@ function InsertUser()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัสนักศึกษา</label>
           <div class="col-sm-10">
-          <input type="text" id="textStudentID" class="form-control form-control-sm InsertBox-Set"  placeholder="Student ID"
+          <input type="text" id="textStudentID" class="form-control form-control-sm InsertBox-Set"  placeholder="รหัสนักศึกษา"
           value={StudentID}
           onChange={e => { setStudentID(e.target.value); }}
           />
@@ -141,7 +141,7 @@ function InsertUser()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัสบัตรประชาชน</label>
           <div class="col-sm-10">
-          <input type="text" id="textsetCardID" class="form-control form-control-sm InsertBox-Set"  placeholder="Card ID"
+          <input type="text" id="textsetCardID" class="form-control form-control-sm InsertBox-Set"  placeholder="รหัสบัตรประชาชน"
           value={CardID}
           onChange={e => { setCardID(e.target.value); }}
           />
@@ -155,9 +155,9 @@ function InsertUser()
           <div className="radio-set">
         
           <input id="textStatusUser"  type="radio" name="status" value="User" onClick={()=> setStatusUser("User")}/>
-          <label >User</label><br/>
+          <label >ผู้ใช้</label><br/>
           <input  type="radio" name="status" value="Admin" onClick={()=> setStatusUser("Admin")}/>
-          <label id="textStatusUser2" >Admin</label>
+          <label id="textStatusUser2" >แอดมิน</label>
 
           </div>
           </div>
@@ -165,7 +165,7 @@ function InsertUser()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชั้นปี</label>
           <div class="col-sm-10">
-          <input type="text" id="textCollegeYears" class="form-control form-control-sm InsertBox-Set"  placeholder="College Years"
+          <input type="text" id="textCollegeYears" class="form-control form-control-sm InsertBox-Set"  placeholder="ชั้นปี"
           value={CollegeYears}
           onChange={e => { getCollegeYears(e.target.value); }}
           />
@@ -175,7 +175,7 @@ function InsertUser()
 
           <hr/>
           
-          <Button id="ButtonConfirm" variant="primary" onClick={CheckButton} style={{backgroundColor:'#212F3D',color:'white'}} >ยืนัยน</Button>{' '}
+          <Button id="ButtonConfirm" variant="primary" onClick={CheckButton} style={{backgroundColor:'#212F3D',color:'white'}} >ยืนยัน</Button>{' '}
           </form>      
             
           </div>
