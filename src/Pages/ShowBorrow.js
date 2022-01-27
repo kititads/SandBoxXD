@@ -9,7 +9,7 @@ function ShowBorrow()
   return (
         <div className="container Default-Box-Set">
         <div className="text-center" style={{paddingTop : "5%" ,paddingBottom: "15%",textAlign : 'center'}}>
-        <div className="SubBG" ><AiOutlineUnorderedList size={50} className="icon-set-container"/>Borrow List</div>
+        <div className="SubBG" ><AiOutlineUnorderedList size={50} className="icon-set-container"/>รายการยืม</div>
         <div>
          <div className="">
          <BorrowTable/>
