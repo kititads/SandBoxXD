@@ -73,7 +73,7 @@ import Cookies from 'universal-cookie';
         />{' '}
              
       
-        ระบบยืม-คืนอุปกรณ์
+        ระบบยืม-คืนอุปกรณ์สาขา
         </Navbar.Brand>
         <NavbarToggle aria-controls="responsive-navbar-nav" ></NavbarToggle>
         <NavbarCollapse className="setCenter"> 
