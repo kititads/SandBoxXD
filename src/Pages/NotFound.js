@@ -11,7 +11,7 @@ function NotFound()
 
         <img alt="" src="/img/404.gif" width="50%" height="40%"/>
         <div>
-        <a href="/home">
+        <a href="/">
         <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}}>Back to home page</Button>{' '}
         </a>
 
