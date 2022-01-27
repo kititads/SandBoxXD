@@ -4,10 +4,10 @@ import { getFirestore,collection, query, where, getDocs,orderBy,setDoc,doc,updat
 import FirebaseApp from '../firebase';
 import { date } from 'faker';
 
-    function BorrowToHistory(PropBorrowID,DataList,NextID) {
+    function BorrowToHistory(PropBorrowID,DataList,DataList0,NextID) {
     const db = getFirestore();
 
-    
+  
     DataList.filter((DL) =>{
         if(DL.Borrow_ID === PropBorrowID )
         {
@@ -26,6 +26,7 @@ import { date } from 'faker';
      EM_Image: DL.EM_Image,
      Loan_Date: DL.Loan_Date,
      Due_Date: DL.Due_Date,
+     Borrow_Quantity: DL.Borrow_Quantity,
      Returned_Date: Today, 
      Student_ID: DL.Student_ID,
      User_Name: DL.User_Name,
@@ -34,8 +35,14 @@ import { date } from 'faker';
     };
     setDoc(docRef,payload);
 
+
+    const BorrowNum = parseInt(DL.Borrow_Quantity)
+    const NewQuantity = (DataList0[DL.EM_ID].EM_UseQuantity - BorrowNum)
+
+
     const UpdatedocRef = doc(db,"Equipment",DL.EM_ID.toString());
     const Updatepayload = {
+    EM_UseQuantity: NewQuantity,
     EM_Status: "Available",
     };
     updateDoc(UpdatedocRef,Updatepayload);
