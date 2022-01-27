@@ -1,7 +1,5 @@
 import React from 'react';
-import { Tab,Tabs } from 'react-bootstrap';
-import SearchTable from '../Component/SearchTable';
-import PendingTable from '../Component/PendingTable';
+
 import ReportTable from '../Component/ReportTable';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';

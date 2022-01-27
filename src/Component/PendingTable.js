@@ -1,10 +1,8 @@
-import faker from 'faker';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@mui/material/Button';  
 import DeleteIcon from '@mui/icons-material/Delete';
 import './Table.css';
-import { BsTable } from "react-icons/bs";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
 import { getFirestore,collection, query, where, getDocs,doc,deleteDoc,updateDoc,orderBy  } from '@firebase/firestore';

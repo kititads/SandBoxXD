@@ -4,7 +4,6 @@ import { Card } from 'react-bootstrap';
 import { Row , Col } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import { GiNewShoot } from "react-icons/gi";
-import { MdAnnouncement } from "react-icons/md";
 
 function News() 
 {
