@@ -187,12 +187,12 @@ function EditEM()
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Status</label>
           <div className="radio-set">
         
-          <input id="status_radio_Available"  type="radio" name="status" value="Available" onClick={()=> setStatus("Available")}/>
-          <label >Available</label><br/>
-          <input id="status_radio_Unavailable" type="radio" name="status" value="Unavailable" onClick={()=> setStatus("Unavailable")}/>
-          <label  >Unavailable</label><br/>
-          <input  id="status_radio_Out Of Stock" type="radio" name="status" value="Out Of Stock " onClick={()=> setStatus("Out Of Stock")}/>
-          <label >Out Of Stock</label>
+          <input id="status_radio_Available"  type="radio" name="status" value="พร้อมใช้งาน" onClick={()=> setStatus("พร้อมใช้งาน")}/>
+          <label >พร้อมใช้งาน</label><br/>
+          <input id="status_radio_Unavailable" type="radio" name="status" value="ไม่พร้อมใช้งาน" onClick={()=> setStatus("ไม่พร้อมใช้งาน")}/>
+          <label  >ไม่พร้อมใช้งาน</label><br/>
+          <input  id="status_radio_Out Of Stock" type="radio" name="status" value="หมด " onClick={()=> setStatus("หมด")}/>
+          <label >หมด</label>
           </div>
           </div>
           <hr/>
