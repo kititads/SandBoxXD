@@ -41,7 +41,7 @@ import FirebaseApp from '../firebase';
         const UpdatedocRef = doc(db,"Equipment",DL.EM_ID.toString());
         const Updatepayload = {
         EM_UseQuantity: NewQuantity,
-        EM_Status: "หมด"
+        EM_Status: "สินค้าหมด"
 
         };
         updateDoc(UpdatedocRef,Updatepayload);}
