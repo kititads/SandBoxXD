@@ -169,16 +169,16 @@ function Report()
         </Col>           
         <Col sm={4} style={{color : "white",textAlign : 'left',fontSize : 20}}>
         <div style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#0F9732"}}>จำนวนอุปกรณ์ทั้งหมด       
-        <br></br>{CountAll} ชิ้น 
+        <br></br>{CountAll} รายการ
         </div>
         
 
         <div className='ReportSetBoder' style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#258CCF"}}>จำนวนอุปกรณ์ที่ใช้งานได้   
-        <br></br>{CountCan} ชิ้น 
+        <br></br>{CountCan} รายการ
         </div>
 
         <div style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#DE3B3B"}}>จำนวนอุุปกรณ์ที่ชำรุด    
-        <br></br>{CountCant} ชิ้น 
+        <br></br>{CountCant} รายการ 
         </div>
 
         </Col>    
