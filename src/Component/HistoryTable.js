@@ -183,36 +183,7 @@ function HistoryTable() {
     
 
   
-   //-----------------------------------------
-    const PTB = async(PendingID,DataList,NextID)  => { 
-    PendingToBorrow(PendingID,DataList,NextID);
-  };
-
-
-  //รันเลขยืม
-    const getIndex = async(PendingID) => { 
-    const querySnapshot = await getDocs(collection(db, "Count"));
-    querySnapshot.forEach((doc) => {
-    const Borrow_ID =  doc.data().Count_Borrow_ID;
-    const NextID =  (Borrow_ID+1);
-    UpdateNewID(NextID);
-    console.log("Table NextID"+NextID);
-    PTB(PendingID,DataList,NextID);
-    DelPending(PendingID);
-    }
-    )
-
-    };
-    
-    //อัพเดตเลขยืม
-    const UpdateNewID = async(NextID) => {    
-    const docRef = doc(db,"Count","1");
-    const payload = {
-        Count_Borrow_ID: NextID,
-    };
-    await updateDoc(docRef,payload);
-    };
-
+  
 
   return (
     <><div>        
