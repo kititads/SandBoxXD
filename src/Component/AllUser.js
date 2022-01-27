@@ -147,10 +147,10 @@ function AllUser() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide} >User ID</TableCell>
-            <TableCell className={classes.tableHeaderCell} >Student ID</TableCell>
-            <TableCell className={classes.tableHeaderCell} >Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >Status User</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide} >รหัส</TableCell>
+            <TableCell className={classes.tableHeaderCell} >รหัสนักศึกษา</TableCell>
+            <TableCell className={classes.tableHeaderCell} >ชื่อ</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide} >สถานะ</TableCell>
             </TableRow>
             </TableHead>
             <TableBody>
