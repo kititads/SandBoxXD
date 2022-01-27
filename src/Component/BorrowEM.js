@@ -127,25 +127,26 @@ function BorrowEM() {
     querySnapshot.forEach((doc) => {
       const ArrayData = doc.data();
       const TimeTest = new Date(ArrayData.Due_Date.seconds * 1000 + ArrayData.Due_Date.nanoseconds/1000000)
-      const TodayDateAfterFormat = moment(TodayDate).format('DD/MM/YYYY');
-      const TimeTestAfterFormat = moment(TimeTest).format('DD/MM/YYYY');
+      const TodayDateAfterFormat = moment(TodayDate).format('MM/DD/YYYY');
+      const TimeTestAfterFormat = moment(TimeTest).format('MM/DD/YYYY');
 
       if(ArrayData.Student_ID === StuedID)
       {
           
-      if(TodayDateAfterFormat < TimeTestAfterFormat)
+
+      if(TodayDateAfterFormat <= TimeTestAfterFormat)
       {
-        
+        items.push(ArrayData)   
+         
+      }
+      else
+      {
         if(ArrayData.Borrow_Status != "ยืมเกินกำหนด")
         {
           UpdateNewStatus(ArrayData.Borrow_ID);
         }
         ArrayData.Borrow_Status = "ยืมเกินกำหนด";
-        items.push(ArrayData)  
-      }
-      else
-      {
-        items.push(ArrayData)   
+        items.push(ArrayData) 
        
 
       }
