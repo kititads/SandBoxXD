@@ -136,23 +136,25 @@ function BorrowTable() {
     const q = query(collection(db, "Borrow"),orderBy("Borrow_ID", "asc"));
     const querySnapshot = await getDocs(q);
     const items = [];
-    const TodeyDate = new Date();
+    const TodayDate = new Date();
     querySnapshot.forEach((doc) => {
       const ArrayData = doc.data();
       const TimeTest = new Date(ArrayData.Due_Date.seconds * 1000 + ArrayData.Due_Date.nanoseconds/1000000)
-      
-      if(TodeyDate <= TimeTest)
-      {
-        items.push(ArrayData)   
+      const TodayDateAfterFormat = moment(TodayDate).format('DD/MM/YYYY');
+      const TimeTestAfterFormat = moment(TimeTest).format('DD/MM/YYYY');
 
-      }
-      else
+      if(TodayDateAfterFormat <= TimeTestAfterFormat)
       {
+        
         if(ArrayData.Borrow_Status != "ยืมเกินกำหนด")
         {
           UpdateNewStatus(ArrayData.Borrow_ID);
         }
         ArrayData.Borrow_Status = "ยืมเกินกำหนด";
+        items.push(ArrayData)  
+      }
+      else
+      {
         items.push(ArrayData)   
        
 
