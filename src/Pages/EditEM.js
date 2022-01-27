@@ -191,8 +191,8 @@ function EditEM()
           <label >พร้อมใช้งาน</label><br/>
           <input id="status_radio_Unavailable" type="radio" name="status" value="ไม่พร้อมใช้งาน" onClick={()=> setStatus("ไม่พร้อมใช้งาน")}/>
           <label  >ไม่พร้อมใช้งาน</label><br/>
-          <input  id="status_radio_Out Of Stock" type="radio" name="status" value="หมด " onClick={()=> setStatus("หมด")}/>
-          <label >หมด</label>
+          <input  id="status_radio_Out Of Stock" type="radio" name="status" value="สินค้าหมด " onClick={()=> setStatus("สินค้าหมด")}/>
+          <label >สินค้าหมด</label>
           </div>
           </div>
           <hr/>
