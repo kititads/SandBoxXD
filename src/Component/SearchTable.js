@@ -215,7 +215,7 @@ function SearchTable() {
             <TableCell className={classes.tableHeaderCellCanHide} >Equipment ID</TableCell>
             <TableCell className={classes.tableHeaderCell} >Image</TableCell>
             <TableCell className={classes.tableHeaderCell} >Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >Location</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide} >Available</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide} >Status</TableCell>
             <TableCell className={classes.tableHeaderCell} >More</TableCell>
             </TableRow>
@@ -240,7 +240,7 @@ function SearchTable() {
             
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((DL) => (            
-
+            
             <TableRow key={DL.EM_ID}>
             <TableCell className={classes.CheckHide}>
             <Grid>
@@ -254,7 +254,7 @@ function SearchTable() {
             <Typography className={classes.name}>{DL.EM_Name}</Typography>
             </TableCell>
             <TableCell  className={classes.CheckHide}>
-            <Typography className={classes.name}>{DL.EM_Location}</Typography>
+            <Typography className={classes.name}>{DL.EM_Quantity-DL.EM_UseQuantity}/{DL.EM_Quantity}</Typography>
             </TableCell>
             <TableCell  className={classes.CheckHide}>
             <Typography
@@ -263,7 +263,7 @@ function SearchTable() {
             backgroundColor: 
             ((DL.EM_Status === 'Available' && 'green') ||
             (DL.EM_Status === 'Unavailable' && 'red') ||
-            (DL.EM_Status === 'Pending' && 'blue'))
+            (DL.EM_Status === 'Out Of Stock' && 'blue'))
             }}
             >{DL.EM_Status}</Typography>
             </TableCell>
