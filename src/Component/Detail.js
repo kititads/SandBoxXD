@@ -107,7 +107,7 @@ function Detail(PropID)
         
       }
     });
-    if(items[0].EM_Status != "Available" )
+    if(items[0].EM_Status != "พร้อมใช้งาน" )
     {
       setbutton("true");
     }
@@ -218,9 +218,9 @@ function Detail(PropID)
             <div ><img src={DL.EM_Image}  className="img-set"/> </div>
             <div className="Detail">
             <br/>
-            <div>Equipment_ID : {DL.EM_ID}</div>
-            <div>Name : {DL.EM_Name}</div>
-            <div>Detail</div>
+            <div>รหัสอุปกรณ์ : {DL.EM_ID}</div>
+            <div>ชื่ออุปกรณ์ : {DL.EM_Name}</div>
+            <div>รายละเอียด</div>
             <div><textarea rows="4" cols="33" className="textarea-set" disabled>
             {DL.EM_Detail}
             </textarea></div>
@@ -230,11 +230,11 @@ function Detail(PropID)
         <br/>
         <Col sm={7} className="BGDetail-V2">
         <div className="rightBox-set ">
-        {DL.EM_Status === "Available"  ? 
-        <div style={{color:'green'}}>Status : {DL.EM_Status}</div> : 
-        DL.EM_Status === "Unavailable" ? 
-        <div style={{color:'red'}}>Status : {DL.EM_Status}</div> :
-        <div style={{color:'blue'}}>Status : {DL.EM_Status}</div>}
+        {DL.EM_Status === "พร้อมใช้งาน"  ? 
+        <div style={{color:'green'}}>สถานะ : {DL.EM_Status}</div> : 
+        DL.EM_Status === "ไม่พร้อมใช้งาน" ? 
+        <div style={{color:'red'}}>สถานะ : {DL.EM_Status}</div> :
+        <div style={{color:'blue'}}>สถานะ : {DL.EM_Status}</div>}
         
         <br/>
         <div style={{color:'Brown'}}>จำนวนคงเหลือ {DL.EM_Quantity-DL.EM_UseQuantity}</div>
