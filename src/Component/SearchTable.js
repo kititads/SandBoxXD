@@ -110,7 +110,7 @@ function SearchTable() {
       {
         items.push(doc.data());    
       }
-      else if(doc.data().EM_Status ==="Available" )
+      else if(doc.data().EM_Status ==="Available" || doc.data().EM_Status ==="Out Of Stock")
       {
         items.push(doc.data());    
         
