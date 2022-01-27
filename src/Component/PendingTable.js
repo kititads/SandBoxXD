@@ -248,7 +248,7 @@ function PendingTable() {
    //-----------------------------------------
     const PTB = async(PendingID,DataList,DataList0,NextID)  => { 
     PendingToBorrow(PendingID,DataList,DataList0,NextID);
-    DelPending(PTB);
+    DelPending(PendingID);
   };
 
 
