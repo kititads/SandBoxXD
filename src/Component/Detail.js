@@ -12,6 +12,7 @@ import DetailToPending from './DetailToPending';
 import Cookies from 'universal-cookie';
 import Button from '@mui/material/Button';  
 import moment from 'moment';
+import TextField from '@mui/material/TextField';
 
 //-------------------------------------------//
 import Dialog from '@mui/material/Dialog';
@@ -29,6 +30,16 @@ function Detail(PropID)
 
   const db = getFirestore();
   const [LoanDate, setLoanDate] = useState(new Date());
+  const [PeadingNumber, setPeadingNumber] = useState(0);
+  const [MaxPeadingNumber, setMaxPeadingNumber] = useState(0);
+  if(PeadingNumber<0)
+  {
+    setPeadingNumber(0);
+  }
+  if(PeadingNumber>MaxPeadingNumber)
+  {
+    setPeadingNumber(MaxPeadingNumber);
+  }
   const [DataList,setDataList] = useState([]);
   const [ID,setID] = useState("");   
   const [Name,setName] = useState("");  
@@ -101,13 +112,15 @@ function Detail(PropID)
       setbutton("true");
     }
     setDataList(items);
+    const MaxPN = (items[0].EM_Quantity-items[0].EM_UseQuantity);
+    setMaxPeadingNumber(MaxPN)
     };
     
 
 
       //ยื่นคำขอยืม
       const Pending = async(NextID)  => { 
-      await DetailToPending(ID,Name,Image,cookies.get('Student_ID'),cookies.get('User_Name'),LoanDate,NextID,cookies.get('College_Years'));
+      await DetailToPending(ID,Name,Image,cookies.get('Student_ID'),cookies.get('User_Name'),PeadingNumber,LoanDate,NextID,cookies.get('College_Years'));
       handleClickOpen2();
 
       };
@@ -188,7 +201,6 @@ function Detail(PropID)
       };
      const TodeyDate = new Date; 
      
-
      
 
   return (
@@ -197,6 +209,7 @@ function Detail(PropID)
         
         <Container>
         {DataList.map((DL) => (
+        
         <Row>
         <Col sm={5} className="BGDetail">
         <br/><br/>
@@ -207,7 +220,6 @@ function Detail(PropID)
             <br/>
             <div>Equipment_ID : {DL.EM_ID}</div>
             <div>Name : {DL.EM_Name}</div>
-            <div>Location : {DL.EM_Location}</div>
             <div>Detail</div>
             <div><textarea rows="4" cols="33" className="textarea-set" disabled>
             {DL.EM_Detail}
@@ -225,13 +237,33 @@ function Detail(PropID)
         <div style={{color:'blue'}}>Status : {DL.EM_Status}</div>}
         
         <br/>
+        <div style={{color:'Brown'}}>จำนวนคงเหลือ {DL.EM_Quantity-DL.EM_UseQuantity}</div>
+        <br></br>
+        <hr></hr>
+        <br/>
+        <div>
+        <TextField
+          id="outlined-number"
+          label="จำนวนที่ต้องการยืม"
+          type="number"
+          size="small"
+          style={{maxWidth: '190px'}}
+          value={PeadingNumber}
+          onChange={e => { setPeadingNumber(e.target.value); }}
+          InputLabelProps={{
+            shrink: true,
+            
+          }}
+          
+        />
+        </div>
+        <br></br>
         <div>ต้องการยืมถึงวันที่ </div>
         <br/>
         <div><DatePicker selected={LoanDate} 
              onChange = {(date) => setLoanDate(date)} 
              dateFormat ='dd/MM/yyyy'
              minDate = {new Date()}
-             
              />         
         </div>
         <br/>
@@ -249,7 +281,11 @@ function Detail(PropID)
         {"คุณต้องการยืมอุปกรณ์ใช่หรือไม่"}        
         </DialogContentText>
         <DialogContentText id="alert-dialog-description">
+        {"จำนวน "+PeadingNumber+"  ชิ้น " }
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
         {"วันที่ " + ConvertTime(TodeyDate) + " ถึง "+ConvertTime(LoanDate)} 
+
        
         </DialogContentText>        
         </DialogContent>
