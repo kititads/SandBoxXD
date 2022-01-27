@@ -188,12 +188,12 @@ function HistoryEM(PropID) {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide}>History ID</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Loan Date</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Due Date</TableCell>        
-            <TableCell className={classes.tableHeaderCell} >User</TableCell>
-            <TableCell className={classes.tableHeaderCell} >Return</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>รหัส</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>วันที่ยืม</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>วันที่สิ้นสุดการยืม</TableCell>        
+            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ใช้</TableCell>
+            <TableCell className={classes.tableHeaderCell} >วันที่นำมาคืน</TableCell>
 
             </TableRow>
             </TableHead>
