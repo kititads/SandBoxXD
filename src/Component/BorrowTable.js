@@ -143,7 +143,7 @@ function BorrowTable() {
       const TodayDateAfterFormat = moment(TodayDate).format('DD/MM/YYYY');
       const TimeTestAfterFormat = moment(TimeTest).format('DD/MM/YYYY');
 
-      if(TodayDateAfterFormat <= TimeTestAfterFormat)
+      if(TodayDateAfterFormat > TimeTestAfterFormat)
       {
         
         if(ArrayData.Borrow_Status != "ยืมเกินกำหนด")
