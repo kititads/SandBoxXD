@@ -29,7 +29,9 @@ function EditEM()
 
             const [ID,setID] = useState("");
             const [Name,setName] = useState("");
-            const [Location,setLocation] = useState("");
+            const [Quantity,setQuantity] = useState("");
+            const [UseQuantity,setUseQuantity] = useState("");
+
             const [Detail,setDetail] = useState("");
             const [Status,setStatus] = useState("");
             const [fileUrl, getFileUrl] = useState("");
@@ -49,7 +51,8 @@ function EditEM()
                 items.map(value => {
                     setID(value.EM_ID);
                     setName(value.EM_Name);
-                    setLocation(value.EM_Location);
+                    setQuantity(value.EM_Quantity);
+                    setUseQuantity(value.EM_UseQuantity)
                     setDetail(value.EM_Detail);
                     setStatus(value.EM_Status);
                     getFileUrl(value.EM_Image);
@@ -73,7 +76,7 @@ function EditEM()
         
         const CheckButton = () => {
 
-        if(ID&&Name&&Location&&Detail&&Status&&fileUrl  !== "" ){
+        if(ID&&Name&&Quantity&&Detail&&Status&&fileUrl  !== "" ){
             handleNew();
             }
         else
@@ -85,8 +88,8 @@ function EditEM()
             else if(Name === ""){
                 document.getElementById('textName').focus();
             }
-            else if(Location === ""){
-                document.getElementById('textLocation').focus();
+            else if(Quantity === ""){
+                document.getElementById('textQuantity').focus();
             }
             else if(Detail === ""){
                 document.getElementById('textDetail').focus();
@@ -126,7 +129,7 @@ function EditEM()
 
      const handleNew = async() => {  
      const docRef = doc(db,"Equipment",ID.toString());
-     const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Location: Location,EM_Name: Name
+     const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: Quantity,EM_UseQuantity: UseQuantity,EM_Name: Name
      ,EM_Status: Status};
      await setDoc(docRef,payload);
      window.location.reload();
@@ -163,11 +166,11 @@ function EditEM()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Location</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Quantity</label>
           <div class="col-sm-10">
-          <input type="text" id="textLocation" class="form-control form-control-sm InsertBox-Set"  placeholder="Location"
-          value={Location}
-          onChange={e => { setLocation(e.target.value); }}
+          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="Quantity"
+          value={Quantity}
+          onChange={e => { setQuantity(e.target.value); }}
           />
           </div>
           </div>
@@ -188,8 +191,8 @@ function EditEM()
           <label >Available</label><br/>
           <input id="status_radio_Unavailable" type="radio" name="status" value="Unavailable" onClick={()=> setStatus("Unavailable")}/>
           <label  >Unavailable</label><br/>
-          <input  id="status_radio_Pending" type="radio" name="status" value="Unavailable" onClick={()=> setStatus("Pending")}/>
-          <label >Pending</label>
+          <input  id="status_radio_Out Of Stock" type="radio" name="status" value="Out Of Stock " onClick={()=> setStatus("Out Of Stock")}/>
+          <label >Out Of Stock</label>
           </div>
           </div>
           <hr/>
