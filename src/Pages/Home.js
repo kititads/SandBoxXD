@@ -25,21 +25,21 @@ function Home()
     
   return (
     <div style={{backgroundColor:"white"}}>
-    <div style={{backgroundImage:"url('https://cdngarenanow-a.akamaihd.net/games/lol/2020/LOLwebsite/img/blurred1.jpg')"}}>
+    <div style={{backgroundColor:"white"}}>
    
     <Swiper spaceBetween={30} centeredSlides={true} autoplay={{
   "delay": 2500,
   "disableOnInteraction": false
   }} pagination={{
   "clickable": true
-  }} navigation={true} className="mySwiper" style={{width: 1220,height: 520,paddingTop:50 }}>
-  <SwiperSlide><img width="1220" height="400" src="https://cdngarenanow-a.akamaihd.net/webth/cdn/lol/patch/Patch-12-2/Banner_TFT_Patch-Update-12-2_Head-Banner-1220x400.jpg"/></SwiperSlide>
-  <SwiperSlide><img width="1220" height="400" src="https://cdngarenanow-a.akamaihd.net/webth/cdn/lol/news/Zeri-Available-Now/Banner_LOL_New-Champion-Zeri_Head-Banner-1220x400.jpg" /></SwiperSlide>
-  <SwiperSlide><img width="1220" height="400" src="https://cdngarenanow-a.akamaihd.net/webth/cdn/lol/patch/Patch-12-2/Banner_TFT_Patch-Update-12-2_Head-Banner-1220x400.jpg"/></SwiperSlide>
-  <SwiperSlide><img width="1220" height="400" src="https://cdngarenanow-a.akamaihd.net/webth/cdn/lol/news/Light-of-Victory-Jan-2022/Banner_LOL_Gather-Jan-2022_Headbanner-1220x400.jpg"/></SwiperSlide>
-  <SwiperSlide><img width="1220" height="400" src="https://cdngarenanow-a.akamaihd.net/webth/cdn/lol/news/Lunar-Login-Jan-2022/Banner_LOL_DailyLoginDau-Jan-2022_Headbanner-1220x400.jpg"/></SwiperSlide>
+  }} navigation={true} className="mySwiper" style={{width: 1400,height: 600}}>
+  <SwiperSlide><img width="1400" height="600" src="https://www.rmutk.ac.th/wp-content/uploads/2020/12/01-19.jpg"/></SwiperSlide>
+  <SwiperSlide><img width="1400" height="600" src="https://www.rmutk.ac.th/wp-content/uploads/2020/12/03-17.jpg" /></SwiperSlide>
+  <SwiperSlide><img width="1400" height="600" src="https://www.rmutk.ac.th/wp-content/uploads/2020/12/05-10.jpg"/></SwiperSlide>
+  <SwiperSlide><img width="1400" height="600" src="http://hr-rmutk.com/upload/news/28012021133301banner.png"/></SwiperSlide>
 
   </Swiper>
+  <hr></hr>
   </div>
   <div style={{textAlign:"Center",marginTop:30}}>
  

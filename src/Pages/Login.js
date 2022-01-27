@@ -72,7 +72,7 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
         <Form>
         <Form.Group className="mb-3" controlId="formBasicStudent ID">
         <Form.Label className="Login-label">รหัสนักศึกษา</Form.Label>
-        <Form.Control type="text" placeholder="Enter Student ID" 
+        <Form.Control type="text" placeholder="รหัสนักศึกษา" 
          value={StudentID}
          onChange={e => { setStudent_ID(e.target.value); }}
 
@@ -84,7 +84,7 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
         <Form.Label className="Login-label">รหัสบัตรประชาชน</Form.Label>
 
         
-        <Form.Control type="password" placeholder="Password"
+        <Form.Control type="password" placeholder="รหัสบัตรประชาชน"
          value={Password}
          onChange={e => { setPassword(e.target.value); }}
          
