@@ -78,11 +78,11 @@ import Cookies from 'universal-cookie';
         <NavbarToggle aria-controls="responsive-navbar-nav" ></NavbarToggle>
         <NavbarCollapse className="setCenter"> 
         <Nav>
-        <Nav.Link href="/"><AiFillHome size={21}/>{' '}Home</Nav.Link>
-        <Nav.Link href="/search"><AiOutlineSearch size={21}/>{' '}Search</Nav.Link>
+        <Nav.Link href="/"><AiFillHome size={21}/>{' '}หน้าหลัก</Nav.Link>
+        <Nav.Link href="/search"><AiOutlineSearch size={21}/>{' '}ค้นหา</Nav.Link>
         {/* <Nav.Link  href="/about"><AiOutlineTeam size={21}/>{' '}About Us</Nav.Link>
         <Nav.Link  href="/contact"><AiOutlineComment size={21}/>{' '}Contact Us</Nav.Link> */}
-        <Nav.Link  href="/rules"><AiOutlineRead size={21}/>{' '}Rules</Nav.Link>
+        <Nav.Link  href="/rules"><AiOutlineRead size={21}/>{' '}กฎระเบียบ</Nav.Link>
 
         
         </Nav>    
@@ -92,7 +92,7 @@ import Cookies from 'universal-cookie';
         {/* ล็อกอิน */}
         <Nav>
         <Nav.Link href="/login" hidden={LoginState}>   
-        <RiLoginBoxLine size={21}/>{' '}Login</Nav.Link>
+        <RiLoginBoxLine size={21}/>{' '}ล็อกอิน</Nav.Link>
         </Nav>
         {/* User */}
 
