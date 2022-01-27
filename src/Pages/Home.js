@@ -29,7 +29,7 @@ function Home()
         ........................................................
         ........................................................
         </Card.Text>
-        <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}} onClick="">More</Button>{' '}
+        <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}} onClick=""> More</Button>{' '}
 
         </Card.Body>
         </Card>
