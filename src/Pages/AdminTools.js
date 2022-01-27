@@ -42,7 +42,7 @@ function AdminTools() {
       return (
         <div className="container Default-Box-Set">
             <div className="text-center" style={{paddingTop : "5%" ,paddingBottom: "15%",textAlign : 'center'}}>
-            <div className="SubBG"><FaTools size={50} className="icon-set-container"/>Admin Tools</div>
+            <div className="SubBG"><FaTools size={50} className="icon-set-container"/>เครื่องมือผู้ดูแลระบบ</div>
             <div className="SubBG-TextSet Card-Set border border-black">
             <div className="page-set Home-Set-Title ">
               
@@ -56,7 +56,7 @@ function AdminTools() {
             <Card.Title>{DL.ToolName}</Card.Title>
             <br/>
             
-            <a href={DL.UrlTool}><Button variant="contained" style={{backgroundColor:'#212F3D',color:'white',minWidth: '100px'}}>GO</Button></a>{' '}
+            <a href={DL.UrlTool}><Button variant="contained" style={{backgroundColor:'#212F3D',color:'white',minWidth: '100px'}}>ไป</Button></a>{' '}
     
             </Card.Body>
             </Card>
