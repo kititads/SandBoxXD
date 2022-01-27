@@ -1,4 +1,3 @@
-import faker, { date } from 'faker';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@mui/material/Button';  
