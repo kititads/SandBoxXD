@@ -34,7 +34,7 @@ import FirebaseApp from '../firebase';
 
     const BorrowNum = parseInt(DL.Borrow_Quantity)
     const NewQuantity = (DataList0[DL.EM_ID].EM_UseQuantity + BorrowNum)
-    const CheckQuantity = DataList0[DL.EM_ID].EM_UseQuantity - NewQuantity
+    const CheckQuantity = (DataList0[DL.EM_ID].EM_Quantity - NewQuantity)
     
     if(CheckQuantity === 0)
     {
