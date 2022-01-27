@@ -32,14 +32,14 @@ function InsertEM()
 
         const [ID,setID] = useState("");
         const [Name,setName] = useState("");
-        const [Location,setLocation] = useState("");
+        const [Quantity,setQuantity] = useState("");
         const [Detail,setDetail] = useState("");
         const [Status,setStatus] = useState("");
         const [fileUrl, getFileUrl] = useState("");
         
         const CheckButton = () => {
 
-        if(ID&&Name&&Location&&Detail&&Status&&fileUrl  !== "" ){
+        if(ID&&Name&&Quantity&&Detail&&Status&&fileUrl  !== "" ){
             handleNew();
             }
         else
@@ -51,8 +51,8 @@ function InsertEM()
             else if(Name === ""){
                 document.getElementById('textName').focus();
             }
-            else if(Location === ""){
-                document.getElementById('textLocation').focus();
+            else if(Quantity === ""){
+                document.getElementById('textQuantity').focus();
             }
             else if(Detail === ""){
                 document.getElementById('textDetail').focus();
@@ -95,7 +95,7 @@ function InsertEM()
      await getIndex();
      await UpdateNewID(ID);
      const docRef = doc(db,"Equipment",ID.toString());
-     const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Location: Location,EM_Name: Name
+     const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: parseInt(Quantity),EM_UseQuantity: 0,EM_Name: Name
      ,EM_Status: Status};
      await setDoc(docRef,payload);
      window.location.reload();
@@ -154,11 +154,11 @@ function InsertEM()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Location</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">Quantity</label>
           <div class="col-sm-10">
-          <input type="text" id="textLocation" class="form-control form-control-sm InsertBox-Set"  placeholder="Location"
-          value={Location}
-          onChange={e => { setLocation(e.target.value); }}
+          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="Quantity"
+          value={Quantity}
+          onChange={e => { setQuantity(e.target.value); }}
           />
           </div>
           </div>
