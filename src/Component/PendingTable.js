@@ -96,7 +96,9 @@ const useStyles = makeStyles((theme) => ({
         
 
 function PendingTable() {
+    const [DataList0,setDataList0] = useState([]);   
     const [DataList,setDataList] = useState([]);   
+
     const db = getFirestore();
     const [UserState,setUserState] = useState("");
     const [AdminState,setAdminState] = useState("");
@@ -109,14 +111,16 @@ function PendingTable() {
     const cookies = new Cookies();
     if(cookies.get('Status_User') === "User")
     {
-    getData();
+    getData0();
+
     setUserState("");
     setAdminState("true");
     }
   
     else if(cookies.get('Status_User') === "Admin")
     {
-    getData();
+    getData0();
+
     setUserState("true");
     setAdminState("");
 
@@ -130,13 +134,15 @@ function PendingTable() {
 
 
     },[]);
+    const cookies = new Cookies();
 
     const getData = async() => { 
-    const cookies = new Cookies();
+    //คำขอยืม 
     const q = query(collection(db, "Pending"),orderBy("Pending_ID", "asc"));
     const querySnapshot = await getDocs(q);
     const items = [];
     querySnapshot.forEach((doc) => { 
+      console.log(querySnapshot);
       if(cookies.get('Status_User') === "User")
       {
         if(doc.data().Student_ID === cookies.get('Student_ID'))
@@ -147,15 +153,32 @@ function PendingTable() {
       }
       else
       {
-        items.push(doc.data());     
+        items.push(doc.data());  
+  
+              
       }
       
     });
-       setDataList(items);  
+       setDataList(items); 
     };
 
+    const getData0 = async() => { 
+      //อุปกรณ์
+      const q = query(collection(db, "Equipment"),orderBy("EM_ID", "asc"));
+      const querySnapshot = await getDocs(q);
+      const items = [];
+      querySnapshot.forEach((doc) => { 
+        var NoData = doc.data().EM_ID;
+        
+       
+          items[NoData] = doc.data();  
+    
 
-
+      });
+         setDataList0(items); 
+         getData();
+      };
+    
 
 
   //ตาราง
@@ -192,27 +215,29 @@ function PendingTable() {
   };
 
   
-  //ลบคำขอที่ซ้ำกัน
-  const SuperDelPending = async(PendingID) => {
-    var EM_ID_TODO = [];
-    
-    DataList.map(DL=>{
+  //ไม่ใช้แล้ว
 
-      if(DL.Pending_ID === PendingID )
-      {
-        EM_ID_TODO = DL.EM_ID;
-      }
-    })
-    DataList.map(DL=>{
+  // //ลบคำขอที่ซ้ำกัน
+  // const SuperDelPending = async(PendingID) => {
+  //   var EM_ID_TODO = [];
     
-      if(DL.EM_ID === EM_ID_TODO )
-        {
-         deleteDoc(doc(db, "Pending", DL.Pending_ID.toString()));
-        }        
-        })
+  //   DataList.map(DL=>{
 
-  getData();
-  };  
+  //     if(DL.Pending_ID === PendingID )
+  //     {
+  //       EM_ID_TODO = DL.EM_ID;
+  //     }
+  //   })
+  //   DataList.map(DL=>{
+    
+  //     if(DL.EM_ID === EM_ID_TODO )
+  //       {
+  //        deleteDoc(doc(db, "Pending", DL.Pending_ID.toString()));
+  //       }        
+  //       })
+
+  // getData();
+  // };  
 
 
 
@@ -221,8 +246,9 @@ function PendingTable() {
 
   
    //-----------------------------------------
-    const PTB = async(PendingID,DataList,NextID)  => { 
-    PendingToBorrow(PendingID,DataList,NextID);
+    const PTB = async(PendingID,DataList,DataList0,NextID)  => { 
+    PendingToBorrow(PendingID,DataList,DataList0,NextID);
+    DelPending(PTB);
   };
 
 
@@ -234,8 +260,7 @@ function PendingTable() {
     const Borrow_ID =  doc.data().Count_Borrow_ID;
     const NextID =  (Borrow_ID+1);
     UpdateNewID(NextID);
-    PTB(PendingID,DataList,NextID);
-    SuperDelPending(PendingID);
+    PTB(PendingID,DataList,DataList0,NextID);
     }
     )
 
@@ -319,8 +344,8 @@ function PendingTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>Pending ID</TableCell>
             <TableCell className={classes.tableHeaderCell}>Image	</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>Name</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Loan Date</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>Due Date</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>Quantity</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>Date</TableCell>
             <TableCell className={classes.tableHeaderCell} >User</TableCell>
             <TableCell className={classes.tableHeaderCell} >More</TableCell>
 
@@ -371,10 +396,18 @@ function PendingTable() {
             <Typography className={classes.name}>{DL.EM_Name}</Typography>
             </TableCell>
             <TableCell className={classes.CheckHide}> 
-            <Typography className={classes.name}>{ConvertTime(DL.Loan_Date)}</Typography>
+            <Typography className={classes.name}>
+
+            {DL.Borrow_Quantity}
+            /  
+            {DataList0[DL.EM_ID].EM_Quantity-DataList0[DL.EM_ID].EM_UseQuantity}</Typography>
             </TableCell>
             <TableCell className={classes.CheckHide}>
-            <Typography className={classes.name}>{ConvertTime(DL.Due_Date)}</Typography>
+            <Typography className={classes.name}>
+             <div>  {ConvertTime(DL.Loan_Date)}</div>
+             <div> -</div>
+
+             <div>  {ConvertTime(DL.Due_Date)}</div></Typography>
             </TableCell>
             <TableCell>
             <Typography className={classes.name}>{DL.User_Name}</Typography>
