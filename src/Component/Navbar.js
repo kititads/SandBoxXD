@@ -97,7 +97,7 @@ import Cookies from 'universal-cookie';
         {/* User */}
 
         <Nav hidden={UserState}>
-        <NavDropdown title={"USER : "+User_Name} id="navbarScrollingDropdown">
+        <NavDropdown title={"ผู้ใช้ : "+User_Name} id="navbarScrollingDropdown">
         {/* <NavDropdown.Item href="#action3">ข้อมูลส่วนตัว</NavDropdown.Item> */}
         <NavDropdown.Item href="/pending">อุปกรณ์รออนุมัติ</NavDropdown.Item>
         <NavDropdown.Item href="/borrowem">อุปกรณ์ที่กำลังยืม</NavDropdown.Item>
@@ -110,7 +110,7 @@ import Cookies from 'universal-cookie';
         {/* Admin */}
 
         <Nav hidden={AdminState}>
-        <NavDropdown title={"ADMIN : "+User_Name} id="navbarScrollingDropdown">
+        <NavDropdown title={"แอดมิน : "+User_Name} id="navbarScrollingDropdown">
         <NavDropdown.Item href="/admintools">เครื่องมือผู้ดูแลระบบ</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item href="/login" onClick={Logout}>ออกจากระบบ</NavDropdown.Item>
