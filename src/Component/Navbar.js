@@ -83,7 +83,7 @@ import Cookies from 'universal-cookie';
         <Nav.Link  href="/rules"><AiOutlineRead size={21}/>{' '}ระเบียบการยืม-คืน</Nav.Link>
 
         <Nav.Link  href="/about"><AiOutlineTeam size={21}/>{' '}เกี่ยวกับเรา</Nav.Link>
-        <Nav.Link  href="/contact"><AiOutlineComment size={21}/>{' '}ติดต่อเรา</Nav.Link>
+        {/* <Nav.Link  href="/contact"><AiOutlineComment size={21}/>{' '}ติดต่อเรา</Nav.Link> */}
 
         
         </Nav>    
