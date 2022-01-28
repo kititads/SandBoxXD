@@ -238,6 +238,9 @@ function SearchTable() {
               else if(DL.EM_Name.toLowerCase().includes(Search.toLowerCase()))
               {
                   return DL;
+              }else if(DL.EM_Status.toLowerCase().includes(Search.toLowerCase()))
+              {
+                  return DL;
               }
               
               })
