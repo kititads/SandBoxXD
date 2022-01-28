@@ -1,17 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@mui/material/Button';  
 import './Table.css';
 import { useEffect,useState } from 'react';
-import { BsTable } from "react-icons/bs";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
-import { getFirestore,collection, query, where, getDocs,doc,deleteDoc,updateDoc, orderBy  } from '@firebase/firestore';
+import { getFirestore,collection, query, getDocs,doc,updateDoc, orderBy  } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
 import moment from 'moment';
-import BorrowToHistory from './BorrowToHistory';
 import Cookies from 'universal-cookie';
-import SendIcon from '@mui/icons-material/Send';
 
 
 import { 
@@ -22,18 +18,12 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Avatar,
     Grid,
     Typography,
     TablePagination
  } from '@material-ui/core';
 
-//-------------------------------------------//
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 
@@ -140,7 +130,7 @@ function BorrowEM() {
       }
       else
       {
-        if(ArrayData.Borrow_Status != "ยืมเกินกำหนด")
+        if(ArrayData.Borrow_Status !== "ยืมเกินกำหนด")
         {
           UpdateNewStatus(ArrayData.Borrow_ID);
         }

@@ -1,16 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@mui/material/Button';  
 import './Table.css';
 import { useEffect,useState } from 'react';
-import { BsTable } from "react-icons/bs";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
-import { getFirestore,collection, query, where, getDocs,orderBy } from '@firebase/firestore';
+import { getFirestore,collection, query, getDocs,orderBy } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
 import Cookies from 'universal-cookie';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import { 
     Table,
     TableBody,

@@ -2,7 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } from '@firebase/firestore';
+import { getFirestore,collection, getDocs,doc,updateDoc } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
 import { useEffect,useState } from 'react';
 import "./Detail.css";
@@ -116,7 +116,7 @@ function Detail(PropID)
         
       }
     });
-    if(items[0].EM_Status != "พร้อมใช้งาน" )
+    if(items[0].EM_Status !== "พร้อมใช้งาน" )
     {
       setbutton("true");
     }
@@ -141,7 +141,7 @@ function Detail(PropID)
       // if(cookies.get('Status_User') == "Admin" || "User")
       if(cookies.get('Status_User') != null)
       {
-        if(PeadingNumber != 0)
+        if(PeadingNumber !== 0)
         {
         handleClickOpen();
         }
@@ -236,7 +236,7 @@ function Detail(PropID)
             <div>รหัสอุปกรณ์ : {DL.EM_ID}</div>
             <div>ชื่ออุปกรณ์ : {DL.EM_Name}</div>
             <div>รายละเอียด</div>
-            <div><textarea rows="4" cols="33" className="textarea-set" disabled>
+            <div><textarea rows="4" cols="33" className="textarea-set" alt="" disabled>
             {DL.EM_Detail}
             </textarea></div>
             </div>

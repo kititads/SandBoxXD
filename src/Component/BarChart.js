@@ -3,7 +3,7 @@ import { Chart as ChartJS,BarElement, CategoryScale, LinearScale } from 'chart.j
 import { Bar } from 'react-chartjs-2'
 import FirebaseApp from '../firebase';
 import { useEffect,useState } from 'react';
-import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } from '@firebase/firestore';
+import { getFirestore,collection, query, getDocs } from '@firebase/firestore';
 import moment from 'moment';
 
 

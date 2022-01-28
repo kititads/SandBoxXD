@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { getFirestore,collection, query, where, getDocs,orderBy,setDoc,doc,updateDoc } from '@firebase/firestore';
+import { getFirestore,setDoc,doc,updateDoc } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
 
     function BorrowToHistory(PropBorrowID,DataList,DataList0,NextID) {

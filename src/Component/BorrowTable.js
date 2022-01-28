@@ -3,10 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@mui/material/Button';  
 import './Table.css';
 import { useEffect,useState } from 'react';
-import { BsTable } from "react-icons/bs";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
-import { getFirestore,collection, query, where, getDocs,doc,deleteDoc,updateDoc, orderBy  } from '@firebase/firestore';
+import { getFirestore,collection, query, getDocs,doc,deleteDoc,updateDoc, orderBy  } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
 import moment from 'moment';
 import BorrowToHistory from './BorrowToHistory';
@@ -22,7 +21,6 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Avatar,
     Grid,
     Typography,
     TablePagination
@@ -156,7 +154,7 @@ function BorrowTable() {
       }
       else
       {
-        if(ArrayData.Borrow_Status != "ยืมเกินกำหนด")
+        if(ArrayData.Borrow_Status !== "ยืมเกินกำหนด")
         {
           UpdateNewStatus(ArrayData.Borrow_ID);
         }
@@ -330,7 +328,7 @@ function BorrowTable() {
             </Grid>
             </TableCell>
             <TableCell>
-            <img src={DL.EM_Image}  className="img-set-Test"></img>
+            <img src={DL.EM_Image}  className="img-set-Test" alt=""></img>
             </TableCell>
             <TableCell className={classes.CheckHide}>
             <Typography className={classes.name}>{DL.EM_Name}</Typography>
