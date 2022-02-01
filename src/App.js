@@ -25,6 +25,8 @@ import Rules from './Pages/Rules';
 import InsertUser from './Pages/InsertUser';
 import ShowBorrowEM from './Pages/ShowBorrowEM';
 import ShowUserBorrow from './Pages/ShowUserBorrow';
+import ShowHistoryUser from './Pages/ShowHistoryUser';
+
 function App() {
 
 
@@ -55,6 +57,8 @@ function App() {
         <Route exact path="/insertuser" component={InsertUser}/>
         <Route exact path="/borrowem" component={ShowBorrowEM}/>
         <Route exact path="/userborrowhistory" component={ShowUserBorrow}/>
+        <Route exact path="/historyuser/:id" component={ShowHistoryUser}/>
+
 
         <Route component={NotFound} />
       </Switch>

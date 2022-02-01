@@ -276,8 +276,8 @@ function HistoryTable() {
             <TableCell>
             
             <Typography  className={classes.name}>จำนวนที่ขอยืม : {DL.Borrow_Quantity}</Typography>
-            <Typography  className={classes.name}>จำนวนที่มาคืน : {DL.Borrow_Quantity}</Typography>
-            <Typography  className={classes.name}>จำนวนที่ชำรุด : {DL.Borrow_Quantity}</Typography>
+            <Typography  className={classes.name}>จำนวนที่มาคืน : {DL.Borrow_Quantity-DL.EquipmentBroken}</Typography>
+            <Typography  className={classes.name}>จำนวนที่ชำรุด : {DL.EquipmentBroken}</Typography>
 
             </TableCell>
             <TableCell>

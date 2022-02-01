@@ -72,7 +72,7 @@ function InsertUser()
      await UpdateNewID(ID);
      const docRef = doc(db,"User",ID.toString());
      const payload = {User_ID: ID ,User_Name: Name,Student_ID: StudentID,Email: Email,Status_User: StatusUser
-     ,College_Years: CollegeYears};
+     ,College_Years: CollegeYears,Count_Borrow:0,Count_Broken:0};
      await setDoc(docRef,payload);
      window.location.reload();
 

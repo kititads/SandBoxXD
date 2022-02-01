@@ -114,10 +114,12 @@ function BorrowTable() {
         }
       })
     };
+    const [RealStudentID,setRealStudentID] = useState(0);
 
-    const handleClickOpen = (PID) => {
+    const handleClickOpen = (PID,SID) => {
       UpdatePeadingNumber(PID);
       setRealPendingID(PID);
+      setRealStudentID(SID);
       setOpen(true);
     };
 
@@ -128,6 +130,7 @@ function BorrowTable() {
   
     const [DataList,setDataList] = useState([]);   
     const [DataList0,setDataList0] = useState([]);   
+    const [DataListUser,setDataListUser] = useState([]);   
     const [Why,setWhy] = useState("");
     const [ReturnType,setReturnType] = useState("คืนอุปกรณ์ครบ");
     const [EquipmentBroken,setEquipmentBroken] = useState(1);
@@ -210,9 +213,24 @@ function BorrowTable() {
 
       });
          setDataList0(items); 
+         getDataUser();
+
          getData();
       };
 
+      //ผู้ใช้
+      const getDataUser = async() => { 
+        const q = query(collection(db, "User"));
+        const querySnapshot = await getDocs(q);
+        const items = [];
+        querySnapshot.forEach((doc) => { 
+         
+          items.push(doc.data());    
+
+  
+        });
+           setDataListUser(items); 
+        };
 
     //ตาราง
   const classes = useStyles();
@@ -259,20 +277,45 @@ function BorrowTable() {
 
 
     //-----------------------------------------
-    const BTH = async(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why)  => { 
+    const BTH = async(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why,UID)  => { 
       BorrowToHistory(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why);
+      if(ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย")
+      {
+      UpdateUser(UID);
+      }
     };
   
+    const UpdateUser = async(UID) => {
+      const docRef = doc(db, "User", UID[0].User_ID.toString());
+      var NewCount = UID[0].Count_Broken+1
+      const payload = {
+        Count_Broken:NewCount
   
+      };
+     
+  
+      await updateDoc(docRef,payload);
+  
+    };
+
+
     //รันเลขยืม
-      const getIndex = async(BorrowID) => { 
+      const getIndex = async(BorrowID,RealSTD) => { 
       const querySnapshot = await getDocs(collection(db, "Count"));
       querySnapshot.forEach((doc) => {
       const History_ID =  doc.data().Count_History_ID;
       const NextID =  (History_ID+1);
       UpdateNewID(NextID);
       console.log("Table NextID"+NextID);
-      BTH(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why);
+      const UID = DataListUser.filter(DL=>{
+        if(DL.Student_ID === parseInt(RealSTD))
+        {
+          return DL
+        }
+      })
+
+
+      BTH(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why,UID);
       UpdatePending(BorrowID);
       handleClose();
 
@@ -281,6 +324,7 @@ function BorrowTable() {
   
       };
       
+
       //อัพเดตสถานะยืม
       const UpdateNewStatus = async(B_ID) => {    
         const docRef = doc(db,"Borrow",B_ID.toString());
@@ -325,13 +369,13 @@ function BorrowTable() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
+            <TableCell style={{minWidth:70}} className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>รูปภาพ	</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
-            <TableCell className={classes.tableHeaderCell}>ชื่อผู้ยืม</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>สถานะการยืม</TableCell>
+            <TableCell style={{minWidth:100}} className={classes.tableHeaderCell}>ชื่อผู้ยืม</TableCell>
+            <TableCell style={{minWidth:110}} className={classes.tableHeaderCellCanHide}>สถานะการยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>เพิ่มเติม</TableCell>
         
             </TableRow>
@@ -427,8 +471,8 @@ function BorrowTable() {
             onChange={e => setReturnType(e.target.value)}  name="EM_Status" id="Status">
             <option value="คืนอุปกรณ์ครบ"
             >คืนอุปกรณ์ครบ</option>
-            <option value="อุปกรณ์ชำรุดหรือเสียหาย"
-            >อุปกรณ์ชำรุดหรือเสียหาย</option>
+            <option value="อุปกรณ์ชำรุดหรือสูญหาย"
+            >อุปกรณ์ชำรุดหรือสูญหาย</option>
             <option value="ยกเลิกรายการยืม"
             >ยกเลิกรายการยืม</option>
             </select>
@@ -452,11 +496,11 @@ function BorrowTable() {
             </DialogContentText>
             )} 
 
-            {/* อุปกรณ์ชำรุดหรือเสียหาย */}
+            {/* อุปกรณ์ชำรุดหรือสูญหาย */}
             
           
             
-            {(ReturnType === "อุปกรณ์ชำรุดหรือเสียหาย" && 
+            {(ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย" && 
             <DialogContentText id="alert-dialog-description">
             <TextField
              id="outlined-number"
@@ -475,14 +519,14 @@ function BorrowTable() {
             </DialogContentText>   
             )} 
 
-            {(ReturnType === "อุปกรณ์ชำรุดหรือเสียหาย" && 
+            {(ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย" && 
             
             <DialogContentText id="alert-dialog-description">   
             {"หมายเหตุ :"} 
 
             </DialogContentText>
             )} 
-            {(ReturnType === "อุปกรณ์ชำรุดหรือเสียหาย" &&                
+            {(ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย" &&                
             <DialogContentText id="alert-dialog-description">
             <textarea rows="4" cols="34" className='textarea-set'
             value={Why}
@@ -514,7 +558,7 @@ function BorrowTable() {
 
 
             <DialogActions>
-            <Button onClick={() => getIndex(RealPendingID)}>ยืนยัน</Button>
+            <Button onClick={() => getIndex(RealPendingID,RealStudentID)}>ยืนยัน</Button>
             <Button onClick={handleClose} autoFocus style={{color: "red"}}>
             ยกเลิก
             </Button>
@@ -523,7 +567,7 @@ function BorrowTable() {
 
 
 
-            <Button variant="contained" startIcon={<SendIcon  />} color="info" size="medium" style={{minWidth: '120px'}} onClick={()=>handleClickOpen(DL.Borrow_ID)}>คืนอุปกรณ์</Button>{' '}
+            <Button variant="contained" startIcon={<SendIcon  />} color="info" size="medium" style={{minWidth: '120px'}} onClick={()=>handleClickOpen(DL.Borrow_ID,DL.Student_ID)}>คืนอุปกรณ์</Button>{' '}
 
             </TableCell>
             </TableRow>

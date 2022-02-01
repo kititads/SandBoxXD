@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 function PendingTable() {
     const [DataList0,setDataList0] = useState([]);   
     const [DataList,setDataList] = useState([]);   
+    const [DataListUser,setDataListUser] = useState([]);   
 
     const db = getFirestore();
     const [UserState,setUserState] = useState("");
@@ -195,9 +196,23 @@ function PendingTable() {
 
       });
          setDataList0(items); 
+         getDataUser();
          getData();
       };
-    
+      
+        //ผู้ใช้
+        const getDataUser = async() => { 
+        const q = query(collection(db, "User"));
+        const querySnapshot = await getDocs(q);
+        const items = [];
+        querySnapshot.forEach((doc) => { 
+         
+          items.push(doc.data());    
+
+  
+        });
+           setDataListUser(items); 
+        };
 
 
   //ตาราง
@@ -259,6 +274,21 @@ function PendingTable() {
   getData();
   };
 
+  const UpdateUser = async(UID) => {
+    const docRef = doc(db, "User", UID[0].User_ID.toString());
+    var NewCount = UID[0].Count_Borrow+1
+    const payload = {
+      Count_Borrow:NewCount
+
+    };
+    handleClose2();
+    handleClose3();
+    handleClose4();
+
+    await updateDoc(docRef,payload);
+
+  };
+
 
   const UpdatePending2 = async(PendingID) => {
     const docRef = doc(db, "Pending", PendingID.toString());
@@ -305,21 +335,33 @@ function PendingTable() {
 
   
    //-----------------------------------------
-    const PTB = async(PendingID,DataList,DataList0,NextID)  => { 
+    const PTB = async(PendingID,DataList,DataList0,NextID,UID)  => { 
     PendingToBorrow(PendingID,DataList,DataList0,NextID);
     UpdatePending4(PendingID);
+    UpdateUser(UID);
+
   };
 
 
   //รันเลขยืม
-    const getIndex = async(PendingID) => { 
+    const getIndex = async(PendingID,RealSTD) => { 
+
     handleClose1();
     const querySnapshot = await getDocs(collection(db, "Count"));
     querySnapshot.forEach((doc) => {
     const Borrow_ID =  doc.data().Count_Borrow_ID;
     const NextID =  (Borrow_ID+1);
     UpdateNewID(NextID);
-    PTB(PendingID,DataList,DataList0,NextID);
+    const UID = DataListUser.filter(DL=>{
+      if(DL.Student_ID === parseInt(RealSTD))
+      {
+        return DL
+      }
+    })
+    PTB(PendingID,DataList,DataList0,NextID,UID);
+   
+
+
     }
     )
 
@@ -343,12 +385,16 @@ function PendingTable() {
 
     //แก้บัค
     const [RealPendingID,setRealPendingID] = useState(0);
+    const [RealStudentID,setRealStudentID] = useState(0);
 
 
 
-    const handleClickOpen1 = (PID) => {
+    const handleClickOpen1 = (PID,SID) => {
     setRealPendingID(PID);
+    setRealStudentID(SID);
     setOpen1(true);
+   
+
      };
 
      const handleClose1 = () => {
@@ -515,11 +561,11 @@ function PendingTable() {
 
             <div hidden={AdminState} className="Pending_button">
             {(DL.Borrow_Quantity > DataList0[DL.EM_ID].EM_Quantity-DataList0[DL.EM_ID].EM_UseQuantity && 
-            <Button disabled="true" variant="contained" startIcon={<DoneIcon />} color="primary"  size="small"  style={{minWidth: '110px' }}   onClick={()=>handleClickOpen1(DL.Pending_ID)}>อนุญาต</Button>)} 
+            <Button disabled="true" variant="contained" startIcon={<DoneIcon />} color="primary"  size="small"  style={{minWidth: '110px' }}   onClick={()=>handleClickOpen1(DL.Pending_ID,DL.Student_ID)}>อนุญาต</Button>)} 
             </div >
             <div hidden={AdminState} className="Pending_button">
             {(DL.Borrow_Quantity <= DataList0[DL.EM_ID].EM_Quantity-DataList0[DL.EM_ID].EM_UseQuantity && 
-            <Button variant="contained" startIcon={<DoneIcon />} color="primary"  size="small"  style={{minWidth: '110px' }}   onClick={()=>handleClickOpen1(DL.Pending_ID)}>อนุญาต</Button>            )} 
+            <Button variant="contained" startIcon={<DoneIcon />} color="primary"  size="small"  style={{minWidth: '110px' }}   onClick={()=>handleClickOpen1(DL.Pending_ID,DL.Student_ID)}>อนุญาต</Button>            )} 
             </div>
             <div hidden={AdminState} className="Pending_button"><Button variant="contained" startIcon={<EditOutlinedIcon />} color="warning" size="small" style={{minWidth: '110px'}}   onClick={()=>handleClickOpen4(DL.Pending_ID)}>แก้ไขคำขอ</Button></div>
             <div hidden={AdminState} className="Pending_button"><Button variant="contained" startIcon={<CloseIcon />} color="error" size="small" style={{minWidth: '110px'}}   onClick={()=>handleClickOpen2(DL.Pending_ID)}>ไม่อนุญาต</Button></div>
@@ -546,7 +592,7 @@ function PendingTable() {
         
         </DialogContent>
         <DialogActions>
-        <Button onClick={() => getIndex(RealPendingID)}>ใช่</Button>
+        <Button onClick={() => getIndex(RealPendingID,RealStudentID)}>ใช่</Button>
         <Button onClick={handleClose1} autoFocus style={{color: "red"}}>
          ไม่ใช่
         </Button>

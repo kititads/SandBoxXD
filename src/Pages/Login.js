@@ -84,6 +84,7 @@ function LoginRMUTK() {
         if(doc.data().Email.toString() === EmailData.email )
         {
 
+          cookies.set('User_ID'  , doc.data().User_ID, { path: '/' });
           cookies.set('User_Name'  , doc.data().User_Name, { path: '/' });
           cookies.set('Status_User', doc.data().Status_User, { path: '/' });
           cookies.set('Student_ID' , doc.data().Student_ID, { path: '/' });

@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 const db = getFirestore();
         
 
-function UserBorrowHistory() {
+function TheMostBroken() {
     const [DataList,setDataList] = useState([]);   
     const [DataListHistory,setDataListHistory] = useState([]);   
 
@@ -102,7 +102,7 @@ function UserBorrowHistory() {
     const [DocPlus,setDocPlus] = useState([]);   
 
     const getData = async() => { 
-    const q = query(collection(db, "User"),orderBy("Count_Borrow", "desc"));
+    const q = query(collection(db, "User"),orderBy("Count_Broken", "desc"));
     const querySnapshot = await getDocs(q);
     const items = [];
     querySnapshot.forEach((doc) => {
@@ -152,19 +152,7 @@ function UserBorrowHistory() {
   return (
     <><div>        
     <div className="SubBG-TextSet border border-black">
-    <Form className="d-flex Search-Set-button">
-    <FormControl
     
-    type="search"
-    placeholder="ค้นหา"
-    className="mr-2"
-    aria-label="Search"
-    onChange={(e) => setSearch(e.target.value)}
-    onKeyPress={e => {
-      if (e.key === 'Enter') e.preventDefault();
-    }} 
-    />
-    </Form>
     
     <div>
     </div>
@@ -186,8 +174,7 @@ function UserBorrowHistory() {
             </TableCell>
             
             
-            <TableCell className={classes.tableHeaderCell} >จำนวนครั้งที่คืนช้า</TableCell>
-            <TableCell className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
+            <TableCell style={{maxWidth:150}} className={classes.tableHeaderCell} >จำนวนครั้งที่มีอุปกรณ์ชำรุดหรือสูญหาย</TableCell>
 
 
             </TableRow>
@@ -242,12 +229,8 @@ function UserBorrowHistory() {
             <Grid>
             <Typography className={classes.name}>
                 
-            {DataListHistory.filter(Data=>{
-                if(Data.Student_ID === DL.Student_ID && Data.Borrow_Status === "ยืมเกินกำหนด")
-                {
-                    return DL
-                }
-            }).length}
+            {DL.Count_Broken}
+
 
             
             </Typography>
@@ -255,19 +238,7 @@ function UserBorrowHistory() {
 
             </Grid>
             </TableCell>
-            <TableCell>
-            <Grid>
-            <Typography className={classes.name}>
-                
-            <div className="SerachTable_button">
-            <a href={"/HistoryUser/"+DL.Student_ID}><Button variant="contained" startIcon={<ArticleOutlinedIcon />} color="info" style={{minWidth: '120px'}} size="small" value={DL.EM_ID} >ประวัติการยืม</Button></a>
-            </div>
             
-            </Typography>
-
-
-            </Grid>
-            </TableCell>
            
             </TableRow>
             
@@ -294,4 +265,4 @@ function UserBorrowHistory() {
   );
 }
 
-export default UserBorrowHistory;
+export default TheMostBroken;

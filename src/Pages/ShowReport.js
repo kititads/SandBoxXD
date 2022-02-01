@@ -11,7 +11,7 @@ import FirebaseApp from '../firebase';
 import { useEffect,useState } from 'react';
 import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } from '@firebase/firestore';
 import moment from 'moment';
-
+import TheMostBroken from '../Component/TheMostBroken';
 
 
 
@@ -190,6 +190,9 @@ function Report()
 
         
             <ReportTable/>
+            <hr></hr>
+
+            <TheMostBroken/>
 
   
 
