@@ -76,11 +76,9 @@ function LoginRMUTK() {
 
       const cookies = new Cookies();
       const CheckLogin = async(EmailData) => { 
-      console.log(EmailData.email);
       const q = query(collection(db, "User"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        console.log(doc.data().Email.toString());
         if(doc.data().Email.toString() === EmailData.email )
         {
 
@@ -93,10 +91,7 @@ function LoginRMUTK() {
           
 
           //ถูก
-          console.log("ถูกต้องนะครับ"); 
-          console.log(cookies.get('User_Name')); 
-          console.log(cookies.get('Status_User')); 
-          console.log(cookies.get('Student_ID')); 
+          
           window.location.reload();
           
         }
