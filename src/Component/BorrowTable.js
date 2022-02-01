@@ -279,24 +279,39 @@ function BorrowTable() {
     //-----------------------------------------
     const BTH = async(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why,UID)  => { 
       BorrowToHistory(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why);
-      if(ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย")
-      {
+     
       UpdateUser(UID);
-      }
+      
     };
   
     const UpdateUser = async(UID) => {
       const docRef = doc(db, "User", UID[0].User_ID.toString());
-      var NewCount = UID[0].Count_Broken+1
-      const payload = {
-        Count_Broken:NewCount
-  
+      var NewCountBorrow = UID[0].Count_Borrow+1
+      var NewCountBroken = UID[0].Count_Broken+1
+      if(ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย")
+      {
+        const payload = 
+        {
+          Count_Borrow:NewCountBorrow,
+          Count_Broken:NewCountBroken
+        }
+        await updateDoc(docRef,payload);
+
+      }
+      else
+      {
+        const payload = 
+        {
+          Count_Borrow:NewCountBorrow
+        }
+        await updateDoc(docRef,payload);
+
+      }
+
       };
      
+
   
-      await updateDoc(docRef,payload);
-  
-    };
 
 
     //รันเลขยืม
@@ -308,7 +323,7 @@ function BorrowTable() {
       UpdateNewID(NextID);
       console.log("Table NextID"+NextID);
       const UID = DataListUser.filter(DL=>{
-        if(DL.Student_ID === parseInt(RealSTD))
+        if(DL.Student_ID === RealSTD)
         {
           return DL
         }

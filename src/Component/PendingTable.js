@@ -338,22 +338,24 @@ function PendingTable() {
     const PTB = async(PendingID,DataList,DataList0,NextID,UID)  => { 
     PendingToBorrow(PendingID,DataList,DataList0,NextID);
     UpdatePending4(PendingID);
-    UpdateUser(UID);
+    //เปลี่ยนไปอัพที่คืนอุปกรณ์ดีกว่า
+    //UpdateUser(UID); 
 
   };
 
 
   //รันเลขยืม
     const getIndex = async(PendingID,RealSTD) => { 
+      console.log(RealSTD)
 
     handleClose1();
     const querySnapshot = await getDocs(collection(db, "Count"));
     querySnapshot.forEach((doc) => {
     const Borrow_ID =  doc.data().Count_Borrow_ID;
     const NextID =  (Borrow_ID+1);
-    UpdateNewID(NextID);
+    //UpdateNewID(NextID);
     const UID = DataListUser.filter(DL=>{
-      if(DL.Student_ID === parseInt(RealSTD))
+      if(DL.Student_ID === RealSTD)
       {
         return DL
       }

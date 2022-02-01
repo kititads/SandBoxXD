@@ -154,7 +154,8 @@ function TheMostBroken() {
     <div className="SubBG-TextSet border border-black">
     
     
-    <div>
+    <div >
+    <h2 style={{textAlign:"center",padding:20}}>อุปกรณ์ชำรุดหรือสูญหาย</h2>
     </div>
     </div>
     </div>
