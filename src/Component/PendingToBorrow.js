@@ -28,7 +28,9 @@ import FirebaseApp from '../firebase';
      Student_ID: DL.Student_ID,
      User_Name: DL.User_Name,
      College_Years: DL.College_Years,
-     Borrow_Quantity: DL.Borrow_Quantity
+     Borrow_Quantity: DL.Borrow_Quantity,
+     Borrow_US: "กำลังยืม"
+
     };
     setDoc(docRef,payload);
 
@@ -41,7 +43,7 @@ import FirebaseApp from '../firebase';
         const UpdatedocRef = doc(db,"Equipment",DL.EM_ID.toString());
         const Updatepayload = {
         EM_UseQuantity: NewQuantity,
-        EM_Status: "สินค้าหมด"
+        EM_Status: "ถูกยืมหมดแล้ว"
 
         };
         updateDoc(UpdatedocRef,Updatepayload);}

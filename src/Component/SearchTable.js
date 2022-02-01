@@ -6,7 +6,7 @@ import { useEffect,useState } from 'react';
 import { BsTable } from "react-icons/bs";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
-import { getFirestore,collection, query, where, getDocs,doc,deleteDoc,updateDoc,orderBy  } from '@firebase/firestore';
+import { getFirestore,collection, query, getDocs,doc,updateDoc,orderBy  } from '@firebase/firestore';
 import FirebaseApp from '../firebase';
 import Cookies from 'universal-cookie';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -112,12 +112,16 @@ function SearchTable() {
     querySnapshot.forEach((doc) => {
       if(cookies.get('Status_User') === "Admin")
       {
+        if(doc.data().EM_US === "ปกติ")
+        {
         items.push(doc.data());    
+        }
       }
-      else if(doc.data().EM_Status ==="พร้อมใช้งาน" || doc.data().EM_Status ==="สินค้าหมด")
+      else if(doc.data().EM_Status ==="พร้อมให้ยืม" || doc.data().EM_Status ==="ถูกยืมหมดแล้ว")
       {
+        if(doc.data().EM_US === "ปกติ"){
         items.push(doc.data());    
-        
+        }
       }
       
       
@@ -155,13 +159,17 @@ function SearchTable() {
 
   const [Search,setSearch] = useState("");
 
-    //ลบคำขอ
-    const DelPending = async(EquipmentID) => {
+    //ยกเลิกอุปกรณ์
+    const UpdateEquipment = async(EquipmentID) => {
+      const docRef = doc(db, "Equipment", EquipmentID.toString());
+      const payload = {
+          EM_US:"ยกเลิกการใช้งาน"
+      };
       handleClose1();
      
-    await deleteDoc(doc(db, "Equipment", EquipmentID.toString()));
+      await updateDoc(docRef,payload);
 
-
+    
     getData();
     };
 
@@ -173,7 +181,7 @@ function SearchTable() {
     <FormControl
     
     type="search"
-    placeholder="Search"
+    placeholder="ค้นหา"
     className="mr-2"
     aria-label="Search"
     onChange={(e) => setSearch(e.target.value)}
@@ -200,7 +208,7 @@ function SearchTable() {
         
         </DialogContent>
         <DialogActions>
-        <Button onClick={() => DelPending(RealID)}>ใช่</Button>
+        <Button onClick={() => UpdateEquipment(RealID)}>ใช่</Button>
         <Button onClick={handleClose1} autoFocus style={{color: "red"}}>
          ไม่ใช่
         </Button>
@@ -219,8 +227,8 @@ function SearchTable() {
             <TableCell className={classes.tableHeaderCellCanHide} >รหัสอุปกรณ์</TableCell>
             <TableCell className={classes.tableHeaderCell} >รูปภาพ</TableCell>
             <TableCell className={classes.tableHeaderCell} >ชื่อ</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >จำนวน</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >สถานะ</TableCell>
+            <TableCell style={{minWidth:180}} className={classes.tableHeaderCellCanHide} >จำนวน</TableCell>
+            <TableCell style={{minWidth:140}}  className={classes.tableHeaderCellCanHide} >สถานะ</TableCell>
             <TableCell className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
             </TableRow>
             </TableHead>
@@ -261,16 +269,18 @@ function SearchTable() {
             <Typography className={classes.name}>{DL.EM_Name}</Typography>
             </TableCell>
             <TableCell  className={classes.CheckHide}>
-            <Typography className={classes.name}>{DL.EM_Quantity-DL.EM_UseQuantity}/{DL.EM_Quantity}</Typography>
+            <Typography className={classes.name}>จำนวนที่ยืมได้ : {DL.EM_Quantity-DL.EM_UseQuantity}</Typography>
+            <Typography className={classes.name}>จำนวนทั้งหมด : {DL.EM_Quantity}</Typography>
+
             </TableCell>
             <TableCell  className={classes.CheckHide}>
             <Typography
             className={classes.status}
             style={{
             backgroundColor: 
-            ((DL.EM_Status === 'พร้อมใช้งาน' && 'green') ||
-            (DL.EM_Status === 'ไม่พร้อมใช้งาน' && 'red') ||
-            (DL.EM_Status === 'สินค้าหมด' && 'blue'))
+            ((DL.EM_Status === 'พร้อมให้ยืม' && 'green') ||
+            (DL.EM_Status === 'ไม่พร้อมให้ยืม' && 'red') ||
+            (DL.EM_Status === 'ถูกยืมหมดแล้ว' && 'blue'))
             }}
             >{DL.EM_Status}</Typography>
             </TableCell>

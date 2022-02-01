@@ -33,13 +33,13 @@ function InsertUser()
         const [ID,setID] = useState();
         const [Name,setName] = useState("");
         const [StudentID,setStudentID] = useState();
-        const [CardID,setCardID] = useState();
+        const [Email,setEmail] = useState();
         const [StatusUser,setStatusUser] = useState("");
         const [CollegeYears, getCollegeYears] = useState("");
         
         const CheckButton = () => {
 
-        if(ID&&Name&&StudentID&&CardID&&StatusUser&&CollegeYears  !== "" ){
+        if(ID&&Name&&StudentID&&Email&&StatusUser&&CollegeYears  !== "" ){
             handleNew();
             }
         else
@@ -54,8 +54,8 @@ function InsertUser()
             else if(StudentID === ""){
                 document.getElementById('textStudentID').focus();
             }
-            else if(CardID === ""){
-                document.getElementById('textCardID').focus();
+            else if(Email === ""){
+                document.getElementById('textEmail').focus();
             }
             else if(StatusUser === ""){
                 document.getElementById('textStatusUser').focus();
@@ -71,7 +71,7 @@ function InsertUser()
      await getIndex();
      await UpdateNewID(ID);
      const docRef = doc(db,"User",ID.toString());
-     const payload = {User_ID: ID ,User_Name: Name,Student_ID: StudentID,Card_ID: CardID,Status_User: StatusUser
+     const payload = {User_ID: ID ,User_Name: Name,Student_ID: StudentID,Email: Email,Status_User: StatusUser
      ,College_Years: CollegeYears};
      await setDoc(docRef,payload);
      window.location.reload();
@@ -111,10 +111,10 @@ function InsertUser()
           <div className="border border-black" >
           
           <form className="Form-Set-Insert" id="InsertForm">
-          <div class="form-group row">
+          <div class="form-group row" hidden="true">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
           <div class="col-sm-10">
-          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
+          <input  type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
           value={ID} 
           onChange={e => { setID(e.target.value); }}
           />
@@ -139,11 +139,11 @@ function InsertUser()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัสบัตรประชาชน</label>
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">อีเมล</label>
           <div class="col-sm-10">
-          <input type="text" id="textsetCardID" class="form-control form-control-sm InsertBox-Set"  placeholder="รหัสบัตรประชาชน"
-          value={CardID}
-          onChange={e => { setCardID(e.target.value); }}
+          <input type="email" id="textsetEmail" class="form-control form-control-sm InsertBox-Set"  placeholder="@mail.rmutk.ac.th"
+          value={Email}
+          onChange={e => { setEmail(e.target.value); }}
           />
           </div>
           </div>

@@ -24,7 +24,7 @@ import ShowHistoryEM from './Pages/ShowHistoryEM';
 import Rules from './Pages/Rules';
 import InsertUser from './Pages/InsertUser';
 import ShowBorrowEM from './Pages/ShowBorrowEM';
-
+import ShowUserBorrow from './Pages/ShowUserBorrow';
 function App() {
 
 
@@ -54,6 +54,7 @@ function App() {
         <Route exact path="/rules" component={Rules}/>
         <Route exact path="/insertuser" component={InsertUser}/>
         <Route exact path="/borrowem" component={ShowBorrowEM}/>
+        <Route exact path="/userborrowhistory" component={ShowUserBorrow}/>
 
         <Route component={NotFound} />
       </Switch>

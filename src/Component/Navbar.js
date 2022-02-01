@@ -12,8 +12,6 @@ import { AiOutlineRead } from "react-icons/ai";
 import { RiLoginBoxLine } from "react-icons/ri";
 import { useState,useEffect } from 'react';
 import Cookies from 'universal-cookie';
-    
-
 
 
   function Navber() {
@@ -54,6 +52,7 @@ import Cookies from 'universal-cookie';
 
 
   function Logout (){
+  console.clear();
   cookies.remove('User_Name'  , { path: '/' });
   cookies.remove('Status_User', { path: '/' });
   cookies.remove('Student_ID' , { path: '/' });
@@ -73,7 +72,7 @@ import Cookies from 'universal-cookie';
         />{' '}
              
       
-        ระบบยืม-คืนอุปกรณ์สาขา
+        ระบบยืม-คืนอุปกรณ์
         </Navbar.Brand>
         <NavbarToggle aria-controls="responsive-navbar-nav" ></NavbarToggle>
         <NavbarCollapse className="setCenter"> 

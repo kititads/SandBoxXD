@@ -3,7 +3,7 @@ import './Pages.css';
 import { AiFillEdit } from "react-icons/ai";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
-import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } from '@firebase/firestore';
+import { getFirestore,collection, getDocs,setDoc,doc,updateDoc } from '@firebase/firestore';
 import { getStorage, ref , uploadBytesResumable , getDownloadURL } from "firebase/storage";
 import FirebaseApp from '../firebase';
 import { useEffect,useState } from 'react';
@@ -69,7 +69,7 @@ function EditEM()
         const db = getFirestore();
         const storage = getStorage(FirebaseApp);
         const metadata = {
-         contentType: 'image/jpeg'
+         contentType: 'image/png'
         };
 
        
@@ -77,7 +77,7 @@ function EditEM()
         const CheckButton = () => {
 
         if(ID&&Name&&Quantity&&Detail&&Status&&fileUrl  !== "" ){
-            handleNew();
+            UpdateEM();
             }
         else
         {
@@ -127,12 +127,13 @@ function EditEM()
 
      };
 
-     const handleNew = async() => {  
+     const UpdateEM = async() => {  
      const docRef = doc(db,"Equipment",ID.toString());
      const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: Quantity,EM_UseQuantity: UseQuantity,EM_Name: Name
      ,EM_Status: Status};
-     await setDoc(docRef,payload);
-     window.location.reload();
+     await updateDoc(docRef,payload);
+     window.location.href = "/detail/"+ID;
+
 
      };
 
@@ -187,12 +188,12 @@ function EditEM()
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">สถานะ</label>
           <div className="radio-set">
         
-          <input id="status_radio_Available"  type="radio" name="status" value="พร้อมใช้งาน" onClick={()=> setStatus("พร้อมใช้งาน")}/>
-          <label >พร้อมใช้งาน</label><br/>
-          <input id="status_radio_Unavailable" type="radio" name="status" value="ไม่พร้อมใช้งาน" onClick={()=> setStatus("ไม่พร้อมใช้งาน")}/>
-          <label  >ไม่พร้อมใช้งาน</label><br/>
-          <input  id="status_radio_Out Of Stock" type="radio" name="status" value="สินค้าหมด " onClick={()=> setStatus("สินค้าหมด")}/>
-          <label >สินค้าหมด</label>
+          <input id="status_radio_พร้อมให้ยืม"  type="radio" name="status" value="พร้อมให้ยืม" onClick={()=> setStatus("พร้อมให้ยืม")}/>
+          <label >พร้อมให้ยืม</label><br/>
+          <input id="status_radio_ไม่พร้อมให้ยืม" type="radio" name="status" value="ไม่พร้อมให้ยืม" onClick={()=> setStatus("ไม่พร้อมให้ยืม")}/>
+          <label  >ไม่พร้อมให้ยืม</label><br/>
+          <input  id="status_radio_ถูกยืมหมดแล้ว" type="radio" name="status" value="ถูกยืมหมดแล้ว " onClick={()=> setStatus("ถูกยืมหมดแล้ว")}/>
+          <label >ถูกยืมหมดแล้ว</label>
           </div>
           </div>
           <hr/>
@@ -228,7 +229,7 @@ function EditEM()
 
           <hr/>
          
-          <Button id="ButtonConfirm" variant="primary" onClick={CheckButton} style={{backgroundColor:'#212F3D',color:'white'}} >Confirm</Button>{' '}
+          <Button id="ButtonConfirm" variant="primary" onClick={CheckButton} style={{backgroundColor:'#212F3D',color:'white'}} >ยืนยันการแก้ไข</Button>{' '}
           </form>      
             
           </div>

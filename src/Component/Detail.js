@@ -116,7 +116,7 @@ function Detail(PropID)
         
       }
     });
-    if(items[0].EM_Status !== "พร้อมใช้งาน" )
+    if(items[0].EM_Status !== "พร้อมให้ยืม" )
     {
       setbutton("true");
     }
@@ -166,7 +166,7 @@ function Detail(PropID)
       const querySnapshot = await getDocs(collection(db, "Pending"));
       var CheckM = "False" ;
       querySnapshot.forEach((doc) => {
-        if(doc.data().EM_ID === ID && doc.data().Student_ID === cookies.get('Student_ID'))
+        if(doc.data().EM_ID === ID && doc.data().Student_ID === cookies.get('Student_ID') && doc.data().Pending_Status === "รอดำเนินการ")
         {
           CheckM = "True"
         }
@@ -233,10 +233,10 @@ function Detail(PropID)
             <div ><img src={DL.EM_Image}  className="img-set"/> </div>
             <div className="Detail">
             <br/>
-            <div>รหัสอุปกรณ์ : {DL.EM_ID}</div>
-            <div>ชื่ออุปกรณ์ : {DL.EM_Name}</div>
-            <div>รายละเอียด</div>
-            <div><textarea rows="4" cols="33" className="textarea-set" alt="" disabled>
+            <div >รหัสอุปกรณ์ : {DL.EM_ID}</div>
+            <div style={{marginTop:10}}>ชื่ออุปกรณ์ : {DL.EM_Name}</div>
+            <div style={{marginTop:10}}>รายละเอียด</div>
+            <div style={{marginTop:5}} ><textarea rows="6" cols="33" className="textarea-set" alt="" disabled >
             {DL.EM_Detail}
             </textarea></div>
             </div>
@@ -245,16 +245,15 @@ function Detail(PropID)
         <br/>
         <Col sm={7} className="BGDetail-V2">
         <div className="rightBox-set ">
-        {DL.EM_Status === "พร้อมใช้งาน"  ? 
+        {DL.EM_Status === "พร้อมให้ยืม"  ? 
         <div style={{color:'green'}}>สถานะ : {DL.EM_Status}</div> : 
-        DL.EM_Status === "ไม่พร้อมใช้งาน" ? 
+        DL.EM_Status === "ไม่พร้อมให้ยืม" ? 
         <div style={{color:'red'}}>สถานะ : {DL.EM_Status}</div> :
         <div style={{color:'blue'}}>สถานะ : {DL.EM_Status}</div>}
         
         <br/>
-        <div style={{color:'Brown'}}>จำนวนคงเหลือ {DL.EM_Quantity-DL.EM_UseQuantity}</div>
+        <div style={{color:'Brown'}}>จำนวนที่พร้อมให้ยืม {DL.EM_Quantity-DL.EM_UseQuantity}</div>
         <br></br>
-        <hr></hr>
         <br/>
         <div>
         <TextField

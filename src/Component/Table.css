@@ -61,3 +61,9 @@ td.MuiTableCell-root.MuiTableCell-body {
     min-width: 50px;
 
  }
+
+ .textarea-set{
+    resize: none;
+}
+
+ 

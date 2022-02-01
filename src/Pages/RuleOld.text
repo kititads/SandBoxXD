@@ -5,9 +5,6 @@ import { useEffect,useState } from 'react';
 import Cookies from 'universal-cookie';
 import Button from '@mui/material/Button';  
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { getStorage, ref , uploadBytesResumable , getDownloadURL } from "firebase/storage";
-import FirebaseApp from '../firebase';
-
 //-------------------------------------------//
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -21,14 +18,8 @@ function Rules()
 {
 
     
-
    const db = getFirestore();
-   const storage = getStorage(FirebaseApp);
-   const metadata = {
-   contentType: 'image/png'
-   };
    const [open, setOpen] = React.useState(false);
-   const [fileUrl, getFileUrl] = useState("https://firebasestorage.googleapis.com/v0/b/equipmentdb-97b5d.appspot.com/o/Rules.png?alt=media&token=7663a220-15b3-4773-9f40-b5252f23ba66");
 
    const handleClickOpen = () => {
     setOpen(true);
@@ -62,25 +53,9 @@ function Rules()
 
      
 
-    const [FileImg,setFileImg] = useState([]);   
 
-    const onFileChange = async (e) => {
-      if(e.target.files[0]){
-        setFileImg(e.target.files[0]);
- 
-      }
-      };
- 
-      const OnFileUpload = async () =>{
-      handleClose();
-      const storageRef = ref(storage, 'Rules');
-      const uploadTask = await uploadBytesResumable(storageRef, FileImg, metadata);
-      getDownloadURL(uploadTask.ref).then((downloadURL) => {
-      getFileUrl(downloadURL);
-      console.log('File available at', downloadURL);
-      })
-      
-      };
+    var NumberRules = 0;
+
 
    return (
 
@@ -94,14 +69,11 @@ function Rules()
         <div className="SubBG-TextSet Card-Set border border-black">
         
         <div className="Home-Set">
-        <div className='EditButton'>
-        {(cookies.get('Status_User') === "Admin" && 
-                 <Button  variant="outlined" startIcon={<EditOutlinedIcon />}  color="info" onClick={()=>handleClickOpen()}>แก้ไข</Button>                  
-        )} 
-        </div>
-        <div style={{fontSize : 20 ,backgroundColor : "#FAFAF9"}}>
         
-        {/* */}
+        <div style={{textAlign : 'center',fontSize : 30,backgroundColor : "#E7ECF3",paddingTop : "1%",paddingBottom: "1%"}}>ข้อปฎิบัติในการยืมอุปกรณ์</div>
+        <div style={{paddingLeft : "10%",paddingTop : "3%",paddingBottom: "10%",fontSize : 20 ,backgroundColor : "#FAFAF9"}}>
+        
+        {/* Admin 4 Edit*/}
         <Dialog
         open={open}
         onClose={handleClose}
@@ -120,40 +92,68 @@ function Rules()
         </DialogTitle>
         <DialogContent>
         <DialogContentText id="alert-dialog-description">
-        {"เลือกไฟล์ภาพใหม่"}
-       
+        {DataList.map(Rule =>
+          {
+
+
+
+            return  (<div style={{paddingBottom:20}}>
+
+              <input style={{width:500}} value={Rule.RulesText} />
+              
+                 
+
+            </div>      
+            )
+          }
+        
+        )}
         
         
       
         </DialogContentText>  
-        
         <DialogContentText id="alert-dialog-description">
-        { <input type="file" id="fileImg" class="InsertBox-Set" 
-          onChange={onFileChange}
-          />} 
+        {"⠀⠀⠀"} 
       
         
       
-        </DialogContentText>   
+        </DialogContentText>    
                  
         
         </DialogContent>
         <DialogActions>
-        <Button onClick={OnFileUpload}>ยืนยัน</Button>
-        <Button onClick={handleClose} autoFocus style={{color: "red"}}>
-         ยกเลิก
-        </Button>
+       
         </DialogActions>
         </Dialog>
 
 
-{        <img className="ImgRules" src={fileUrl} alt="Rules"/>
-}
-        
-        
+
+
+        <div className='EditButton'>
+        {(cookies.get('Status_User') === "Admin" && 
+                 <Button  variant="outlined" startIcon={<EditOutlinedIcon />}  color="info" onClick={()=>handleClickOpen()}>แก้ไข</Button>                  
+        )} 
+        </div>
+        {DataList.map(Rule =>
+          {
+           
+            
+            NumberRules++;
+
+
+
+          return (<div style={{paddingBottom:20}}>{NumberRules+". "+Rule.RulesText}
+                
+          
+                 </div>
+          
                     
           
+                 )
           
+          }
+         
+          )}
         
         
         
@@ -168,8 +168,23 @@ function Rules()
         
         
         
-       
-
+        
+        {/* 1. กรุณาคืนภายในเวลาที่กำหนด หากมีเหตุจำเป็นให้แจ้งที่ชั้น 10
+        <br/><br/>
+        2. หากอุปกรณ์ชำรุดหรือสูญหายรีบแจ้ง
+        <br/><br/>
+        3.  หากมีความต้องการใช้อุปกรณ์ด่วนให้ไปแจ้งโดยตรงที่ชั้น 10
+        <br/><br/>
+        4.  เมื่อมีการคืนอุปกรณ์ต้องแจ้งอาจารย์ที่รับผิดชอบทุกครั้ง
+        <br/><br/>
+        5.  ห้ามไม่ให้มีการยืมแทนกัน
+        <br/><br/>
+        6.  หากอุปกรณ์มีปัญหาหรือชำรุด สูญหาย อาจมีการปรับตามราคา
+        <br/><br/>
+        7.  ไม่รับยืมหรือคืนในวันหยุดราชการ
+        <br/><br/>
+        8.  การตอบรับอาจมีความล่าช้า 1-2 วัน
+        <br/><br/> */}
         
        
         </div>

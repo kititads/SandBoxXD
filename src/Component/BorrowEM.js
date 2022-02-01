@@ -207,7 +207,7 @@ function BorrowEM() {
     <Form className="d-flex Search-Set-button">
     <FormControl
     type="search"
-    placeholder="Search"
+    placeholder="ค้นหา"
     className="mr-2"
     aria-label="Search"
     onChange={(e) => setSearch(e.target.value)}

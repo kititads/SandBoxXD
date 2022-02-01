@@ -96,7 +96,7 @@ function InsertEM()
      await UpdateNewID(ID);
      const docRef = doc(db,"Equipment",ID.toString());
      const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: parseInt(Quantity),EM_UseQuantity: 0,EM_Name: Name
-     ,EM_Status: Status};
+     ,EM_Status: Status,EM_US: "ปกติ"};
      await setDoc(docRef,payload);
      window.location.reload();
 
@@ -135,7 +135,7 @@ function InsertEM()
           <div className="border border-black" >
           
           <form className="Form-Set-Insert" id="InsertForm">
-          <div class="form-group row">
+          <div class="form-group row" hidden="true">
           <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
           <div class="col-sm-10">
           <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
@@ -178,10 +178,10 @@ function InsertEM()
           
           <div className="radio-set">
         
-          <input id="status_radio_Available"  type="radio" name="status" value="พร้อมใช้งาน" onClick={()=> setStatus("พร้อมใช้งาน")}/>
-          <label >พร้อมใช้งาน</label><br/>
-          <input  type="radio" name="status" value="ไม่พร้อมใช้งาน" onClick={()=> setStatus("ไม่พร้อมใช้งาน")}/>
-          <label id="status_radio_Unavailable" >ไม่พร้อมใช้งาน</label>
+          <input id="status_radio_พร้อมให้ยืม"  type="radio" name="status" value="พร้อมให้ยืม" onClick={()=> setStatus("พร้อมให้ยืม")}/>
+          <label >พร้อมให้ยืม</label><br/>
+          <input  type="radio" name="status" value="ไม่พร้อมให้ยืม" onClick={()=> setStatus("ไม่พร้อมให้ยืม")}/>
+          <label id="status_radio_ไม่พร้อมให้ยืม" >ไม่พร้อมให้ยืม</label>
 
           </div>
           </div>

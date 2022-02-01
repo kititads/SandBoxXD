@@ -11,6 +11,7 @@ import moment from 'moment';
 import BorrowToHistory from './BorrowToHistory';
 import Cookies from 'universal-cookie';
 import SendIcon from '@mui/icons-material/Send';
+import TextField from '@mui/material/TextField';
 
 
 import { 
@@ -95,15 +96,28 @@ const db = getFirestore();
 function BorrowTable() {
 
 
+    //----------------------------------------------
+   
+
+
     //Dialog
     const [open, setOpen] = React.useState(false);
     const [RealPendingID,setRealPendingID] = useState(0);
 
-    
+    const UpdatePeadingNumber = (PID) => {
+      DataList.map(A=>{
+      
+
+        if(A.Borrow_ID === PID)
+        {
+          setMaxPeadingNumber(parseInt(A.Borrow_Quantity));
+        }
+      })
+    };
 
     const handleClickOpen = (PID) => {
+      UpdatePeadingNumber(PID);
       setRealPendingID(PID);
-
       setOpen(true);
     };
 
@@ -114,6 +128,19 @@ function BorrowTable() {
   
     const [DataList,setDataList] = useState([]);   
     const [DataList0,setDataList0] = useState([]);   
+    const [Why,setWhy] = useState("");
+    const [ReturnType,setReturnType] = useState("คืนอุปกรณ์ครบ");
+    const [EquipmentBroken,setEquipmentBroken] = useState(1);
+    const [MaxPeadingNumber, setMaxPeadingNumber] = useState(1);
+    if(EquipmentBroken<0)
+    {
+      setEquipmentBroken(0);
+    }
+    if(EquipmentBroken>MaxPeadingNumber)
+    {
+      setEquipmentBroken(MaxPeadingNumber);
+    }
+
 
     //ทำงานตอนเริ่ม
     useEffect(()=> {
@@ -140,12 +167,9 @@ function BorrowTable() {
       const TodayDateAfterFormat = moment(TodayDate).format('MM/DD/YYYY');
       const TimeTestAfterFormat = moment(TimeTest).format('MM/DD/YYYY');
       
-      console.log(TodayDateAfterFormat);
-      console.log(TimeTestAfterFormat);
 
-      console.log(TodayDateAfterFormat <= TimeTestAfterFormat);
-
-
+      if(ArrayData.Borrow_US === "กำลังยืม")
+      {
       if(TodayDateAfterFormat <= TimeTestAfterFormat)
       {
         items.push(ArrayData)   
@@ -162,13 +186,13 @@ function BorrowTable() {
         items.push(ArrayData)  
 
       }
+      }
 
       
 
     });
     
     setDataList(items);
-    console.log(items);
     };
 
 
@@ -212,16 +236,31 @@ function BorrowTable() {
   };
 
 
-    //ลบคำขอ
-    const DelPending = async(BorrowID) => {
-    await deleteDoc(doc(db, "Borrow", BorrowID.toString()));
-    getData();
-    };
-
+    //อัพเดตคำขอ
+    const UpdatePending = async(BorrowID) => {
+    const UpdatedocRef = doc(db, "Borrow", BorrowID.toString());
+    const Updatepayload = {
+      Borrow_US: "คืนอุปกรณ์แล้ว"
   
+      };
+    await updateDoc(UpdatedocRef,Updatepayload);
+    
+    getData();
+    }
+
+    
+
+    
+
+   
+    
+    
+
+
+
     //-----------------------------------------
-    const BTH = async(BorrowID,DataList,DataList0,NextID)  => { 
-      BorrowToHistory(BorrowID,DataList,DataList0,NextID);
+    const BTH = async(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why)  => { 
+      BorrowToHistory(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why);
     };
   
   
@@ -233,8 +272,8 @@ function BorrowTable() {
       const NextID =  (History_ID+1);
       UpdateNewID(NextID);
       console.log("Table NextID"+NextID);
-      BTH(BorrowID,DataList,DataList0,NextID);
-      DelPending(BorrowID);
+      BTH(BorrowID,DataList,DataList0,NextID,ReturnType,EquipmentBroken,Why);
+      UpdatePending(BorrowID);
       handleClose();
 
       }
@@ -267,7 +306,7 @@ function BorrowTable() {
     <Form className="d-flex Search-Set-button">
     <FormControl
     type="search"
-    placeholder="Search"
+    placeholder="ค้นหา"
     className="mr-2"
     aria-label="Search"
     onChange={(e) => setSearch(e.target.value)}
@@ -289,9 +328,9 @@ function BorrowTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>รูปภาพ	</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
+            <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
-            <TableCell className={classes.tableHeaderCell}>ชื่อผู้ใช้</TableCell>
+            <TableCell className={classes.tableHeaderCell}>ชื่อผู้ยืม</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>สถานะการยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>เพิ่มเติม</TableCell>
         
@@ -335,7 +374,10 @@ function BorrowTable() {
             </TableCell>
             <TableCell className={classes.CheckHide}>
             
-            <Typography className={classes.name}>{DL.Borrow_Quantity}</Typography>
+            <Typography className={classes.name}>จำนวนที่ยืมไป : {DL.Borrow_Quantity}
+            
+            </Typography>
+            
             </TableCell>
             <TableCell className={classes.CheckHide}>
             <Typography className={classes.name}>
@@ -369,15 +411,112 @@ function BorrowTable() {
             {"ข้อความยืนยัน"}
             </DialogTitle>
             <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-            {"ยืนยันคืนอุปกรณ์ใช่หรือไม่"} 
-            </DialogContentText>
+           
             
+           
+            <DialogContentText id="alert-dialog-description">
+            {"เลือกรูปแบบการบันทึก :"} 
+          
+            </DialogContentText>     
+          
+            <DialogContentText id="alert-dialog-description">
+    
+
+            <select 
+            value={ReturnType}
+            onChange={e => setReturnType(e.target.value)}  name="EM_Status" id="Status">
+            <option value="คืนอุปกรณ์ครบ"
+            >คืนอุปกรณ์ครบ</option>
+            <option value="อุปกรณ์ชำรุดหรือเสียหาย"
+            >อุปกรณ์ชำรุดหรือเสียหาย</option>
+            <option value="ยกเลิกรายการยืม"
+            >ยกเลิกรายการยืม</option>
+            </select>
+            </DialogContentText>
+
+            {"⠀⠀⠀"} 
+            {/* คืนอุปกรณ์ครบ */}
+            {(ReturnType === "คืนอุปกรณ์ครบ" && 
+            
+            <DialogContentText id="alert-dialog-description">   
+            {"หมายเหตุ :"} 
+
+            </DialogContentText>
+            )} 
+            {(ReturnType === "คืนอุปกรณ์ครบ" &&                
+            <DialogContentText id="alert-dialog-description">
+            <textarea rows="4" cols="34" className='textarea-set'
+            value={Why}
+            onChange={e => { setWhy(e.target.value); }}
+            ></textarea>
+            </DialogContentText>
+            )} 
+
+            {/* อุปกรณ์ชำรุดหรือเสียหาย */}
+            
+          
+            
+            {(ReturnType === "อุปกรณ์ชำรุดหรือเสียหาย" && 
+            <DialogContentText id="alert-dialog-description">
+            <TextField
+             id="outlined-number"
+             label="ใส่จำนวนอุปกรณ์ที่ชำรุดหรือหาย"
+             type="number"
+             size="small"
+             style={{maxWidth: '190px'}}
+             value={EquipmentBroken}
+             onChange={e => { setEquipmentBroken(e.target.value); }}
+             InputLabelProps={{
+             shrink: true,
+                        
+            }}
+                    
+            />
+            </DialogContentText>   
+            )} 
+
+            {(ReturnType === "อุปกรณ์ชำรุดหรือเสียหาย" && 
+            
+            <DialogContentText id="alert-dialog-description">   
+            {"หมายเหตุ :"} 
+
+            </DialogContentText>
+            )} 
+            {(ReturnType === "อุปกรณ์ชำรุดหรือเสียหาย" &&                
+            <DialogContentText id="alert-dialog-description">
+            <textarea rows="4" cols="34" className='textarea-set'
+            value={Why}
+            onChange={e => { setWhy(e.target.value); }}
+            ></textarea>
+            </DialogContentText>
+            )} 
+
+            {/* ยกเลิกรายการยืม */}
+            {(ReturnType === "ยกเลิกรายการยืม" && 
+            
+            <DialogContentText id="alert-dialog-description">   
+            {"ใส่เหตุผล :"} 
+
+            </DialogContentText>
+            )} 
+            {(ReturnType === "ยกเลิกรายการยืม" &&                
+            <DialogContentText id="alert-dialog-description">
+            <textarea rows="4" cols="34" className='textarea-set'
+            value={Why}
+            onChange={e => { setWhy(e.target.value); }}
+            ></textarea>
+            </DialogContentText>
+            )} 
+            
+            
+
             </DialogContent>
+
+
             <DialogActions>
-            <Button onClick={() => getIndex(RealPendingID)}>ใช่</Button>
+            <Button onClick={() => getIndex(RealPendingID)}>ยืนยัน</Button>
             <Button onClick={handleClose} autoFocus style={{color: "red"}}>
-            ไม่ใช่
+            ยกเลิก
             </Button>
             </DialogActions>
             </Dialog>

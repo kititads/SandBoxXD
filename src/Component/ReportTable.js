@@ -97,38 +97,24 @@ function ReportTable() {
     },[]);
     const cookies = new Cookies();
     
-    const ConvertTime = (Value) => {
-      const TimeAfter = new Date(Value.seconds * 1000 + Value.nanoseconds/1000000)
-      const TimeAfterFormat = moment(TimeAfter).format('DD/MM/YYYY');
-      return TimeAfterFormat;
-     };
+   
 
 
     const getData = async() => { 
-    const q = query(collection(db, "History"));
+    const q = query(collection(db, "Borrow"));
     const querySnapshot = await getDocs(q);
     const itemsBorrow = [];
     const itemsReturned = [];
     const itemsLate = [];
 
     querySnapshot.forEach((doc) => {
-     const TimeLoan = ConvertTime(doc.data().Loan_Date);
-     const STDate  = moment(StartDate).format('DD/MM/YYYY');
-     const EDDate  = moment(EndDate).format('DD/MM/YYYY');
-    
-
-     if(TimeLoan >= STDate && TimeLoan <= EDDate)
-     {
+      console.log(doc.data());
       itemsBorrow.push(doc.data())
-     }
-     const TimeReturned = ConvertTime(doc.data().Returned_Date);
-     if(TimeReturned >= STDate && TimeReturned <= EDDate)
-     {
-    
-      itemsReturned.push(doc.data())
-     const TimeDue = ConvertTime(doc.data().Due_Date);
 
-     if(TimeReturned > TimeDue)
+     if(doc.data().Borrow_US)
+     {
+      itemsReturned.push(doc.data())
+     if(doc.data().Borrow_Status === "ยืมเกินกำหนด")
      {
       itemsLate.push(doc.data())
      }
@@ -169,7 +155,7 @@ function ReportTable() {
   return (
    
       <><><div style={{ textAlign: "center" }}>
-      <Row>
+      {/* <Row>
         <Col sm={3}></Col>
         <Col sm={3}>
           <div>เลือกวันที่เริ่มต้น </div>
@@ -203,7 +189,7 @@ function ReportTable() {
 
           </Col>
           <Col sm={3}></Col>
-        </Row>
+        </Row> */}
       </div></><TableContainer className={classes.tableContainer} component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -240,16 +226,11 @@ function ReportTable() {
           </TableHead>
         </Table>
 
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 15]}
-          component="div"
-          count={DataList.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage} />
+        
 
-      </TableContainer></>
+      </TableContainer>
+      
+      </>
 
     
    )

@@ -1,12 +1,59 @@
 import React from 'react';
-import { RiLoginBoxLine } from "react-icons/ri";
+import { AiOutlineLogin } from "react-icons/ai";
 import Button from '@material-ui/core/Button';
 import Form from 'react-bootstrap/Form';
 import './Pages.css';
 import Cookies from 'universal-cookie';
 import { useState,useEffect } from 'react';
 import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } from '@firebase/firestore';
-  function Login() {
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+
+//-------------------------------------------//
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+const clientId = "609757328680-8be0i19gojs777cb5ijff0q55h21ftv0.apps.googleusercontent.com";
+
+
+
+
+function LoginRMUTK() {
+
+
+    const [open, setOpen] = React.useState(false);
+    const [showloginButton, setShowloginButton] = useState(true);
+    const [showlogoutButton, setShowlogoutButton] = useState(false);
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const onLoginSuccess = (res) => {
+        CheckLogin(res.profileObj);
+        // setShowloginButton(false);
+        // setShowlogoutButton(true);
+    };
+
+    const onLoginFailure = (res) => {
+        console.log('Login Failed:', res);
+    };
+
+    const onSignoutSuccess = () => {
+        alert("You have been logged out successfully");
+        console.clear();
+        setShowloginButton(true);
+        setShowlogoutButton(false);
+    };
+
+
+
+
   const db = getFirestore();
   const [StudentID,setStudent_ID] = useState("");
   const [Password,setPassword] = useState("");
@@ -28,14 +75,15 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
   
 
       const cookies = new Cookies();
-      const CheckLogin = async() => { 
+      const CheckLogin = async(EmailData) => { 
+      console.log(EmailData.email);
       const q = query(collection(db, "User"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        if(doc.data().Student_ID.toString() === StudentID
-        && doc.data().Card_ID.toString() === Password
-        )
+        console.log(doc.data().Email.toString());
+        if(doc.data().Email.toString() === EmailData.email )
         {
+
           cookies.set('User_Name'  , doc.data().User_Name, { path: '/' });
           cookies.set('Status_User', doc.data().Status_User, { path: '/' });
           cookies.set('Student_ID' , doc.data().Student_ID, { path: '/' });
@@ -57,7 +105,7 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
       );
       if(cookies.get('Status_User') == null)
       {
-        setHideText("")
+        handleClickOpen();
       }
       }
       
@@ -65,46 +113,64 @@ import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } f
 
 
   return (
+
+
+    
     <div className="container Login-Box-set">
-        <div className="text-center" style={{margin : "17%" ,textAlign : 'center'}}>
-        <h1 className="SubBG Login-Box-Set " ><RiLoginBoxLine size={40} className="icon-set-container"/>เข้าสู่ระบบ</h1>
-        <div className="Login-Set border border-black" >
-        <Form>
-        <Form.Group className="mb-3" controlId="formBasicStudent ID">
-        <Form.Label className="Login-label">รหัสนักศึกษา</Form.Label>
-        <Form.Control type="text" placeholder="รหัสนักศึกษา" 
-         value={StudentID}
-         onChange={e => { setStudent_ID(e.target.value); }}
-
-        />
-        <Form.Text className="text-muted">
-        </Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label className="Login-label">รหัสบัตรประชาชน</Form.Label>
-
+        <div className="text-center" style={{margin : "20%" ,textAlign : 'center'}}>
+        <div style={{paddingTop:100,paddingBottom:100}} className="Login-Set  " >
         
-        <Form.Control type="password" placeholder="รหัสบัตรประชาชน"
-         value={Password}
-         onChange={e => { setPassword(e.target.value); }}
-         
-         />
-         <label className="LoginText" hidden={HideText}>ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง !</label>
+            <div>
+            { showloginButton ?
+                <GoogleLogin
+                    clientId={clientId}
+                    buttonText=" ลงชื่อเข้าใช้งาน "
+                    onSuccess={onLoginSuccess}
+                    onFailure={onLoginFailure}
+                    cookiePolicy={'single_host_origin'}
+                    isSignedIn={false}
+                /> : null}
 
-        
-        </Form.Group>
-
-        
-
-
-        <Button variant="contained" style={{backgroundColor:'#212F3D',color:'white'}} onClick={CheckLogin}>เข้าสู่ระบบ</Button>{' '}
-        </Form>
+            { showlogoutButton ?
+                <GoogleLogout
+                    clientId={clientId}
+                    buttonText="ออกจากระบบ"
+                    onLogoutSuccess={onSignoutSuccess}
+                >
+                </GoogleLogout> : null
+            }
+        </div>
         <br/>
         </div>
         </div>
+
+        {/* Dialog 4 */}
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+        {"ข้อความแจ้งเตือน"}
+        </DialogTitle>
+        <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+        {"ไม่พบผู้ใช้อีเมลนี้"}        
+        </DialogContentText>
+         
+        </DialogContent>
+        <DialogActions>
+        <Button onClick={handleClose}>ปิด</Button>
+ 
+        </DialogActions>
+        </Dialog>  
+
         </div>
+
+        
          );
 
 }
 
-export default Login;
+export default LoginRMUTK;

@@ -163,7 +163,7 @@ function HistoryEM(PropID) {
     <Form className="d-flex Search-Set-button">
     <FormControl
     type="search"
-    placeholder="Search"
+    placeholder="ค้นหา"
     className="mr-2"
     aria-label="Search"
     onChange={(e) => setSearch(e.target.value)}
@@ -182,12 +182,14 @@ function HistoryEM(PropID) {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide}>รหัส</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>วันที่ยืม</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>วันที่สิ้นสุดการยืม</TableCell>        
-            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ใช้</TableCell>
-            <TableCell className={classes.tableHeaderCell} >วันที่นำมาคืน</TableCell>
+            <TableCell className={classes.tableHeaderCell} >รหัส</TableCell>
+            <TableCell className={classes.tableHeaderCell} >ชื่อ</TableCell>
+            <TableCell className={classes.tableHeaderCell} style={{minWidth:200}} >วันที่เริ่ม-สิ้นสุดการยืม</TableCell>
+            <TableCell className={classes.tableHeaderCell} style={{minWidth:130}}>วันที่นำมาคืน</TableCell>
+            <TableCell className={classes.tableHeaderCell} style={{minWidth:140}}>ประเภทการคืน</TableCell>
+
+            <TableCell className={classes.tableHeaderCell} style={{minWidth:160}} >จำนวน</TableCell>        
+            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ยืม</TableCell>
 
             </TableRow>
             </TableHead>
@@ -229,26 +231,36 @@ function HistoryEM(PropID) {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((DL) => (
             <TableRow key={DL.Pending_ID}>
-            <TableCell className={classes.CheckHide}>
+            <TableCell >
             <Grid>
             <Typography className={classes.name}>{DL.History_ID}</Typography>
             </Grid>
             </TableCell>
 
-            <TableCell className={classes.CheckHide}>
+            <TableCell >
             <Typography className={classes.name}>{DL.EM_Name}</Typography>
             </TableCell>
-            <TableCell className={classes.CheckHide}> 
+            <TableCell > 
             <Typography className={classes.name}>{ConvertTime(DL.Loan_Date)}</Typography>
-            </TableCell>
-            <TableCell className={classes.CheckHide}>
+            -
             <Typography className={classes.name}>{ConvertTime(DL.Due_Date)}</Typography>
+
+            </TableCell>
+            <TableCell >
+            <Typography className={classes.name}>{ConvertTime(DL.Returned_Date)}</Typography>
+            </TableCell>
+            <TableCell >
+            <Typography className={classes.name}>{DL.ReturnType}</Typography>
+            </TableCell>
+            <TableCell>
+            <Typography className={classes.name}>จำนวนที่ขอยืม : {DL.Borrow_Quantity}</Typography>
+            <Typography className={classes.name}>จำนวนที่มาคืน : {DL.Borrow_Quantity-DL.EquipmentBroken}</Typography>
+
+            <Typography className={classes.name}>จำนวนที่ชำรุด : {DL.EquipmentBroken}</Typography>
+
             </TableCell>
             <TableCell>
             <Typography className={classes.name}>{DL.User_Name}</Typography>
-            </TableCell>
-            <TableCell>
-            <Typography className={classes.name}>{ConvertTime(DL.Returned_Date)}</Typography>
 
 
             </TableCell>

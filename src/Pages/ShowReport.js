@@ -27,7 +27,7 @@ function Report()
     const [CountCant,setCountCant] = useState(0);   
     const [CountAllBorrow,setCountAllBorrow] = useState(0);   
     const [CountBorrow,setCountBorrow] = useState(0);  
-    const [CountHistory,setCountHistory] = useState(0);  
+    const [CountReturn,setCountReturn] = useState(0);  
     const [YearsArray,setYearsArray] = useState([""]);  
 
     
@@ -63,7 +63,7 @@ function Report()
         querySnapshot2.forEach((doc) => {
             CountALL.push(doc.data());
 
-            if(doc.data().EM_Status === "ไม่พร้อมใช้งาน")
+            if(doc.data().EM_Status === "ไม่พร้อมให้ยืม")
             {
                 CountCant.push(doc.data());
             }
@@ -81,35 +81,31 @@ function Report()
         const querySnapshot3 = await getDocs(q3);
         const CountAllBorrow = [];
         const CountBorrow = [];
-        const CountHistory = [];
+        const CountReturn = [];
         const CountYears = [];
         querySnapshot3.forEach((doc) => {
             CountAllBorrow.push(doc.data());
-            CountBorrow.push(doc.data());
-            CountYears.push(ConvertTime(doc.data().Loan_Date))
+            if(doc.data().Borrow_US === "กำลังยืม")
+            {
+                CountBorrow.push(doc.data());
+            }
+            if(doc.data().Borrow_US === "คืนอุปกรณ์แล้ว")
+            {
+                CountReturn.push(doc.data());
+            }       
         }    
         );
 
-        //นับจำนวนประวัติ
-        const q4 = query(collection(db, "History"));
-        const querySnapshot4 = await getDocs(q4);
-        querySnapshot4.forEach((doc) => {
-            CountAllBorrow.push(doc.data());
-            CountHistory.push(doc.data());
-            CountYears.push(ConvertTime(doc.data().Loan_Date))
+        
 
-        } 
-        );
-
-
+        console.log(CountAllBorrow);
         setCountUser(CountU.length);
         setCountAll(CountALL.length);
         setCountCan(CountCan.length);
         setCountCant(CountCant.length);
         setCountAllBorrow(CountAllBorrow.length);
         setCountBorrow(CountBorrow.length);
-        setCountHistory(CountHistory.length);
-        setCountHistory(CountHistory.length);
+        setCountReturn(CountReturn.length);
 
         var unique = CountYears.filter((v, i, a) => a.indexOf(v) === i);
         if(unique != null)
@@ -131,17 +127,7 @@ function Report()
         <div className="SubBG" style={{paddingTop : "1%" ,paddingBottom: "1%",fontSize : 35,textAlign : 'center'}}><HiOutlineDocumentReport size={60} className="icon-set-container"/>รายงานสรุป</div>
         <div className="border border-black" style={{padding : "5%"}}>
         <div style={{textAlign: "right"}}>
-            {/* ล้มเหลว ยังไม่เข้าใจ */}
-        {/* <label for="years">เลือกปีที่ต้องการแสดง ⠀</label> 
-        <select name="years" id="SelectYears" onChange={e => { setSearch(e.target.value); }}>
-        <option selected value="">ทั้งหมด</option>
-
-        {YearsArray.map(Years => (
-         <option value={Years}>{Years}</option>
-        ))}
-        </select>
-        <br></br>
-        */}
+           
         </div>
         <br></br>
         <Row>
@@ -171,11 +157,11 @@ function Report()
         </div>
         
 
-        <div className='ReportSetBoder' style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#258CCF"}}>จำนวนอุปกรณ์ที่ใช้งานได้   
+        <div className='ReportSetBoder' style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#258CCF"}}>จำนวนอุปกรณ์ที่พร้อมให้ยืม  
         <br></br>{CountCan} รายการ
         </div>
 
-        <div style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#DE3B3B"}}>จำนวนอุุปกรณ์ที่ชำรุด    
+        <div style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#DE3B3B"}}>จำนวนอุุปกรณ์ที่ไม่พร้อมให้ยืม
         <br></br>{CountCant} รายการ 
         </div>
 
@@ -186,7 +172,7 @@ function Report()
         </div>
 
         <div className='ReportSetBoder' style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#258CCF"}}>จำนวนครั้งที่คืนอุปกรณ์แล้ว   
-        <br></br>{CountHistory} รายการ 
+        <br></br>{CountReturn} รายการ 
         </div>
 
         <div style={{textAlign : 'left',paddingTop: "2%",paddingBottom: "2%",paddingLeft: "10%",backgroundColor : "#DE3B3B"}}>จำนวนที่ยังไม่คืนอุปกรณ์    

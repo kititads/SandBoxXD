@@ -79,11 +79,15 @@ const useStyles = makeStyles((theme) => ({
 const db = getFirestore();
         
 
-function AllUser() {
+function UserBorrowHistory() {
     const [DataList,setDataList] = useState([]);   
+    const [DataListHistory,setDataListHistory] = useState([]);   
+
     //ทำงานตอนเริ่ม
     useEffect(()=> {
       getData();
+      getData2();
+
 
     },[]);
     const cookies = new Cookies();
@@ -100,6 +104,18 @@ function AllUser() {
     });
       setDataList(items);
     };
+
+    const getData2 = async() => { 
+        const q2 = query(collection(db, "History"));
+        const querySnapshot2 = await getDocs(q2);
+        const items2 = [];
+        querySnapshot2.forEach((doc) => {
+         
+            items2.push(doc.data());    
+             
+        });
+        setDataListHistory(items2);
+        };
 
     //ตาราง
   const classes = useStyles();
@@ -143,10 +159,15 @@ function AllUser() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide} >รหัส</TableCell>
-            <TableCell className={classes.tableHeaderCell} >รหัสนักศึกษา</TableCell>
-            <TableCell className={classes.tableHeaderCell} >ชื่อ</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide} >สถานะ</TableCell>
+          <TableCell className={classes.tableHeaderCell} >รหัสนักศึกษา</TableCell>
+
+          <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
+
+            <TableCell className={classes.tableHeaderCell} >จำนวนครั้งที่มายืม</TableCell>
+            <TableCell className={classes.tableHeaderCell} >จำนวนครั้งที่คืนช้า</TableCell>
+            <TableCell className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
+
+
             </TableRow>
             </TableHead>
             <TableBody>
@@ -175,24 +196,32 @@ function AllUser() {
             .map((DL) => (            
 
             <TableRow key={DL.EM_ID}>
-            <TableCell>
-            <Grid>
-            <Typography className={classes.name}>{DL.User_ID}</Typography>
-            </Grid>
-            </TableCell>
+            
             <TableCell>
             <Grid>
             <Typography className={classes.name}>{DL.Student_ID}</Typography>
+
             </Grid>
             </TableCell>
             <TableCell>
             <Grid>
-            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            <Typography  className={classes.name}>{DL.User_Name}</Typography>
+
             </Grid>
             </TableCell>
             <TableCell>
             <Grid>
-            <Typography className={classes.name}>{DL.Status_User}</Typography>
+            <Typography className={classes.name}>
+                
+            {DataListHistory.filter(Data=>{
+                if(Data.Student_ID === DL.Student_ID)
+                {
+                    return DL; 
+                }
+                
+            }).length}
+            
+            </Typography>
             </Grid>
             </TableCell>
             </TableRow>
@@ -220,4 +249,4 @@ function AllUser() {
   );
 }
 
-export default AllUser;
+export default UserBorrowHistory;

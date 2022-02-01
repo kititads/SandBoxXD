@@ -185,7 +185,7 @@ function HistoryTable() {
     <Form className="d-flex Search-Set-button">
     <FormControl
     type="search"
-    placeholder="Search"
+    placeholder="ค้นหา"
     className="mr-2"
     aria-label="Search"
     onChange={(e) => setSearch(e.target.value)}
@@ -207,10 +207,11 @@ function HistoryTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>รหัส</TableCell>
             <TableCell className={classes.tableHeaderCell}>รูปภาพ	</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>วันที่ยืม</TableCell>
-            <TableCell className={classes.tableHeaderCellCanHide}>วันที่สิ้นสุดการยืม</TableCell>        
-            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ใช้</TableCell>
+            <TableCell className={classes.tableHeaderCellCanHide}>วันที่เริ่ม-สิ้นสุดการยืม</TableCell>
             <TableCell className={classes.tableHeaderCell} >วันที่นำมาคืน</TableCell>
+
+            <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>        
+            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ยืม</TableCell>
 
             </TableRow>
             </TableHead>
@@ -265,15 +266,22 @@ function HistoryTable() {
             </TableCell>
             <TableCell className={classes.CheckHide}> 
             <Typography className={classes.name}>{ConvertTime(DL.Loan_Date)}</Typography>
+            -
+            <Typography className={classes.name}>{ConvertTime(DL.Due_Date)}</Typography>
+
             </TableCell>
             <TableCell className={classes.CheckHide}>
-            <Typography className={classes.name}>{ConvertTime(DL.Due_Date)}</Typography>
+            <Typography className={classes.name}>{ConvertTime(DL.Returned_Date)}</Typography>
+            </TableCell>
+            <TableCell>
+            
+            <Typography  className={classes.name}>จำนวนที่ขอยืม : {DL.Borrow_Quantity}</Typography>
+            <Typography  className={classes.name}>จำนวนที่มาคืน : {DL.Borrow_Quantity}</Typography>
+            <Typography  className={classes.name}>จำนวนที่ชำรุด : {DL.Borrow_Quantity}</Typography>
+
             </TableCell>
             <TableCell>
             <Typography className={classes.name}>{DL.User_Name}</Typography>
-            </TableCell>
-            <TableCell>
-            <Typography className={classes.name}>{ConvertTime(DL.Returned_Date)}</Typography>
 
 
             </TableCell>
