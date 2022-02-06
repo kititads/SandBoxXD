@@ -49,6 +49,12 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
 
     },
+    nameStudent: {
+      fontWeight: 'bold',
+      textAlign: 'left',
+      paddingLeft:20
+
+  },
     
     status: {
         fontWeight: 'bold',
@@ -187,7 +193,8 @@ function UserBorrowHistory() {
             
             
             <TableCell className={classes.tableHeaderCell} >จำนวนครั้งที่คืนช้า</TableCell>
-            <TableCell className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
+            <TableCell style={{maxWidth:160}} className={classes.tableHeaderCell} >จำนวนครั้งที่คืนอุปกรณ์ชำรุด
+</TableCell>
 
 
             </TableRow>
@@ -219,13 +226,13 @@ function UserBorrowHistory() {
             
             <TableCell>
             <Grid>
-            <Typography className={classes.name}>{DL.Student_ID}</Typography>
+            <Typography className={classes.nameStudent}>{DL.Student_ID}</Typography>
 
             </Grid>
             </TableCell>
             <TableCell>
             <Grid>
-            <Typography  className={classes.name}>{DL.User_Name}</Typography>
+            <Typography  className={classes.nameStudent}>{DL.User_Name}</Typography>
 
             </Grid>
             </TableCell>
@@ -233,7 +240,7 @@ function UserBorrowHistory() {
             <Grid>
             <Typography className={classes.name}>
              
-            {DL.Count_Borrow}
+            <a href={"/HistoryUser/"+DL.Student_ID+"/All"}>{DL.Count_Borrow}</a>
             
             </Typography>
             </Grid>
@@ -241,13 +248,13 @@ function UserBorrowHistory() {
             <TableCell>
             <Grid>
             <Typography className={classes.name}>
-                
+            <a href={"/HistoryUser/"+DL.Student_ID+"/Late"} style={{color:"red"}}>  
             {DataListHistory.filter(Data=>{
                 if(Data.Student_ID === DL.Student_ID && Data.Borrow_Status === "ยืมเกินกำหนด")
                 {
                     return DL
                 }
-            }).length}
+            }).length}</a>  
 
             
             </Typography>
@@ -258,10 +265,14 @@ function UserBorrowHistory() {
             <TableCell>
             <Grid>
             <Typography className={classes.name}>
-                
-            <div className="SerachTable_button">
-            <a href={"/HistoryUser/"+DL.Student_ID}><Button variant="contained" startIcon={<ArticleOutlinedIcon />} color="info" style={{minWidth: '120px'}} size="small" value={DL.EM_ID} >ประวัติการยืม</Button></a>
-            </div>
+            <a href={"/HistoryUser/"+DL.Student_ID+"/Broken"} style={{color:"#494949"}}>    
+            {DataListHistory.filter(Data=>{
+                if(Data.Student_ID === DL.Student_ID && Data.ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย")
+                {
+                    return DL
+                }
+            }).length}
+            </a>  
             
             </Typography>
 

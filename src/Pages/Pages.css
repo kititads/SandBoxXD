@@ -218,3 +218,28 @@ margin-right: 5%;
     background-size: cover;
     background-position-x: center;
 }
+
+/* InsertEM */
+.UiSet{
+    cursor: pointer;
+    border-left: 1px solid rgb(214, 211, 211);
+    border-right: 1px solid rgb(214, 211, 211);
+    border-bottom: 1px solid rgb(214, 211, 211);
+    padding-left: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: left;
+    color: rgb(124, 117, 117);
+}
+.UiSet:hover{
+    background-color: #D6EAF8;
+}
+
+.DataResult{
+max-height: 150px;
+background-color: white;
+box-shadow: rgba(0,0,0,0.5) 0px 5px 15px;
+overflow:hidden;
+overflow-y:auto;
+}
+

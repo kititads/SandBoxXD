@@ -6,6 +6,8 @@ import HistoryUser from '../Component/HistoryUser';
 function ShowHistoryEM() 
 {
   const {id} = useParams();
+  const {types} = useParams();
+
   return (
         
         
@@ -14,7 +16,7 @@ function ShowHistoryEM()
         <div className="SubBG"><AiOutlineFileText size={50} className="icon-set-container" />ประวัติการยืม</div>
         <div>
          <div className="">
-        <HistoryUser ID={id}/>
+        <HistoryUser ID={id} Types={types}/>
         </div>
         </div>
         </div>

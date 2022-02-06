@@ -155,7 +155,7 @@ function TheMostBroken() {
     
     
     <div >
-    <h2 style={{textAlign:"center",padding:20}}>อุปกรณ์ชำรุดหรือสูญหาย</h2>
+    <h2 style={{textAlign:"center",padding:20}}>รายงานการคืนอุปกรณ์ที่ชำรุดหรือสูญหาย</h2>
     </div>
     </div>
     </div>

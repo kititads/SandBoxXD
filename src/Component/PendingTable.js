@@ -491,7 +491,7 @@ function PendingTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>รูปภาพ	</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
-            <TableCell style={{minWidth:170}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
+            <TableCell style={{minWidth:190}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
             <TableCell className={classes.tableHeaderCell} >ชื่อผู้ยืม</TableCell>
             <TableCell style={{minWidth:150}} className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
@@ -544,10 +544,11 @@ function PendingTable() {
             </TableCell>
             <TableCell className={classes.CheckHide}> 
             <Typography className={classes.name}>
-            จำนวนที่ขอยืม : {DL.Borrow_Quantity}
+            จำนวนที่อนุญาต
+ : {DL.Borrow_Quantity}
             </Typography>
             <Typography className={classes.name}>
-            จำนวนที่ยืมได้ : {DataList0[DL.EM_ID].EM_Quantity-DataList0[DL.EM_ID].EM_UseQuantity}</Typography>
+            จำนวนที่ขอยืมได้ : {DataList0[DL.EM_ID].EM_Quantity-DataList0[DL.EM_ID].EM_UseQuantity}</Typography>
             </TableCell>
             <TableCell className={classes.CheckHide}>
             <Typography className={classes.name}>

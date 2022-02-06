@@ -270,6 +270,8 @@ function SearchTable() {
             </TableCell>
             <TableCell  className={classes.CheckHide}>
             <Typography className={classes.name}>จำนวนที่ยืมได้ : {DL.EM_Quantity-DL.EM_UseQuantity}</Typography>
+            <Typography className={classes.name}>จำนวนที่ถูกยืม : {DL.EM_UseQuantity}</Typography>
+
             <Typography className={classes.name}>จำนวนทั้งหมด : {DL.EM_Quantity}</Typography>
 
             </TableCell>
@@ -300,10 +302,16 @@ function SearchTable() {
             )} 
             </div>
             <div className="SerachTable_button">
-            {(cookies.get('Status_User') === "Admin" && 
+            {(cookies.get('Status_User') === "Admin"&& DL.EM_UseQuantity === 0 && 
             <Button variant="contained" startIcon={<DeleteIcon />} color="error" style={{minWidth: '120px'}} onClick={()=>handleClickOpen1(DL.EM_ID)} size="small" value={DL.EM_ID} >ลบอุปกรณ์</Button>                  
             )} 
             </div>
+            <div className="SerachTable_button">
+            {(cookies.get('Status_User') === "Admin"&& DL.EM_UseQuantity !== 0 && 
+            <Button variant="contained" startIcon={<DeleteIcon />} color="error" style={{minWidth: '120px'}} onClick={()=>handleClickOpen1(DL.EM_ID)} size="small" value={DL.EM_ID} disabled="true">ลบอุปกรณ์ </Button>                  
+            )} 
+            </div>
+            
             
             
 

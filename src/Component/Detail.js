@@ -234,6 +234,8 @@ function Detail(PropID)
             <div className="Detail">
             <br/>
             <div >รหัสอุปกรณ์ : {DL.EM_ID}</div>
+            {(DL.EM_Number !== "")&& <div style={{marginTop:10}}>เลขครุภัณฑ์ : {DL.EM_Number}</div>}
+
             <div style={{marginTop:10}}>ชื่ออุปกรณ์ : {DL.EM_Name}</div>
             <div style={{marginTop:10}}>รายละเอียด</div>
             <div style={{marginTop:5}} ><textarea rows="6" cols="33" className="textarea-set" alt="" disabled >
@@ -274,12 +276,29 @@ function Detail(PropID)
         <br></br>
         <div>ต้องการยืมถึงวันที่ </div>
         <br/>
+        {(DL.EM_Number !== "")&&
         <div><DatePicker selected={LoanDate} 
              onChange = {(date) => setLoanDate(date)} 
              dateFormat ='dd/MM/yyyy'
              minDate = {new Date()}
-             />         
+             maxDate = {new Date()}
+
+             />   
+        <p style={{color:"red",marginTop:10}}>หมายเหตุ : ไม่สามารถยืมกลับบ้านได้</p>          
+      
         </div>
+        }
+        {(DL.EM_Number === "")&&
+        <div>
+          
+          <DatePicker selected={LoanDate} 
+             onChange = {(date) => setLoanDate(date)} 
+             dateFormat ='dd/MM/yyyy'
+             minDate = {new Date()}
+          />
+
+        </div>
+        }
         <br/>
         <Dialog
         open={open}

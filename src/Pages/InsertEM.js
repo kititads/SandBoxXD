@@ -3,7 +3,7 @@ import './Pages.css';
 import { MdInsertDriveFile } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
-import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc } from '@firebase/firestore';
+import { getFirestore,collection, query, where, getDocs,setDoc,doc,updateDoc,orderBy } from '@firebase/firestore';
 import { getStorage, ref , uploadBytesResumable , getDownloadURL } from "firebase/storage";
 import FirebaseApp from '../firebase';
 import { useEffect,useState } from 'react';
@@ -20,16 +20,42 @@ function InsertEM()
             {
              window.location.href = "/NotFound";      
             }
+            else
+            {
+                getData();
+            }
             },[]);
 
 
-        
+
+
         const db = getFirestore();
         const storage = getStorage(FirebaseApp);
+        const [DataList,setDataList] = useState([]);   
+
+        const getData = async() => { 
+            const q = query(collection(db, "Equipment"),orderBy("EM_Name", "asc"));
+            const querySnapshot = await getDocs(q);
+            const items = [];
+            querySnapshot.forEach((doc) => {
+              
+                items.push(doc.data().EM_Name);    
+               
+              
+            });
+              setDataList(items);
+            };
+
+
+
+
+
+
+
         const metadata = {
          contentType: 'image/jpeg'
         };
-
+        const [EM_Number,setEM_Number] = useState("");
         const [ID,setID] = useState("");
         const [Name,setName] = useState("");
         const [Quantity,setQuantity] = useState("");
@@ -95,7 +121,7 @@ function InsertEM()
      await getIndex();
      await UpdateNewID(ID);
      const docRef = doc(db,"Equipment",ID.toString());
-     const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: parseInt(Quantity),EM_UseQuantity: 0,EM_Name: Name
+     const payload = {EM_Number: EM_Number ,EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: parseInt(Quantity),EM_UseQuantity: 0,EM_Name: Name
      ,EM_Status: Status,EM_US: "ปกติ"};
      await setDoc(docRef,payload);
      window.location.reload();
@@ -103,7 +129,7 @@ function InsertEM()
      };
 
        //รันเลขยืม
-    const getIndex = async() => { 
+        const getIndex = async() => { 
         const querySnapshot = await getDocs(collection(db, "Count"));
         querySnapshot.forEach((doc) => {
         const Count_EM_ID = doc.data().Count_EM_ID;
@@ -116,6 +142,8 @@ function InsertEM()
         };
         getIndex();
 
+        
+
     
         //updateDoc
         const UpdateNewID = async(NextID) => {    
@@ -126,53 +154,92 @@ function InsertEM()
         await updateDoc(docRef,payload);
         };
       
+        const [SearchData, SetSearchData] = useState([]);
+       
+        const handleFilter = (NameEvent) =>{
+            setName(NameEvent);
+            const NewSearchData = DataList.filter(DL=>{
+                return DL.toLowerCase().includes(NameEvent.toLowerCase());
+            })
+            SetSearchData(NewSearchData);
+            
+
+        }
+
           return (
           
           //UI
           <div className="container">
+         
+
           <div className="text-center" style={{paddingTop : "10%" ,paddingBottom: "15%",paddingLeft: "15%",paddingRight: "15%",textAlign : 'center'}}>
           <h1 className="SubBG Login-Box-Set " ><MdInsertDriveFile size={40} className="icon-set-container"/>เพิ่มอุปกรณ์</h1>
           <div className="border border-black" >
           
           <form className="Form-Set-Insert" id="InsertForm">
           <div class="form-group row" hidden="true">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
-          <div class="col-sm-10">
-          <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
+          <div class="col-sm-9">
+          <input type="text" id="textID" class="form-control InsertBox-Set" placeholder="รหัส" disabled="true"
           value={ID} 
           onChange={e => { setID(e.target.value); }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ</label>
-          <div class="col-sm-10">
-          <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="ชื่อ"
-          value={Name}
-          onChange={e => { setName(e.target.value);  }}
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">เลขครุภัณฑ์</label>
+          <div class="col-sm-9">
+          <input type="text" id="textName" class="form-control InsertBox-Set"  placeholder="เลขครุภัณฑ์"
+          value={EM_Number}
+          onChange={e => { setEM_Number(e.target.value);  }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">จำนวน</label>
-          <div class="col-sm-10">
-          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="จำนวน"
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ*</label>
+          <div class="col-sm-9">
+          <input type="text" id="textName" class="form-control InsertBox-Set"  placeholder="ชื่อ"
+          value={Name}
+          onChange={e => { handleFilter(e.target.value);  }}
+          />
+          {Name !== "" &&(
+          <div className="DataResult">
+
+          <>
+          {SearchData.map(data=>
+            {   
+                if(Name != SearchData)
+                {
+                return <div className="UiSet" onClick={()=>setName(data)}>{data}                                      
+                </div>
+                }
+            })}
+          </>
+          </div>
+
+          )}
+          </div>
+          </div>
+          <div class="form-group row">
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">จำนวน*</label>
+          <div class="col-sm-9">
+          <input type="number" min="0" id="textQuantity" class="form-control InsertBox-Set"  placeholder="จำนวน"
           value={Quantity}
           onChange={e => { setQuantity(e.target.value); }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รายละเอียด</label>
-          <div class="col-sm-10">
-          <textarea rows="6"  type="text" id="textDetail" class="form-control form-control-sm InsertBox-Set"  placeholder=""
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">รายละเอียด*</label>
+          <div class="col-sm-9">
+          <textarea rows="6"  type="text" id="textDetail" class="form-control InsertBox-Set"  placeholder=""
           value={Detail}
           onChange={e => { setDetail(e.target.value); }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">สถานะ</label>
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">สถานะ*</label>
         
          
           
@@ -189,7 +256,7 @@ function InsertEM()
 
           <div class="form-group row">
 
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รูปภาพ</label>
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">รูปภาพ*</label>
           <div class="col-sm-3">      
           <br/>
 

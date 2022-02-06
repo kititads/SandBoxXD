@@ -31,6 +31,7 @@ function EditEM()
             const [Name,setName] = useState("");
             const [Quantity,setQuantity] = useState("");
             const [UseQuantity,setUseQuantity] = useState("");
+            const [EM_Number,setEM_Number] = useState("");
 
             const [Detail,setDetail] = useState("");
             const [Status,setStatus] = useState("");
@@ -49,6 +50,8 @@ function EditEM()
                 });
             
                 items.map(value => {
+                    setEM_Number(value.EM_Number);
+
                     setID(value.EM_ID);
                     setName(value.EM_Name);
                     setQuantity(value.EM_Quantity);
@@ -148,9 +151,10 @@ function EditEM()
           <div className="border border-black" >
           
           <form className="Form-Set-Insert" id="InsertForm">
-          <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
-          <div class="col-sm-10">
+          <div class="form-group row"  hidden="true"
+>
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">รหัส</label>
+          <div class="col-sm-9">
           <input type="text" id="textID" class="form-control form-control-sm InsertBox-Set" placeholder="รหัส" disabled="true"
           value={ID} 
           onChange={e => { setID(e.target.value); }}
@@ -158,8 +162,17 @@ function EditEM()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ</label>
-          <div class="col-sm-10">
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">เลขครุภัณฑ์</label>
+          <div class="col-sm-9">
+          <input type="text" id="textName" class="form-control InsertBox-Set"  placeholder="เลขครุภัณฑ์"
+          value={EM_Number}
+          onChange={e => { setEM_Number(e.target.value);  }}
+          />
+          </div>
+          </div>
+          <div class="form-group row">
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">ชื่อ*</label>
+          <div class="col-sm-9">
           <input type="text" id="textName" class="form-control form-control-sm InsertBox-Set"  placeholder="ชื่อ"
           value={Name}
           onChange={e => { setName(e.target.value);  }}
@@ -167,17 +180,17 @@ function EditEM()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">จำนวน</label>
-          <div class="col-sm-10">
-          <input type="text" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="จำนวน"
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">จำนวน*</label>
+          <div class="col-sm-9">
+          <input type="number" min="0" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="จำนวน"
           value={Quantity}
           onChange={e => { setQuantity(e.target.value); }}
           />
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รายละเอียด</label>
-          <div class="col-sm-10">
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">รายละเอียด*</label>
+          <div class="col-sm-9">
           <textarea rows="6" type="text" id="textDetail" class="form-control form-control-sm InsertBox-Set"  placeholder="Detail"
           value={Detail}
           onChange={e => { setDetail(e.target.value); }}
@@ -185,7 +198,7 @@ function EditEM()
           </div>
           </div>
           <div class="form-group row">
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">สถานะ</label>
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">สถานะ*</label>
           <div className="radio-set">
         
           <input id="status_radio_พร้อมให้ยืม"  type="radio" name="status" value="พร้อมให้ยืม" onClick={()=> setStatus("พร้อมให้ยืม")}/>
@@ -200,7 +213,7 @@ function EditEM()
 
           <div class="form-group row">
          
-          <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm InsertLabel-Set">รูปภาพ</label>
+          <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">รูปภาพ*</label>
           
           <div class="col-sm-3">
           <br/>

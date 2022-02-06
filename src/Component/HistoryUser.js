@@ -83,10 +83,14 @@ const useStyles = makeStyles((theme) => ({
         
 
 function HistoryUser(Prop) {
+  
     const [DataList,setDataList] = useState([]);   
     const db = getFirestore();
     const Student_ID_Prop = Prop.ID;
-    console.log(Student_ID_Prop);
+    const Types_Prop = Prop.Types;
+
+   
+
 
 
 
@@ -115,10 +119,25 @@ function HistoryUser(Prop) {
     const querySnapshot = await getDocs(q);
     const items = [];
     querySnapshot.forEach((doc) => { 
-      
-        if(doc.data().Student_ID === Student_ID_Prop)
+
+        if(Types_Prop === "All")
         {
-        items.push(doc.data());     
+        if(doc.data().Student_ID === Student_ID_Prop)
+          {
+            items.push(doc.data());     
+          }
+        }else if(Types_Prop === "Late")
+        {
+          if(doc.data().Student_ID === Student_ID_Prop && doc.data().Borrow_Status === "ยืมเกินกำหนด")
+          {
+            items.push(doc.data());     
+          }
+        }else if(Types_Prop === "Broken")
+        {
+          if(doc.data().Student_ID === Student_ID_Prop && doc.data().ReturnType === "อุปกรณ์ชำรุดหรือสูญหาย")
+          {
+            items.push(doc.data());     
+          } 
         }
 
         
@@ -271,7 +290,7 @@ function HistoryUser(Prop) {
 
             </TableCell>
             <TableCell>
-            <Typography className={classes.name}>{DL.ReturnType}</Typography>
+            <Typography className={classes.name}>{DL.Why}</Typography>
 
 
             </TableCell>

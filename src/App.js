@@ -57,7 +57,7 @@ function App() {
         <Route exact path="/insertuser" component={InsertUser}/>
         <Route exact path="/borrowem" component={ShowBorrowEM}/>
         <Route exact path="/userborrowhistory" component={ShowUserBorrow}/>
-        <Route exact path="/historyuser/:id" component={ShowHistoryUser}/>
+        <Route exact path="/historyuser/:id/:types" component={ShowHistoryUser}/>
 
 
         <Route component={NotFound} />
