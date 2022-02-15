@@ -487,7 +487,7 @@ function PendingTable() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
+            <TableCell style={{minWidth:70}}className={classes.tableHeaderCellCanHide}>เลขที่ยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>รูปภาพ	</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
             <TableCell style={{minWidth:190}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
