@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },

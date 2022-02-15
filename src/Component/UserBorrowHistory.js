@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -184,7 +183,7 @@ function UserBorrowHistory() {
          
           <TableCell className={classes.tableHeaderCell} >รหัสนักศึกษา</TableCell>
 
-          <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
+          <TableCell style={{minWidth:120}} className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
             
             <TableCell className={classes.tableHeaderCell} >
             
@@ -232,7 +231,7 @@ function UserBorrowHistory() {
             </TableCell>
             <TableCell>
             <Grid>
-            <Typography  className={classes.nameStudent}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left"}} className={classes.nameStudent}>{DL.User_Name}</Typography>
 
             </Grid>
             </TableCell>

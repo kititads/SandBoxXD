@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -389,7 +388,7 @@ function BorrowTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
-            <TableCell style={{minWidth:100}} className={classes.tableHeaderCell}>ชื่อนักศึกษา</TableCell>
+            <TableCell style={{minWidth:120}} className={classes.tableHeaderCell}>ชื่อนักศึกษา</TableCell>
             <TableCell style={{minWidth:110}} className={classes.tableHeaderCellCanHide}>สถานะการยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>เพิ่มเติม</TableCell>
         
@@ -446,7 +445,7 @@ function BorrowTable() {
              <div>  {ConvertTime(DL.Due_Date)}</div></Typography>
             </TableCell>
             <TableCell >
-            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left"}} className={classes.name}>{DL.User_Name}</Typography>
             </TableCell>
             <TableCell className={classes.CheckHide}>
             <Typography

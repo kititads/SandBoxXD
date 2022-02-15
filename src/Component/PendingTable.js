@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
     
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -493,7 +492,7 @@ function PendingTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
             <TableCell style={{minWidth:190}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
-            <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
+            <TableCell style={{minWidth:120}} className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
             <TableCell style={{minWidth:150}} className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
 
             </TableRow>
@@ -558,7 +557,7 @@ function PendingTable() {
              <div>  {ConvertTime(DL.Due_Date)}</div></Typography>
             </TableCell>
             <TableCell>
-            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left"}} className={classes.name}>{DL.User_Name}</Typography>
             </TableCell>
             <TableCell>
 

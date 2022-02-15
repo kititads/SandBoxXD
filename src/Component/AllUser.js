@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -187,7 +186,7 @@ function AllUser() {
             </TableCell>
             <TableCell>
             <Grid>
-            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left"}} className={classes.name}>{DL.User_Name}</Typography>
             </Grid>
             </TableCell>
             <TableCell>

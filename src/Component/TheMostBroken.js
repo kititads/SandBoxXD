@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -167,7 +166,7 @@ function TheMostBroken() {
          
           <TableCell className={classes.tableHeaderCell} >รหัสนักศึกษา</TableCell>
 
-          <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
+          <TableCell style={{minWidth:120}} className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
             
             <TableCell className={classes.tableHeaderCell} >
             
@@ -213,7 +212,7 @@ function TheMostBroken() {
             </TableCell>
             <TableCell>
             <Grid>
-            <Typography  className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left",paddingLeft:50}} className={classes.name}>{DL.User_Name}</Typography>
 
             </Grid>
             </TableCell>

@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
     
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -288,7 +287,7 @@ function BorrowEM() {
              <div>  {ConvertTime(DL.Due_Date)}</div></Typography>
             </TableCell>
             <TableCell >
-            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left"}} className={classes.name}>{DL.User_Name}</Typography>
             </TableCell>
             <TableCell className={classes.CheckHide}>
             <Typography

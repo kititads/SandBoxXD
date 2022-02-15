@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -189,7 +188,7 @@ function HistoryEM(PropID) {
             <TableCell className={classes.tableHeaderCell} style={{minWidth:140}}>ประเภทการคืน</TableCell>
 
             <TableCell className={classes.tableHeaderCell} style={{minWidth:160}} >จำนวน</TableCell>        
-            <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
+            <TableCell style={{minWidth:120}} className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
 
             </TableRow>
             </TableHead>
@@ -260,7 +259,7 @@ function HistoryEM(PropID) {
 
             </TableCell>
             <TableCell>
-            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left"}} className={classes.name}>{DL.User_Name}</Typography>
 
 
             </TableCell>

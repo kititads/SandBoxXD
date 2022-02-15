@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     
     name: {
         fontWeight: 'bold',
-        color: theme.palette.secondary.dark,
         textAlign: 'center',
 
     },
@@ -211,7 +210,7 @@ function HistoryTable() {
             <TableCell className={classes.tableHeaderCell} >วันที่นำมาคืน</TableCell>
 
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>        
-            <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
+            <TableCell style={{minWidth:120}} className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
 
             </TableRow>
             </TableHead>
@@ -281,7 +280,7 @@ function HistoryTable() {
 
             </TableCell>
             <TableCell>
-            <Typography className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left"}} className={classes.name}>{DL.User_Name}</Typography>
 
 
             </TableCell>
