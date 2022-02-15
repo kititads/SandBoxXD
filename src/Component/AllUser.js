@@ -186,7 +186,7 @@ function AllUser() {
             </TableCell>
             <TableCell>
             <Grid>
-            <Typography style={{textAlign:"left"}} className={classes.name}>{DL.User_Name}</Typography>
+            <Typography style={{textAlign:"left",paddingLeft:70}} className={classes.name}>{DL.User_Name}</Typography>
             </Grid>
             </TableCell>
             <TableCell>
