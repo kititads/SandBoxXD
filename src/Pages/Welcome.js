@@ -1,16 +1,17 @@
 import React from 'react';
-
+import './Pages.css';
 
 function Welcome() 
 {
   
-
+  
 
   return (
         <div className="container">
         <div className="text-center" style={{paddingTop : "30%" ,paddingBottom: "30%",textAlign : 'center'}}>
         <h1>
        Welcome
+       
         </h1>
         </div>
         </div>

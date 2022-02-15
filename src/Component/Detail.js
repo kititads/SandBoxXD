@@ -43,7 +43,7 @@ function Detail(PropID)
   const [ID,setID] = useState("");   
   const [Name,setName] = useState("");  
   const [Image,setImage] = useState("");
-  
+  const [Hide,setHide] = useState("");
   //Dialog
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -91,7 +91,13 @@ function Detail(PropID)
 
     //ทำงานตอนเริ่ม
     useEffect(()=> {
+      const cookies = new Cookies();
+      if(cookies.get('Status_User') === "Admin")
+      {
+        setHide("true");
+      }
       getData();
+      
     },[]);
 
     const getData = async() => { 
@@ -257,49 +263,7 @@ function Detail(PropID)
         <div style={{color:'Brown'}}>จำนวนที่พร้อมให้ยืม {DL.EM_Quantity-DL.EM_UseQuantity}</div>
         <br></br>
         <br/>
-        <div>
-        <TextField
-          id="outlined-number"
-          label="จำนวนที่ต้องการยืม"
-          type="number"
-          size="small"
-          style={{maxWidth: '190px'}}
-          value={PeadingNumber}
-          onChange={e => { setPeadingNumber(e.target.value); }}
-          InputLabelProps={{
-            shrink: true,
-            
-          }}
-          
-        />
-        </div>
-        <br></br>
-        <div>ต้องการยืมถึงวันที่ </div>
-        <br/>
-        {(DL.EM_Number !== "")&&
-        <div><DatePicker selected={LoanDate} 
-             onChange = {(date) => setLoanDate(date)} 
-             dateFormat ='dd/MM/yyyy'
-             minDate = {new Date()}
-             maxDate = {new Date()}
-
-             />   
-        <p style={{color:"red",marginTop:10}}>หมายเหตุ : ไม่สามารถยืมกลับบ้านได้</p>          
-      
-        </div>
-        }
-        {(DL.EM_Number === "")&&
-        <div>
-          
-          <DatePicker selected={LoanDate} 
-             onChange = {(date) => setLoanDate(date)} 
-             dateFormat ='dd/MM/yyyy'
-             minDate = {new Date()}
-          />
-
-        </div>
-        }
-        <br/>
+        
         <Dialog
         open={open}
         onClose={handleClose}
@@ -396,12 +360,58 @@ function Detail(PropID)
  
         </DialogActions>
         </Dialog>  
+        
+        {/* <div hidden={Hide}> */}
+        <div>
+        <div>
+        <TextField
+          id="outlined-number"
+          label="จำนวนที่ต้องการยืม"
+          type="number"
+          size="small"
+          style={{maxWidth: '190px'}}
+          value={PeadingNumber}
+          onChange={e => { setPeadingNumber(e.target.value); }}
+          InputLabelProps={{
+            shrink: true,
+            
+          }}
+          
+        />
+        </div>
+        <br></br>
+        <div >ต้องการยืมถึงวันที่ </div>
+        <br/>
+        {(DL.EM_Number !== "")&&
+        <div><DatePicker selected={LoanDate} 
+             onChange = {(date) => setLoanDate(date)} 
+             dateFormat ='dd/MM/yyyy'
+             minDate = {new Date()}
+             maxDate = {new Date()}
 
+             />   
+        <p style={{color:"red",marginTop:10}}>หมายเหตุ : ไม่สามารถยืมกลับบ้านได้</p>          
+      
+        </div>
+        }
+        {(DL.EM_Number === "")&&
+        <div>
+          
+          <DatePicker selected={LoanDate} 
+             onChange = {(date) => setLoanDate(date)} 
+             dateFormat ='dd/MM/yyyy'
+             minDate = {new Date()}
+          />
+
+        </div>
+        }
+        <br/>
         <div className="div-button" ><Button  disabled={buttondisabled} className="button-set"  variant="contained" color="success" onClick={CheckUser}>ยื่นเรื่องขอยืม</Button></div>
         <div className="div-button"><a href="javascript:history.back()"><Button  className="button-set" variant="contained" color="error">กลับ</Button></a></div>
         <br/>
         </div>
-            
+        </div>
+
         </Col>
         </Row>
         ))}

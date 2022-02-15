@@ -189,7 +189,7 @@ function HistoryEM(PropID) {
             <TableCell className={classes.tableHeaderCell} style={{minWidth:140}}>ประเภทการคืน</TableCell>
 
             <TableCell className={classes.tableHeaderCell} style={{minWidth:160}} >จำนวน</TableCell>        
-            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ยืม</TableCell>
+            <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
 
             </TableRow>
             </TableHead>

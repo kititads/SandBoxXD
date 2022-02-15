@@ -211,7 +211,7 @@ function HistoryTable() {
             <TableCell className={classes.tableHeaderCell} >วันที่นำมาคืน</TableCell>
 
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>        
-            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ยืม</TableCell>
+            <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
 
             </TableRow>
             </TableHead>

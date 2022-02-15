@@ -493,7 +493,7 @@ function PendingTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
             <TableCell style={{minWidth:190}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
-            <TableCell className={classes.tableHeaderCell} >ชื่อผู้ยืม</TableCell>
+            <TableCell className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
             <TableCell style={{minWidth:150}} className={classes.tableHeaderCell} >เพิ่มเติม</TableCell>
 
             </TableRow>
