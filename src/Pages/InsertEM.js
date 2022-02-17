@@ -65,7 +65,7 @@ function InsertEM()
         
         const CheckButton = () => {
 
-        if(ID&&Name&&Quantity&&Detail&&Status&&fileUrl  !== "" ){
+        if(ID&&Name&&Quantity&&Detail&&Status&&fileUrl  !== "" &&Name!=SearchData){
             handleNew();
             }
         else
@@ -74,7 +74,7 @@ function InsertEM()
             if(ID === ""){
                 document.getElementById('textID').focus();
             }
-            else if(Name === ""){
+            else if(Name === "" || Name==SearchData){
                 document.getElementById('textName').focus();
             }
             else if(Quantity === ""){
@@ -111,7 +111,6 @@ function InsertEM()
      const uploadTask = await uploadBytesResumable(storageRef, FileImg, metadata);
      getDownloadURL(uploadTask.ref).then((downloadURL) => {
      getFileUrl(downloadURL);
-     console.log('File available at', downloadURL);
      })
 
      };
@@ -158,10 +157,15 @@ function InsertEM()
        
         const handleFilter = (NameEvent) =>{
             setName(NameEvent);
+
             const NewSearchData = DataList.filter(DL=>{
+
                 return DL.toLowerCase().includes(NameEvent.toLowerCase());
+
             })
             SetSearchData(NewSearchData);
+            
+           
             
 
         }
@@ -189,7 +193,7 @@ function InsertEM()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">เลขครุภัณฑ์</label>
           <div class="col-sm-9">
-          <input type="text" id="textName" class="form-control InsertBox-Set"  placeholder="เลขครุภัณฑ์"
+          <input type="text" id="textNumber" class="form-control InsertBox-Set"  placeholder="เลขครุภัณฑ์"
           value={EM_Number}
           onChange={e => { setEM_Number(e.target.value);  }}
           />
@@ -202,15 +206,20 @@ function InsertEM()
           value={Name}
           onChange={e => { handleFilter(e.target.value);  }}
           />
-          {Name !== "" &&(
+          { Name !== ""&&Name == SearchData &&
+          <div style={{textAlign:"left",color:"red"}}>*มีอุปกรณ์นี้อยู่แล้ว</div>
+          }
+          {(Name !== ""&&Name != SearchData)  &&(
+          
           <div className="DataResult">
 
           <>
           {SearchData.map(data=>
             {   
-                if(Name != SearchData)
+
+                if(Name !== SearchData)
                 {
-                return <div className="UiSet" onClick={()=>setName(data)}>{data}                                      
+                return <div className="UiSet" onClick={()=>handleFilter(data)}>{data}                                      
                 </div>
                 }
             })}

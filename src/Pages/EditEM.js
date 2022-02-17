@@ -26,17 +26,37 @@ function EditEM()
              window.location.href = "/NotFound";      
             }
             },[]);
-
+            const [EM_Number,setEM_Number] = useState("");
             const [ID,setID] = useState("");
             const [Name,setName] = useState("");
             const [Quantity,setQuantity] = useState("");
             const [UseQuantity,setUseQuantity] = useState("");
-            const [EM_Number,setEM_Number] = useState("");
 
             const [Detail,setDetail] = useState("");
             const [Status,setStatus] = useState("");
             const [fileUrl, getFileUrl] = useState("");
             const [FirstImage, setFirstImage] = useState("");
+
+
+            const CheckQuantity = async (e) => {
+                setQuantity(e);
+                if(e < UseQuantity || e == ""){
+                    setQuantity(UseQuantity);
+                }
+                if(e == UseQuantity)
+                {
+                    document.getElementById("status_radio_ถูกยืมหมดแล้ว").checked = "true"
+                    setStatus("ถูกยืมหมดแล้ว");
+                }
+                else if(e > UseQuantity)
+                {
+                    
+                    document.getElementById("status_radio_พร้อมให้ยืม").checked = "true"
+                    setStatus("พร้อมให้ยืม");
+                }
+
+                };
+
 
             const getData = async() => { 
                 const querySnapshot = await getDocs(collection(db, "Equipment"));
@@ -51,7 +71,6 @@ function EditEM()
             
                 items.map(value => {
                     setEM_Number(value.EM_Number);
-
                     setID(value.EM_ID);
                     setName(value.EM_Name);
                     setQuantity(value.EM_Quantity);
@@ -132,7 +151,7 @@ function EditEM()
 
      const UpdateEM = async() => {  
      const docRef = doc(db,"Equipment",ID.toString());
-     const payload = {EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: Quantity,EM_UseQuantity: UseQuantity,EM_Name: Name
+     const payload = {EM_Number:EM_Number,EM_ID: ID ,EM_Detail: Detail,EM_Image: fileUrl,EM_Quantity: Quantity,EM_UseQuantity: UseQuantity,EM_Name: Name
      ,EM_Status: Status};
      await updateDoc(docRef,payload);
      window.location.href = "/detail/"+ID;
@@ -182,9 +201,9 @@ function EditEM()
           <div class="form-group row">
           <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm InsertLabel-Set">จำนวน*</label>
           <div class="col-sm-9">
-          <input type="number" min="0" id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="จำนวน"
+          <input type="number" min={UseQuantity} id="textQuantity" class="form-control form-control-sm InsertBox-Set"  placeholder="จำนวน"
           value={Quantity}
-          onChange={e => { setQuantity(e.target.value); }}
+          onChange={e => { CheckQuantity(e.target.value); }}
           />
           </div>
           </div>

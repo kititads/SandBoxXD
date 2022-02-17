@@ -61,6 +61,7 @@ function Report()
         const CountCant = [];
 
         querySnapshot2.forEach((doc) => {
+            if(doc.data().EM_US !== "ยกเลิกการใช้งาน"){
             CountALL.push(doc.data());
 
             if(doc.data().EM_Status === "ไม่พร้อมให้ยืม")
@@ -73,6 +74,7 @@ function Report()
             }
         
             ;
+        }
         }           
         );
 
@@ -98,7 +100,6 @@ function Report()
 
         
 
-        console.log(CountAllBorrow);
         setCountUser(CountU.length);
         setCountAll(CountALL.length);
         setCountCan(CountCan.length);
