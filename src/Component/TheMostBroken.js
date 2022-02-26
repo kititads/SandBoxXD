@@ -166,7 +166,7 @@ function TheMostBroken() {
          
           <TableCell className={classes.tableHeaderCell} >รหัสนักศึกษา</TableCell>
 
-          <TableCell style={{minWidth:150}} className={classes.tableHeaderCell} >ชื่อนักศึกษา</TableCell>
+          <TableCell style={{minWidth:150}} className={classes.tableHeaderCell} >ชื่อผู้ใช้</TableCell>
             
             <TableCell className={classes.tableHeaderCell} >
             

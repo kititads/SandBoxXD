@@ -388,7 +388,7 @@ function BorrowTable() {
             <TableCell className={classes.tableHeaderCellCanHide}>ชื่อ</TableCell>
             <TableCell style={{minWidth:160}} className={classes.tableHeaderCellCanHide}>จำนวน</TableCell>
             <TableCell className={classes.tableHeaderCellCanHide}>วันที่</TableCell>
-            <TableCell style={{minWidth:150}} className={classes.tableHeaderCell}>ชื่อนักศึกษา</TableCell>
+            <TableCell style={{minWidth:150}} className={classes.tableHeaderCell}>ชื่อผู้ใช้</TableCell>
             <TableCell style={{minWidth:110}} className={classes.tableHeaderCellCanHide}>สถานะการยืม</TableCell>
             <TableCell className={classes.tableHeaderCell}>เพิ่มเติม</TableCell>
         
