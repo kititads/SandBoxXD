@@ -352,7 +352,7 @@ function PendingTable() {
     querySnapshot.forEach((doc) => {
     const Borrow_ID =  doc.data().Count_Borrow_ID;
     const NextID =  (Borrow_ID+1);
-    //UpdateNewID(NextID);
+    UpdateNewID(NextID);
     const UID = DataListUser.filter(DL=>{
       if(DL.Student_ID === RealSTD)
       {
